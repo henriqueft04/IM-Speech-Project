@@ -1,0 +1,255 @@
+version: "3.1"
+
+nlu:
+  # ============================================================================
+  # SEARCH & NAVIGATION INTENTS
+  # ============================================================================
+
+  - intent: search_location
+    examples: |
+      - procurar [Lisboa](location)
+      - procura [Torre Eiffel](location)
+      - encontrar [café perto de mim](location)
+      - onde fica [Parque Central](location)
+      - mostra-me [restaurantes no Porto](location)
+      - [Times Square](location)
+      - localizar [posto de gasolina mais próximo](location)
+      - procura [Starbucks](location)
+      - encontra [pizzarias](location)
+      - onde posso encontrar [hospitais](location)
+      - mostrar [farmácias por perto](location)
+      - [aeroporto](location)
+      - procurar [hotéis em Paris](location)
+      - encontra-me [ginásios](location)
+      - procura [museus em Madrid](location)
+      - pesquisar [supermercado](location)
+      - onde está [estádio](location)
+      - procura por [biblioteca](location)
+      - mostrar [bancos](location)
+      - [shopping](location)
+
+  - intent: get_directions
+    examples: |
+      - direções para [casa](destination)
+      - como chego ao [trabalho](destination)
+      - navegar para [aeroporto](destination)
+      - rota para [centro](destination)
+      - direções de [hotel](origin) para [praia](destination)
+      - leva-me para [Estação Central](destination)
+      - mostrar rota para [restaurante](destination)
+      - como chegar ao [hospital](destination)
+      - direções para [Lisboa](destination) de [carro](transport_mode)
+      - rota para [Porto](destination) de [transportes públicos](transport_mode)
+      - navegar para [praia](destination) a [pé](transport_mode)
+      - direções de [bicicleta](transport_mode) para [parque](destination)
+      - direções de carro para [centro comercial](destination)
+      - rota a pé para [café](destination)
+      - direções de autocarro para [universidade](destination)
+      - rota de bicicleta para [estádio](destination)
+      - como vou para [Coimbra](destination)
+      - caminho para [Faro](destination)
+
+  - intent: start_navigation
+    examples: |
+      - iniciar navegação
+      - começar navegação
+      - iniciar condução
+      - vamos lá
+      - iniciar rota
+      - começar viagem
+      - iniciar direções
+      - vai
+      - navegar
+      - começar orientação
+      - iniciar trajeto
+      - começar
+
+  - intent: stop_navigation
+    examples: |
+      - parar navegação
+      - terminar navegação
+      - cancelar rota
+      - parar direções
+      - sair da navegação
+      - terminar viagem
+      - parar orientação
+      - cancelar navegação
+      - terminar trajeto
+
+  # ============================================================================
+  # MAP CONTROL INTENTS
+  # ============================================================================
+
+  - intent: zoom_in
+    examples: |
+      - aproximar
+      - mais perto
+      - aproximar [muito](zoom_level)
+      - aproximar [um pouco](zoom_level)
+      - chegar mais perto
+      - aumentar
+      - aumentar zoom
+      - zoom mais perto
+      - fazer zoom in
+      - ampliar
+
+  - intent: zoom_out
+    examples: |
+      - afastar
+      - mais longe
+      - afastar [muito](zoom_level)
+      - afastar [um pouco](zoom_level)
+      - ficar mais longe
+      - diminuir
+      - diminuir zoom
+      - zoom mais longe
+      - fazer zoom out
+      - reduzir
+
+  - intent: change_map_type
+    examples: |
+      - mostrar vista de [satélite](map_type)
+      - mudar para [satélite](map_type)
+      - mudar para [terreno](map_type)
+      - mostrar mapa de [terreno](map_type)
+      - vista [normal](map_type)
+      - mudar para vista de [mapa](map_type)
+      - mostrar mapa [padrão](map_type)
+      - modo [satélite](map_type)
+      - vista de terreno
+      - mapa normal
+      - vista de satélite
+      - mostrar trânsito
+      - mostrar tráfego
+      - ligar trânsito
+      - ativar camada de [trânsito](map_type)
+      - informação de [trânsito](map_type)
+      - mostrar condições de [trânsito](map_type)
+      - como está o [trânsito](map_type)
+      - vista de [trânsito](map_type)
+      - ver [tráfego](map_type)
+
+  - intent: recenter_map
+    examples: |
+      - recentrar
+      - centrar mapa
+      - ir para a minha localização
+      - onde estou
+      - mostrar a minha localização
+      - centrar em mim
+      - encontrar a minha posição
+      - voltar à minha localização
+      - repor vista
+      - centrar
+
+  # ============================================================================
+  # LOCATION INFO INTENTS
+  # ============================================================================
+
+  - intent: show_place_details
+    examples: |
+      - mostrar detalhes
+      - mais informação
+      - fala-me sobre [este lugar](location)
+      - o que é [esta localização](location)
+      - detalhes sobre [Torre Eiffel](location)
+      - informação sobre [Parque Central](location)
+      - mostrar info do [restaurante](location)
+      - o que há em [esta morada](location)
+      - informação do lugar
+      - detalhes
+      - informações
+
+  - intent: show_reviews
+    examples: |
+      - mostrar avaliações
+      - quais são as avaliações
+      - ler avaliações
+      - mostrar classificações
+      - o que dizem as pessoas
+      - avaliações de clientes
+      - classificações de utilizadores
+      - mostrar comentários
+      - avaliações deste [lugar](location)
+      - classificações
+      - reviews
+      - opiniões
+
+  - intent: show_photos
+    examples: |
+      - mostrar fotos
+      - mostrar imagens
+      - ver fotos
+      - imagens deste [lugar](location)
+      - fotos
+      - imagens
+      - mostrar galeria
+      - ver imagens
+      - fotografias
+
+  - intent: get_opening_hours
+    examples: |
+      - horário de abertura
+      - quando abre
+      - a que horas fecha
+      - horário de funcionamento
+      - está aberto agora
+      - horário de abertura
+      - quando está aberto
+      - horário de operação
+      - horários
+      - está aberto
+
+  # ============================================================================
+  # GENERAL INTENTS
+  # ============================================================================
+
+  - intent: affirm
+    examples: |
+      - sim
+      - ya
+      - correto
+      - certo
+      - exatamente
+      - está certo
+      - afirmativo
+      - claro
+      - ok
+      - está bem
+      - confirmo
+      - isso mesmo
+
+  - intent: deny
+    examples: |
+      - não
+      - nope
+      - não é isso
+      - errado
+      - incorreto
+      - não está certo
+      - negativo
+      - de modo nenhum
+      - não quero
+
+  - intent: help
+    examples: |
+      - ajuda
+      - o que podes fazer
+      - ajuda-me
+      - preciso de ajuda
+      - mostrar comandos
+      - quais são os comandos
+      - como funciona
+      - guia
+      - instruções
+      - comandos disponíveis
+
+  - intent: cancel
+    examples: |
+      - cancelar
+      - esquece
+      - deixa estar
+      - parar
+      - abortar
+      - cancela isso
+      - não quero
