@@ -55,8 +55,8 @@ class MapsPlacePage(BasePage):
     PHOTO_ITEMS = (By.XPATH, "//button[contains(@aria-label, 'Photo')]//img")
     PHOTO_GRID = (By.XPATH, "//div[contains(@class, 'photo-grid') or contains(@role, 'img')]")
 
-    # Directions button (when on place page)
-    DIRECTIONS_BUTTON = (By.XPATH, "//button[@data-value='Directions' or contains(@aria-label, 'Directions')]")
+    # Directions button (when on place page) - supports English and Portuguese
+    DIRECTIONS_BUTTON = (By.XPATH, "//button[@data-value='Directions' or contains(@aria-label, 'Directions') or contains(@aria-label, 'Direções')]")
 
     def wait_for_place_details(self, timeout: int = 10) -> bool:
         """

@@ -55,10 +55,10 @@ class MapsHomePage(BasePage):
     # My location
     MY_LOCATION_BUTTON = (By.XPATH, "//button[@aria-label='Your location' or @aria-label='Show Your Location']")
 
-    # Directions
-    DIRECTIONS_BUTTON = (By.XPATH, "//button[@aria-label='Directions' or @data-value='Directions']")
-    DIRECTIONS_ORIGIN_INPUT = (By.XPATH, "//input[@aria-label='Choose starting point, or click on the map...' or contains(@placeholder, 'Choose starting point')]")
-    DIRECTIONS_DEST_INPUT = (By.XPATH, "//input[@aria-label='Choose destination, or click on the map...' or contains(@placeholder, 'destination')]")
+    # Directions (supports English and Portuguese)
+    DIRECTIONS_BUTTON = (By.XPATH, "//button[@aria-label='Directions' or @aria-label='Direções' or @data-value='Directions']")
+    DIRECTIONS_ORIGIN_INPUT = (By.XPATH, "//input[contains(@aria-label, 'starting point') or contains(@aria-label, 'ponto de partida') or contains(@placeholder, 'origem')]")
+    DIRECTIONS_DEST_INPUT = (By.XPATH, "//input[contains(@aria-label, 'destination') or contains(@aria-label, 'destino') or contains(@placeholder, 'destino')]")
 
     # Transport mode buttons (in directions panel)
     DRIVING_MODE = (By.XPATH, "//button[@aria-label='Driving' or @data-value='Driving']")

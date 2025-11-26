@@ -48,6 +48,16 @@ nlu:
       - rota de bicicleta para [estádio](destination)
       - como vou para [Coimbra](destination)
       - caminho para [Faro](destination)
+      - ir para [Lisboa](destination)
+      - ir para [Porto](destination)
+      - ir para [Aveiro](destination)
+      - ir para [Lixa](destination)
+      - ir para [Braga](destination)
+      - ir para [Faro](destination)
+      - ir para [Coimbra](destination)
+      - para [Lisboa](destination)
+      - para [Porto](destination)
+      - para [Aveiro](destination)
 
   - intent: start_navigation
     examples: |
@@ -253,3 +263,33 @@ nlu:
       - abortar
       - cancela isso
       - não quero
+
+  - intent: greet
+    examples: |
+      - olá
+      - oi
+      - bom dia
+      - boa tarde
+      - boa noite
+      - hey
+      - estou aqui
+      - vamos começar
+
+  - intent: goodbye
+    examples: |
+      - adeus
+      - tchau
+      - até logo
+      - até à próxima
+      - vou-me embora
+      - obrigado adeus
+      - fico por aqui
+
+  - intent: thanks
+    examples: |
+      - obrigado
+      - obrigada
+      - agradeço
+      - valeu
+      - muito obrigado
+      - thanks

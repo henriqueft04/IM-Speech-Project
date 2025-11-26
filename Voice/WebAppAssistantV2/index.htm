@@ -368,25 +368,59 @@ async function InitializeKWS(){
   }
 
   var ttsSpeaker;
+  var voicesLoaded = false;
+
   window.speechSynthesis.onvoiceschanged = function(e) {
     var voices = speechSynthesis.getVoices();
+    console.log("Available voices:", voices.length);
+
+    // Default to first voice as fallback
     ttsSpeaker = voices[0];
+
+    // Try to find Portuguese (Portugal) voice
     for (let i = 0; i < voices.length; i++) {
-      if(voices[i].lang=="pt-PT"){
-        console.log(voices[i]);
-        if(voices[i].name.includes("Duarte")) ttsSpeaker=voices[i];
+      console.log("Voice " + i + ":", voices[i].name, voices[i].lang);
+
+      if(voices[i].lang == "pt-PT" || voices[i].lang.startsWith("pt-PT")){
+        console.log("Found Portuguese voice:", voices[i]);
+        ttsSpeaker = voices[i];
+
+        // Prefer "Duarte" if available
+        if(voices[i].name.includes("Duarte")) {
+          ttsSpeaker = voices[i];
+          break;
+        }
       }
-
-
     }
 
-    console.log(ttsSpeaker);
+    console.log("Selected TTS speaker:", ttsSpeaker);
+    voicesLoaded = true;
   };
 
   function speak(text){
+    console.log("speak() called with:", text);
+
+    // Ensure voices are loaded
+    if (!voicesLoaded) {
+      var voices = speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        // Try to set Portuguese voice immediately
+        for (let i = 0; i < voices.length; i++) {
+          if(voices[i].lang == "pt-PT" || voices[i].lang.startsWith("pt-PT")){
+            ttsSpeaker = voices[i];
+            if(voices[i].name.includes("Duarte")) {
+              ttsSpeaker = voices[i];
+              break;
+            }
+          }
+        }
+        voicesLoaded = true;
+      }
+    }
 
     var msg = new SpeechSynthesisUtterance();
     msg.text = text;
+    msg.lang = 'pt-PT';  // Force Portuguese language
 
     // Set the attributes.
     msg.volume = parseFloat(1);
@@ -394,6 +428,8 @@ async function InitializeKWS(){
     msg.pitch = parseFloat(1);
 
     msg.voice = ttsSpeaker;
+
+    console.log("Speaking with voice:", msg.voice, "language:", msg.lang);
 
     window.speechSynthesis.speak(msg);
   }
@@ -442,13 +478,17 @@ async function InitializeKWS(){
     }
   }
 
+  var lastSpokenText = "";
+  var lastSpokenTime = 0;
+
   function im1MessageHandler(data) {
 
     console.log("--------------im1MessageHandler---------------");
+    console.log("Received data at:", new Date().toISOString());
 
     if(data != null && data!="RENEW" && data!="OK") {
 
-      console.log(data);
+      console.log("Full message:", data);
 
       var content = $(data).find("emma\\:interpretation").first().text().trim();
 
@@ -461,7 +501,18 @@ async function InitializeKWS(){
           let text = $(xml).find("p").text();
           //let text = Utf8.decode(atob(sentence.slice(2,-1)));
 
-          console.log(text);
+          console.log("Extracted text:", text);
+
+          // Prevent duplicate messages within 2 seconds
+          var now = Date.now();
+          if (text === lastSpokenText && (now - lastSpokenTime) < 2000) {
+            console.log("DUPLICATE MESSAGE DETECTED - Skipping speak()");
+            return;
+          }
+
+          lastSpokenText = text;
+          lastSpokenTime = now;
+
           speak(text);
 
           $("#response").html(text);
@@ -475,7 +526,9 @@ async function InitializeKWS(){
           }, 3000);
 
         }
-        catch (e) { console.log(e); }
+        catch (e) {
+          console.log("Error parsing message:", e);
+        }
 
       }
     }

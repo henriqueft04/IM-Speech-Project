@@ -134,16 +134,26 @@ class GetDirectionsHandler(BaseIntentHandler):
         Returns:
             IntentResponse with directions
         """
-        # Validate required entities
-        is_valid, error_msg = self.validate_entities(context, ["destination"])
-        if not is_valid:
+        # Try to get destination from entities
+        destination = context.get_entity("destination")
+
+        # If no entity extracted, try to use the entire text as destination
+        # This handles cases like user saying just "Lixa" as a follow-up
+        if not destination and context.metadata:
+            text = context.metadata.get("text", "").strip()
+            # Use text if it's not empty and not a common word
+            if text and len(text) > 2:
+                destination = text
+                self.logger.info(f"Using full text as destination: {destination}")
+
+        # Validate we have a destination
+        if not destination:
             return IntentResponse(
                 success=False,
                 message="Para onde queres ir?",
-                data={"error": error_msg}
+                data={"error": "missing_destination"}
             )
 
-        destination = context.get_entity("destination")
         origin = context.get_entity("origin")  # Optional
         transport_mode_str = context.get_entity("transport_mode")  # Optional
 
@@ -152,18 +162,49 @@ class GetDirectionsHandler(BaseIntentHandler):
         )
 
         try:
-            # Use MapsHomePage to set directions
             home_page = MapsHomePage(context.driver)
+
+            # Try to get directions directly
             directions_success = home_page.set_directions(
                 destination=destination,
                 origin=origin
             )
 
             if not directions_success:
-                return IntentResponse(
-                    success=False,
-                    message=f"Desculpa, não consegui obter direções para {destination}. Tenta outra vez."
-                )
+                # Fallback: Search for the location first, then get directions
+                self.logger.info(f"Direct directions failed, trying search first for: {destination}")
+
+                search_success = home_page.search(destination)
+                if search_success:
+                    # Give Google Maps time to load the location
+                    time.sleep(2)
+
+                    # Try to click Directions button from the place card
+                    from infrastructure.page_objects import MapsPlacePage
+                    place_page = MapsPlacePage(context.driver)
+
+                    try:
+                        # Check if we're on a place page
+                        if place_page.wait_for_place_details(timeout=3):
+                            self.logger.info("On place page, clicking Directions button")
+                            place_page.click(place_page.DIRECTIONS_BUTTON)
+                            time.sleep(2)
+                            directions_success = True
+                    except Exception as e:
+                        self.logger.warning(f"Could not click place page Directions button: {e}")
+
+                    # If that didn't work, try the original method
+                    if not directions_success:
+                        directions_success = home_page.set_directions(
+                            destination=destination,
+                            origin=origin
+                        )
+
+                if not directions_success:
+                    return IntentResponse(
+                        success=False,
+                        message=f"Desculpa, não consegui obter direções para {destination}. Tenta outra vez."
+                    )
 
             # Set transport mode if specified
             if transport_mode_str:

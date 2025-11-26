@@ -47,7 +47,6 @@ results/
 
 # Java
 *.class
-*.jar
 !gradle-wrapper.jar
 *.war
 *.nar

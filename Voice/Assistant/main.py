@@ -30,13 +30,13 @@ logger = logging.getLogger(__name__)
 
 def nlu_extractor(message):
 	"""
-	Extract intent, confidence, and entities from MMI message.
+	Extract intent, confidence, entities, and text from MMI message.
 
 	Args:
 		message: XML message from MMI server
 
 	Returns:
-		Tuple of (intent, confidence, entities)
+		Tuple of (intent, confidence, entities, text)
 	"""
 	tags = ET.fromstring(message).findall('.//command')
 	message = json.loads(tags.pop(0).text)
@@ -46,14 +46,15 @@ def nlu_extractor(message):
 		nlu_data = json.loads(message["nlu"])
 		intent = nlu_data.get("intent", {}).get("name", "")
 		confidence = nlu_data.get("intent", {}).get("confidence", 1.0)
+		text = nlu_data.get("text", "")  # Extract original text
 		result = {}
 
 		for entity in nlu_data.get("entities", []):
 			result[entity["entity"]] = entity["value"]
 
-		return intent, confidence, result
+		return intent, confidence, result, text
 
-	return None, 0.0, {}
+	return None, 0.0, {}, ""
 
 
 def ignore_ssl():
@@ -112,7 +113,7 @@ async def main():
 						continue
 
 					# Extract intent from message
-					intent, confidence, entities = nlu_extractor(message)
+					intent, confidence, entities, text = nlu_extractor(message)
 
 					if not intent:
 						logger.warning("No intent extracted from message")
@@ -121,14 +122,16 @@ async def main():
 					logger.info(
 						f"Received - Intent: {intent}, "
 						f"Confidence: {confidence:.2f}, "
-						f"Entities: {entities}"
+						f"Entities: {entities}, "
+						f"Text: '{text}'"
 					)
 
 					# Handle intent with assistant
 					response_message = assistant.handle_intent(
 						intent=intent,
 						confidence=confidence,
-						entities=entities
+						entities=entities,
+						metadata={"text": text}
 					)
 
 					# Send response back via TTS

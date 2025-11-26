@@ -6,5 +6,6 @@ from .base_handler import BaseIntentHandler, IntentContext, IntentResponse
 from . import search_handler
 from . import map_control_handler
 from . import location_info_handler
+from . import conversation_handler
 
 __all__ = ["BaseIntentHandler", "IntentContext", "IntentResponse"]
