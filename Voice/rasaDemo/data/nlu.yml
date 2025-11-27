@@ -293,3 +293,111 @@ nlu:
       - valeu
       - muito obrigado
       - thanks
+
+  # ============================================================================
+  # TRIP INFORMATION INTENTS
+  # ============================================================================
+
+  - intent: get_trip_duration
+    examples: |
+      - quanto tempo demora
+      - qual é a duração
+      - quanto tempo leva
+      - quantas horas são
+      - quantos minutos
+      - duração da viagem
+      - tempo de viagem
+      - quanto tempo até lá
+      - demora quanto tempo
+      - que duração tem
+
+  - intent: get_trip_distance
+    examples: |
+      - quantos quilómetros são
+      - quantos km
+      - qual é a distância
+      - que distância é
+      - quantos metros
+      - distância total
+      - comprimento da rota
+      - quanto falta
+      - quilometragem
+
+  - intent: change_transport_mode
+    examples: |
+      - mudar para [carro](transport_mode)
+      - ir de [transportes públicos](transport_mode)
+      - quero ir a [pé](transport_mode)
+      - mudar para [bicicleta](transport_mode)
+      - usar [carro](transport_mode)
+      - de [autocarro](transport_mode)
+      - andar de [bicicleta](transport_mode)
+      - ir de [comboio](transport_mode)
+      - conduzir
+      - transportes públicos
+      - a pé
+      - de carro
+      - de bike
+
+  - intent: swap_route
+    examples: |
+      - inverter a rota
+      - trocar origem e destino
+      - ir ao contrário
+      - inverter
+      - rota inversa
+      - voltar
+      - caminho de volta
+      - rota de regresso
+      - inverter direções
+      - trocar pontos
+
+  - intent: show_traffic
+    examples: |
+      - mostrar trânsito
+      - ver trânsito
+      - ativar trânsito
+      - ligar trânsito
+      - trânsito
+      - mostrar tráfego
+      - ver tráfego
+      - estado do trânsito
+      - como está o trânsito
+      - há trânsito
+
+  - intent: hide_traffic
+    examples: |
+      - esconder trânsito
+      - ocultar trânsito
+      - desativar trânsito
+      - desligar trânsito
+      - remover trânsito
+      - tirar trânsito
+      - esconder tráfego
+      - sem trânsito
+
+  - intent: select_place
+    examples: |
+      - selecionar o [primeiro](ordinal)
+      - escolher o [segundo](ordinal)
+      - o [terceiro](ordinal)
+      - o [primeiro](ordinal) resultado
+      - quero o [segundo](ordinal)
+      - [1](ordinal)
+      - [2](ordinal)
+      - [3](ordinal)
+      - número [1](ordinal)
+      - resultado [2](ordinal)
+      - opção [3](ordinal)
+
+  - intent: select_alternative_route
+    examples: |
+      - escolher rota [2](ordinal)
+      - selecionar rota alternativa
+      - rota [segunda](ordinal)
+      - outro caminho
+      - caminho alternativo
+      - rota diferente
+      - outra rota
+      - segunda opção de rota
+      - terceira rota

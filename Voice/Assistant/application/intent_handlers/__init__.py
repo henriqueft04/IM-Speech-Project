@@ -7,5 +7,7 @@ from . import search_handler
 from . import map_control_handler
 from . import location_info_handler
 from . import conversation_handler
+from . import trip_info_handler
+from . import selection_handler
 
 __all__ = ["BaseIntentHandler", "IntentContext", "IntentResponse"]

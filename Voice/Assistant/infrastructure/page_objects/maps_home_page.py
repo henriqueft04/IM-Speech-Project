@@ -233,6 +233,56 @@ class MapsHomePage(BasePage):
             logger.error(f"Failed to reset map state: {e}")
             return False
 
+    def toggle_traffic_layer(self, show: bool) -> bool:
+        """
+        Toggle traffic layer on/off.
+
+        Args:
+            show: True to show traffic, False to hide
+
+        Returns:
+            True if successful
+        """
+        try:
+            # Traffic layer button XPaths
+            traffic_button_xpaths = [
+                "//button[@aria-label='Show traffic' or @aria-label='Mostrar trânsito']",
+                "//button[@aria-label='Hide traffic' or @aria-label='Esconder trânsito']",
+                "//button[contains(@aria-label, 'traffic') or contains(@aria-label, 'trânsito')]",
+                "//button[@data-value='Traffic']",
+            ]
+
+            # Try to find traffic toggle button
+            traffic_button = None
+            for xpath in traffic_button_xpaths:
+                try:
+                    btn = self.driver.find_element(By.XPATH, xpath)
+                    if btn.is_displayed():
+                        traffic_button = btn
+                        break
+                except:
+                    continue
+
+            if not traffic_button:
+                logger.warning("Traffic toggle button not found")
+                return False
+
+            # Check current state from aria-label
+            current_label = traffic_button.get_attribute("aria-label") or ""
+            is_currently_shown = "hide" in current_label.lower() or "esconder" in current_label.lower()
+
+            # Click if we need to change state
+            if (show and not is_currently_shown) or (not show and is_currently_shown):
+                traffic_button.click()
+                time.sleep(0.5)  # Wait for layer to toggle
+                logger.info(f"Toggled traffic layer: show={show}")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to toggle traffic layer: {e}")
+            return False
+
     def change_map_type(self, map_type: MapType) -> bool:
         """
         Change the map view type using the new UI.

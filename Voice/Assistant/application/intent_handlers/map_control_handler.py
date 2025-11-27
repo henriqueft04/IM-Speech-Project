@@ -211,3 +211,85 @@ class RecenterMapHandler(BaseIntentHandler):
                 message="Ocorreu um erro ao recentrar o mapa",
                 data={"error": str(e)}
             )
+
+
+@IntentRouter.register("show_traffic")
+class ShowTrafficHandler(BaseIntentHandler):
+    """Handler for showing traffic layer on the map."""
+
+    supported_intents = ["show_traffic"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Show traffic layer on the map.
+
+        Returns:
+            IntentResponse confirming traffic display
+        """
+        self.logger.info("Showing traffic layer")
+
+        try:
+            home_page = MapsHomePage(context.driver)
+            success = home_page.toggle_traffic_layer(show=True)
+
+            if not success:
+                return IntentResponse(
+                    success=False,
+                    message="Não consegui mostrar o trânsito. Tenta outra vez."
+                )
+
+            return IntentResponse(
+                success=True,
+                message="A mostrar trânsito no mapa"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error showing traffic: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro ao mostrar o trânsito",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("hide_traffic")
+class HideTrafficHandler(BaseIntentHandler):
+    """Handler for hiding traffic layer from the map."""
+
+    supported_intents = ["hide_traffic"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Hide traffic layer from the map.
+
+        Returns:
+            IntentResponse confirming traffic removal
+        """
+        self.logger.info("Hiding traffic layer")
+
+        try:
+            home_page = MapsHomePage(context.driver)
+            success = home_page.toggle_traffic_layer(show=False)
+
+            if not success:
+                return IntentResponse(
+                    success=False,
+                    message="Não consegui esconder o trânsito. Tenta outra vez."
+                )
+
+            return IntentResponse(
+                success=True,
+                message="Trânsito escondido"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error hiding traffic: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro ao esconder o trânsito",
+                data={"error": str(e)}
+            )
