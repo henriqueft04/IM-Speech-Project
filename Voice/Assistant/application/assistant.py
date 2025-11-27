@@ -238,15 +238,15 @@ class GoogleMapsAssistant:
         self.confirmation_service.clear_pending_confirmation()
         logger.info("Assistant state reset")
 
-    async def speak(self, message: str, priority: str = "normal"):
+    async def speak(self, message: str, language: str = "pt-PT"):
         """
         Send a message to TTS service.
 
         Args:
             message: Message to speak
-            priority: Priority level
+            language: Language code (default: pt-PT)
         """
-        await self.tts_service.speak(message, priority)
+        await self.tts_service.speak(message, language)
 
     def set_tts_websocket(self, websocket):
         """

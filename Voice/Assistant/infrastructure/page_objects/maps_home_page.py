@@ -9,6 +9,8 @@ from typing import Optional, List
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from infrastructure.page_objects.base_page import BasePage
 from infrastructure.selenium_helpers import retry_on_stale_element
@@ -188,6 +190,49 @@ class MapsHomePage(BasePage):
             logger.error(f"Failed to close modal: {e}")
             return False
 
+    def reset_map_state(self) -> bool:
+        """
+        Reset Google Maps to clean state by closing all panels.
+        Tries to click close buttons for directions panel and other sidebars.
+
+        Returns:
+            True if successful
+        """
+        try:
+            # Try to find and click the close button for directions/search panel
+            close_button_xpaths = [
+                "//button[@aria-label='Close directions' or @aria-label='Fechar direções']",
+                "//button[contains(@aria-label, 'Close') or contains(@aria-label, 'Fechar')]",
+                "//button[@aria-label='Clear search' or @aria-label='Limpar pesquisa']",
+                "//div[@id='pane']//button[contains(@aria-label, 'Close')]",
+                "//aside//button[contains(@aria-label, 'Close')]",
+            ]
+
+            closed_something = False
+            for xpath in close_button_xpaths:
+                try:
+                    close_button = self.driver.find_element(By.XPATH, xpath)
+                    if close_button.is_displayed():
+                        close_button.click()
+                        logger.info(f"Clicked close button: {xpath}")
+                        closed_something = True
+                        time.sleep(0.5)  # Wait for animation
+                        break  # Stop after first successful close
+                except:
+                    continue
+
+            # Also press ESC a couple times as backup
+            actions = ActionChains(self.driver)
+            actions.send_keys(Keys.ESCAPE).perform()
+            time.sleep(0.2)
+            actions.send_keys(Keys.ESCAPE).perform()
+
+            logger.info(f"Reset map state - {'closed panel' if closed_something else 'pressed ESC'}")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to reset map state: {e}")
+            return False
+
     def change_map_type(self, map_type: MapType) -> bool:
         """
         Change the map view type using the new UI.
@@ -276,19 +321,25 @@ class MapsHomePage(BasePage):
             True if successful
         """
         try:
+            wait = WebDriverWait(self.driver, 10)
+
             # Open directions if not already open
-            if not self.is_element_visible(self.DIRECTIONS_DEST_INPUT, timeout=2):
+            if not self.is_element_visible(self.DIRECTIONS_DEST_INPUT, timeout=5):
                 self.open_directions()
+                # Wait for destination input to be clickable
+                wait.until(EC.element_to_be_clickable(self.DIRECTIONS_DEST_INPUT))
 
             # Set origin if provided
             if origin:
-                self.send_keys(self.DIRECTIONS_ORIGIN_INPUT, origin, clear_first=True)
-                origin_input = self.find_element(self.DIRECTIONS_ORIGIN_INPUT)
+                origin_input = wait.until(EC.element_to_be_clickable(self.DIRECTIONS_ORIGIN_INPUT))
+                origin_input.clear()
+                origin_input.send_keys(origin)
                 origin_input.send_keys(Keys.RETURN)
 
             # Set destination
-            self.send_keys(self.DIRECTIONS_DEST_INPUT, destination, clear_first=True)
-            dest_input = self.find_element(self.DIRECTIONS_DEST_INPUT)
+            dest_input = wait.until(EC.element_to_be_clickable(self.DIRECTIONS_DEST_INPUT))
+            dest_input.clear()
+            dest_input.send_keys(destination)
             dest_input.send_keys(Keys.RETURN)
 
             logger.info(f"Set directions: {origin or 'Current location'} -> {destination}")

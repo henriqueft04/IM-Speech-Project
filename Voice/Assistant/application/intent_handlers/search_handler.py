@@ -40,21 +40,39 @@ class SearchLocationHandler(BaseIntentHandler):
         Returns:
             IntentResponse with search results
         """
-        # Validate required entities
-        is_valid, error_msg = self.validate_entities(context, ["location"])
-        if not is_valid:
+        # For search_location intent, always use the full text
+        # This preserves queries like "restaurantes perto da Lixa"
+        # Entity extraction often splits this incorrectly
+        location_query = None
+
+        if context.metadata and "text" in context.metadata:
+            location_query = context.metadata["text"].strip()
+            self.logger.info(f"Using full text as search query: {location_query}")
+        else:
+            # Fallback to location entity if no text available
+            location_query = context.get_entity("location")
+
+        # Final validation
+        if not location_query or len(location_query) <= 2:
             return IntentResponse(
                 success=False,
                 message="Não percebi a localização. Que lugar queres procurar?",
-                data={"error": error_msg}
+                data={"error": "invalid_location"}
             )
 
-        location_query = context.get_entity("location")
-        self.logger.info(f"Searching for location: {location_query}")
+        self.logger.info(f"Searching for: {location_query}")
 
         try:
             # Use MapsHomePage to perform search
             home_page = MapsHomePage(context.driver)
+
+            # Reset map state to close any open panels (directions, place details, etc.)
+            try:
+                home_page.reset_map_state()
+                self.logger.info("Reset map state before new search")
+            except:
+                pass  # Ignore if reset fails
+
             search_success = home_page.search(location_query)
 
             if not search_success:
@@ -161,8 +179,18 @@ class GetDirectionsHandler(BaseIntentHandler):
             f"Getting directions: {origin or 'current location'} -> {destination}"
         )
 
+        # Don't send any intermediate messages - only send final result
+        # This prevents confusing error messages from appearing before success
+
         try:
             home_page = MapsHomePage(context.driver)
+
+            # Reset map state to close any open panels (directions, place details, etc.)
+            try:
+                home_page.reset_map_state()
+                self.logger.info("Reset map state before new directions")
+            except:
+                pass  # Ignore if reset fails
 
             # Try to get directions directly
             directions_success = home_page.set_directions(
@@ -176,20 +204,25 @@ class GetDirectionsHandler(BaseIntentHandler):
 
                 search_success = home_page.search(destination)
                 if search_success:
-                    # Give Google Maps time to load the location
-                    time.sleep(2)
-
                     # Try to click Directions button from the place card
                     from infrastructure.page_objects import MapsPlacePage
                     place_page = MapsPlacePage(context.driver)
 
                     try:
-                        # Check if we're on a place page
-                        if place_page.wait_for_place_details(timeout=3):
+                        # Wait for search results to load and check if we're on a place page
+                        self.logger.info("Waiting for search results to load...")
+                        if place_page.wait_for_place_details(timeout=8):
                             self.logger.info("On place page, clicking Directions button")
+
+                            # Click the Directions button and wait for panel to open
                             place_page.click(place_page.DIRECTIONS_BUTTON)
-                            time.sleep(2)
-                            directions_success = True
+
+                            # Wait for directions panel to appear by checking for destination input
+                            if home_page.is_element_visible(home_page.DIRECTIONS_DEST_INPUT, timeout=5):
+                                self.logger.info("Directions panel opened successfully")
+                                directions_success = True
+                            else:
+                                self.logger.warning("Directions button clicked but panel didn't open")
                     except Exception as e:
                         self.logger.warning(f"Could not click place page Directions button: {e}")
 

@@ -105,11 +105,29 @@ async def main():
 			# Set WebSocket for TTS service
 			assistant.set_tts_websocket(websocket)
 
+			# Send welcome greeting
+			await assistant.speak("Boas! Eu sou a Assistente de Google Maps. Como te posso ajudar?")
+			logger.info("Sent welcome greeting")
+
 			# Main loop: receive and process messages
 			while True:
 				try:
 					message = await websocket.recv()
 					if message is None or message in ["OK", "RENEW"]:
+						continue
+
+					# Log received message for debugging
+					logger.debug(f"Received message: {message[:200]}...")
+
+					# Skip TTS messages (messages with TARGET="SPEECHOUT")
+					# These are our own TTS messages being echoed back
+					if 'mmi:target="SPEECHOUT"' in message or 'target="SPEECHOUT"' in message:
+						logger.debug("Skipping TTS message (TARGET=SPEECHOUT)")
+						continue
+
+					# Also skip startResponse messages (FusionEngine acknowledgments)
+					if 'mmi:startResponse' in message or 'startResponse' in message:
+						logger.debug("Skipping startResponse message")
 						continue
 
 					# Extract intent from message

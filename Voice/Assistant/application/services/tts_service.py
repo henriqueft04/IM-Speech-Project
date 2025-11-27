@@ -1,20 +1,20 @@
 """
 Text-to-Speech service for providing voice feedback.
-Uses simplified MMI protocol matching C# implementation.
+Sends directly to browser via WebSocket on port 8083 (bypasses FusionEngine).
 """
 
 import logging
-
-from application.services.mmi_protocol import create_mmi_message
+import websockets
+import json
 
 logger = logging.getLogger(__name__)
 
 
 class TTSService:
     """
-    Service for handling text-to-speech feedback using MMI protocol.
+    Service for handling text-to-speech feedback.
 
-    Sends messages to the MMI server using startRequest format.
+    Sends JSON messages directly to browser via WebSocket.
     """
 
     def __init__(self, websocket=None):
@@ -22,13 +22,14 @@ class TTSService:
         Initialize TTS service.
 
         Args:
-            websocket: WebSocket connection for sending TTS messages (optional)
+            websocket: WebSocket connection (not used, kept for compatibility)
         """
         self.websocket = websocket
+        self.tts_ws_url = "ws://127.0.0.1:8083"
 
     async def speak(self, message: str, language: str = "pt-PT"):
         """
-        Send a message for TTS synthesis via MMI protocol.
+        Send a message for TTS synthesis directly to browser WebSocket.
 
         Args:
             message: Text to speak
@@ -40,20 +41,20 @@ class TTSService:
 
         logger.info(f"TTS: {message}")
 
-        if self.websocket:
-            try:
-                # Create MMI message using simplified protocol
-                mmi_message = create_mmi_message(text=message, language=language)
+        try:
+            # Create simple JSON message
+            tts_data = json.dumps({
+                "text": message,
+                "language": language
+            })
 
-                # Send as XML string
-                await self.websocket.send(mmi_message)
-                logger.debug(f"Sent TTS message via MMI protocol: {message}")
+            # Send directly to browser via WebSocket (bypasses FusionEngine)
+            async with websockets.connect(self.tts_ws_url) as ws:
+                await ws.send(tts_data)
+                logger.info(f"Sent TTS message to browser: {message}")
 
-            except Exception as e:
-                logger.error(f"Failed to send TTS message: {e}", exc_info=True)
-        else:
-            # Fallback: just log the message
-            logger.info(f"[TTS] {message}")
+        except Exception as e:
+            logger.error(f"Failed to send TTS message: {e}", exc_info=True)
 
     def speak_sync(self, message: str, language: str = "pt-PT"):
         """
