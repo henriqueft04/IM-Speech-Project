@@ -47,12 +47,12 @@ class MapsHomePage(BasePage):
     # Map details modal
     MAP_DETAILS_MODAL = (By.XPATH, "//h2[contains(text(), 'Detalhes do mapa') or contains(text(), 'Map details')]")
 
-    # Map type options in modal (Tipo de mapa section)
-    SATELLITE_BUTTON = (By.XPATH, "//button[.//label[text()='Satélite'] or .//label[text()='Satellite']]")
-    TERRAIN_BUTTON = (By.XPATH, "//button[.//label[text()='Relevo'] or .//label[text()='Terrain']]")
-    TRAFFIC_BUTTON = (By.XPATH, "//button[.//label[text()='Trânsito'] or .//label[text()='Traffic']]")
-    BICYCLE_BUTTON = (By.XPATH, "//button[.//label[text()='De bicicleta'] or .//label[text()='Bicycling']]")
-    DEFAULT_MAP_BUTTON = (By.XPATH, "//button[.//label[text()='Predefinição'] or .//label[text()='Default']]")
+    # Map type options in modal (Tipo de mapa section) - Support both English and Portuguese
+    SATELLITE_BUTTON = (By.XPATH, "//button[.//label[text()='Satélite'] or .//label[text()='Satellite'] or contains(@aria-label, 'Satélite') or contains(@aria-label, 'Satellite')]")
+    TERRAIN_BUTTON = (By.XPATH, "//button[.//label[text()='Relevo'] or .//label[text()='Terrain'] or contains(@aria-label, 'Relevo') or contains(@aria-label, 'Terrain')]")
+    TRAFFIC_BUTTON = (By.XPATH, "//button[.//label[text()='Trânsito'] or .//label[text()='Traffic'] or contains(@aria-label, 'Trânsito') or contains(@aria-label, 'Traffic') or .//span[text()='Trânsito'] or .//span[text()='Traffic']]")
+    BICYCLE_BUTTON = (By.XPATH, "//button[.//label[text()='De bicicleta'] or .//label[text()='Bicycling'] or contains(@aria-label, 'bicicleta') or contains(@aria-label, 'Bicycling')]")
+    DEFAULT_MAP_BUTTON = (By.XPATH, "//button[.//label[text()='Predefinição'] or .//label[text()='Default'] or contains(@aria-label, 'Predefinição') or contains(@aria-label, 'Default')]")
 
     # My location
     MY_LOCATION_BUTTON = (By.XPATH, "//button[@aria-label='Your location' or @aria-label='Show Your Location']")
@@ -235,7 +235,7 @@ class MapsHomePage(BasePage):
 
     def toggle_traffic_layer(self, show: bool) -> bool:
         """
-        Toggle traffic layer on/off.
+        Toggle traffic layer on/off using the map details modal.
 
         Args:
             show: True to show traffic, False to hide
@@ -244,40 +244,62 @@ class MapsHomePage(BasePage):
             True if successful
         """
         try:
-            # Traffic layer button XPaths
-            traffic_button_xpaths = [
-                "//button[@aria-label='Show traffic' or @aria-label='Mostrar trânsito']",
-                "//button[@aria-label='Hide traffic' or @aria-label='Esconder trânsito']",
-                "//button[contains(@aria-label, 'traffic') or contains(@aria-label, 'trânsito')]",
-                "//button[@data-value='Traffic']",
-            ]
-
-            # Try to find traffic toggle button
-            traffic_button = None
-            for xpath in traffic_button_xpaths:
-                try:
-                    btn = self.driver.find_element(By.XPATH, xpath)
-                    if btn.is_displayed():
-                        traffic_button = btn
-                        break
-                except:
-                    continue
-
-            if not traffic_button:
-                logger.warning("Traffic toggle button not found")
+            # Open the map details modal
+            if not self.open_map_details_modal():
+                logger.error("Failed to open map details modal for traffic toggle")
                 return False
 
-            # Check current state from aria-label
-            current_label = traffic_button.get_attribute("aria-label") or ""
-            is_currently_shown = "hide" in current_label.lower() or "esconder" in current_label.lower()
+            # Click the traffic button in the modal
+            try:
+                # Try primary selector first
+                traffic_button = None
+                try:
+                    traffic_button = self.find_element(self.TRAFFIC_BUTTON, timeout=5)
+                except Exception as e:
+                    logger.warning(f"Primary traffic button selector failed: {e}")
 
-            # Click if we need to change state
-            if (show and not is_currently_shown) or (not show and is_currently_shown):
-                traffic_button.click()
-                time.sleep(0.5)  # Wait for layer to toggle
-                logger.info(f"Toggled traffic layer: show={show}")
+                    # Try alternative selectors
+                    alternative_selectors = [
+                        (By.XPATH, "//button[contains(text(), 'Trânsito') or contains(text(), 'Traffic')]"),
+                        (By.XPATH, "//div[@role='button' and (contains(text(), 'Trânsito') or contains(text(), 'Traffic'))]"),
+                        (By.XPATH, "//*[contains(@class, 'layer') and (contains(text(), 'Trânsito') or contains(text(), 'Traffic'))]"),
+                    ]
 
-            return True
+                    for selector in alternative_selectors:
+                        try:
+                            traffic_button = self.find_element(selector, timeout=2)
+                            if traffic_button:
+                                logger.info(f"Found traffic button using alternative selector: {selector}")
+                                break
+                        except:
+                            continue
+
+                if not traffic_button:
+                    logger.error("Could not find traffic button with any selector")
+                    self.close_map_details_modal()
+                    return False
+
+                # Click the traffic button using JavaScript for reliability
+                # Note: This is a toggle button, so we just click it regardless of current state
+                # Google Maps will handle toggling the layer on/off
+                self.execute_script("arguments[0].scrollIntoView({block: 'center'});", traffic_button)
+                time.sleep(0.3)
+                self.execute_script("arguments[0].click();", traffic_button)
+                logger.info(f"Clicked traffic button (requested: show={show})")
+                time.sleep(0.5)  # Wait for layer to apply
+
+                # Close modal
+                self.close_map_details_modal()
+                return True
+
+            except Exception as e:
+                logger.error(f"Failed to find/click traffic button in modal: {e}")
+                # Try to close modal on error
+                try:
+                    self.close_map_details_modal()
+                except:
+                    pass
+                return False
 
         except Exception as e:
             logger.error(f"Failed to toggle traffic layer: {e}")
