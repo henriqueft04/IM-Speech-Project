@@ -23,7 +23,6 @@ class IntentRouter:
     registration for clean, extensible intent handling.
     """
 
-    # Class-level handler registry
     _handlers: Dict[str, BaseIntentHandler] = {}
 
     @classmethod
@@ -45,7 +44,6 @@ class IntentRouter:
         def decorator(handler_class: Type[BaseIntentHandler]):
             handler_instance = handler_class()
 
-            # Register this handler for each intent
             for intent in intents:
                 if intent in cls._handlers:
                     logger.warning(
@@ -113,13 +111,11 @@ class IntentRouter:
                 data={"error": error_msg}
             )
 
-        # Check confidence threshold
         if context.confidence < handler.confidence_threshold:
             logger.info(
                 f"Confidence {context.confidence:.2f} below threshold "
                 f"{handler.confidence_threshold} for {context.intent}"
             )
-            # Return response indicating confirmation needed
             return IntentResponse(
                 success=False,
                 message=f"Did you want to {context.intent}?",
@@ -131,7 +127,6 @@ class IntentRouter:
                 }
             )
 
-        # Execute the handler
         try:
             logger.info(
                 f"Executing {handler.__class__.__name__} for intent '{context.intent}' "

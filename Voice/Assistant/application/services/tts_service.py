@@ -42,13 +42,11 @@ class TTSService:
         logger.info(f"TTS: {message}")
 
         try:
-            # Create simple JSON message
             tts_data = json.dumps({
                 "text": message,
                 "language": language
             })
 
-            # Send directly to browser via WebSocket (bypasses FusionEngine)
             async with websockets.connect(self.tts_ws_url) as ws:
                 await ws.send(tts_data)
                 logger.info(f"Sent TTS message to browser: {message}")
@@ -69,8 +67,6 @@ class TTSService:
             return
 
         logger.info(f"TTS: {message}")
-        # In a real implementation, this would queue the message
-        # or use a synchronous sending mechanism
 
     def set_websocket(self, websocket):
         """
@@ -85,8 +81,7 @@ class TTSService:
 
 class FeedbackMessages:
     """Predefined feedback messages for common scenarios - pt-PT."""
-
-    # Success messages
+    
     SUCCESS_SEARCH = "Encontrei {count} resultado{plural}"
     SUCCESS_DIRECTIONS = "A mostrar direções para {destination}"
     SUCCESS_NAVIGATION_START = "Navegação iniciada"

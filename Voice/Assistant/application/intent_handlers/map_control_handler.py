@@ -38,12 +38,11 @@ class ZoomInHandler(BaseIntentHandler):
         zoom_level_str = context.get_entity("zoom_level")
 
         try:
-            # Determine zoom clicks based on level
             if zoom_level_str:
                 zoom_level = ZoomLevel.from_string(zoom_level_str)
                 clicks = zoom_level.value
             else:
-                clicks = 2  # Default
+                clicks = 2
 
             home_page = MapsHomePage(context.driver)
             home_page.zoom_in(clicks=clicks)
@@ -84,12 +83,11 @@ class ZoomOutHandler(BaseIntentHandler):
         zoom_level_str = context.get_entity("zoom_level")
 
         try:
-            # Determine zoom clicks based on level
             if zoom_level_str:
                 zoom_level = ZoomLevel.from_string(zoom_level_str)
                 clicks = zoom_level.value
             else:
-                clicks = 2  # Default
+                clicks = 2
 
             home_page = MapsHomePage(context.driver)
             home_page.zoom_out(clicks=clicks)
@@ -126,7 +124,6 @@ class ChangeMapTypeHandler(BaseIntentHandler):
         Returns:
             IntentResponse
         """
-        # Validate required entities
         is_valid, error_msg = self.validate_entities(context, ["map_type"])
         if not is_valid:
             return IntentResponse(
@@ -192,10 +189,8 @@ class RecenterMapHandler(BaseIntentHandler):
         try:
             home_page = MapsHomePage(context.driver)
 
-            # Check if user specified a location to center on
             location = context.get_entity("location") or context.get_entity("destination")
 
-            # If no entity, try using full text
             if not location and context.metadata and "text" in context.metadata:
                 full_text = context.metadata["text"].strip().lower()
                 # Remove "centrar", "em", etc. to extract location
@@ -205,7 +200,6 @@ class RecenterMapHandler(BaseIntentHandler):
                     location = full_text
 
             if location:
-                # Center on specific location by searching for it
                 self.logger.info(f"Centering map on location: {location}")
                 success = home_page.search(location)
                 if success:
@@ -214,7 +208,6 @@ class RecenterMapHandler(BaseIntentHandler):
                         message=f"Mapa centrado em {location}"
                     )
             else:
-                # Center on user's current GPS location
                 success = home_page.recenter_map()
                 if success:
                     return IntentResponse(
@@ -336,7 +329,6 @@ class CenterLocationHandler(BaseIntentHandler):
         Returns:
             IntentResponse confirming map centered
         """
-        # Try to get location from either 'location' or 'destination' entity
         location = context.get_entity("location") or context.get_entity("destination")
 
         if not location:
@@ -350,7 +342,6 @@ class CenterLocationHandler(BaseIntentHandler):
         try:
             home_page = MapsHomePage(context.driver)
 
-            # Search for the location
             success = home_page.search(location)
 
             if not success:

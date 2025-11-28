@@ -52,7 +52,6 @@ def nlu_extractor(message):
 		for entity in nlu_data.get("entities", []):
 			result[entity["entity"]] = entity["value"]
 
-		# Return raw nlu_data as well for handlers that need all entities
 		return intent, confidence, result, text, message["nlu"]
 
 	return None, 0.0, {}, "", ""
@@ -79,49 +78,38 @@ async def main():
 	mmi_url = MMI_URL
 	ssl_context = ignore_ssl()
 
-	# Initialize WebDriver and Assistant (once, persistent session)
 	logger.info("Initializing Google Maps Assistant...")
 	driver_manager = DriverManager()
 
 	try:
-		# Start driver
 		driver = driver_manager.start(
 			headless=False,
 			user_data_dir=CHROME_PROFILE_PATH
 		)
 
-		# Initialize TTS service
 		tts_service = TTSService()
 
-		# Initialize assistant
 		assistant = GoogleMapsAssistant(driver, tts_service)
 
 		logger.info("Assistant initialized successfully")
 		logger.info(f"Connecting to MMI server at {mmi_url}...")
 
-		# Connect to WebSocket
 		async with websockets.connect(mmi_url, ssl=ssl_context) as websocket:
 			logger.info("Connected to MMI server")
 
-			# Set WebSocket for TTS service
 			assistant.set_tts_websocket(websocket)
 
-			# Send welcome greeting
 			await assistant.speak("Boas! Eu sou a Assistente de Google Maps. Como te posso ajudar?")
 			logger.info("Sent welcome greeting")
 
-			# Main loop: receive and process messages
 			while True:
 				try:
 					message = await websocket.recv()
 					if message is None or message in ["OK", "RENEW"]:
 						continue
 
-					# Log received message for debugging
 					logger.debug(f"Received message: {message[:200]}...")
 
-					# Skip TTS messages (messages with TARGET="SPEECHOUT")
-					# These are our own TTS messages being echoed back
 					if 'mmi:target="SPEECHOUT"' in message or 'target="SPEECHOUT"' in message:
 						logger.debug("Skipping TTS message (TARGET=SPEECHOUT)")
 						continue
@@ -131,7 +119,6 @@ async def main():
 						logger.debug("Skipping startResponse message")
 						continue
 
-					# Extract intent from message
 					intent, confidence, entities, text, nlu_raw = nlu_extractor(message)
 
 					if not intent:
@@ -145,7 +132,6 @@ async def main():
 						f"Text: '{text}'"
 					)
 
-					# Handle intent with assistant
 					response_message = assistant.handle_intent(
 						intent=intent,
 						confidence=confidence,
@@ -153,7 +139,6 @@ async def main():
 						metadata={"text": text, "nlu": nlu_raw}
 					)
 
-					# Send response back via TTS
 					if response_message:
 						logger.info(f"Response: {response_message}")
 						await assistant.speak(response_message)
@@ -164,7 +149,6 @@ async def main():
 
 				except Exception as e:
 					logger.error(f"Error processing message: {e}", exc_info=True)
-					# Try to send error message to user
 					try:
 						await assistant.speak("Desculpa, ocorreu um erro")
 					except:
@@ -177,7 +161,6 @@ async def main():
 		logger.error(f"Fatal error: {e}", exc_info=True)
 
 	finally:
-		# Clean up
 		logger.info("Cleaning up...")
 		if 'assistant' in locals():
 			assistant.shutdown()

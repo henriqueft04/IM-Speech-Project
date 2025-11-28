@@ -18,15 +18,10 @@ def create_mmi_message(text: str, language: str = "pt-PT") -> str:
     Returns:
         Complete MMI XML message as string
     """
-    # Create a simple JSON object with the text
-    # FusionEngine expects JSON in the command field
     command_json = json.dumps({"text": text})
 
-    # Escape for XML
     command_escaped = html.escape(command_json)
 
-    # Build the complete MMI message using ExtensionNotification
-    # This is designed for sending output to modalities like TTS
     mmi_message = (
         '<mmi:mmi xmlns:mmi="http://www.w3.org/2008/04/mmi-arch" mmi:version="1.0">'
             '<mmi:ExtensionNotification mmi:name="output" mmi:source="APP" mmi:target="SPEECHOUT">'

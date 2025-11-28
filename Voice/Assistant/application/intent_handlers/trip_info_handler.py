@@ -39,7 +39,6 @@ class GetTripDurationHandler(BaseIntentHandler):
         try:
             home_page = MapsHomePage(context.driver)
 
-            # Try to find duration element in directions panel
             duration_xpaths = [
                 "//div[contains(@class, 'section-directions-trip-duration')]//span",
                 "//div[@id='section-directions-trip-0']//div[contains(@class, 'delay')]",
@@ -96,7 +95,6 @@ class GetTripDistanceHandler(BaseIntentHandler):
         try:
             home_page = MapsHomePage(context.driver)
 
-            # Try to find distance element in directions panel
             distance_xpaths = [
                 "//div[contains(@class, 'section-directions-trip-distance')]//span",
                 "//div[@id='section-directions-trip-0']//div[contains(text(), 'km') or contains(text(), 'm')]",
@@ -189,12 +187,10 @@ class ChangeTransportModeHandler(BaseIntentHandler):
         self.logger.info(f"Changing transport mode to: {transport_mode_str}")
 
         try:
-            # Convert to TransportMode enum
             transport_mode = TransportMode.from_string(transport_mode_str)
 
             home_page = MapsHomePage(context.driver)
 
-            # Map transport mode to button locator
             mode_map = {
                 TransportMode.DRIVING: home_page.DRIVING_MODE,
                 TransportMode.WALKING: home_page.WALKING_MODE,
@@ -205,7 +201,7 @@ class ChangeTransportModeHandler(BaseIntentHandler):
             locator = mode_map.get(transport_mode)
             if locator:
                 home_page.select_transport_mode(locator)
-                time.sleep(1)  # Wait for route to recalculate
+                time.sleep(1)
 
                 mode_names = {
                     TransportMode.DRIVING: "carro",
@@ -258,7 +254,6 @@ class SwapRouteHandler(BaseIntentHandler):
         try:
             home_page = MapsHomePage(context.driver)
 
-            # Look for swap/reverse button
             swap_button_xpaths = [
                 "//button[@aria-label='Inverter ponto de partida e destino' or @aria-label='Reverse starting point and destination']",
                 "//button[contains(@aria-label, 'Reverse') or contains(@aria-label, 'Inverter')]",
@@ -283,7 +278,7 @@ class SwapRouteHandler(BaseIntentHandler):
                     message="Não consigo inverter a rota. Certifica-te que tens direções ativas."
                 )
 
-            time.sleep(1)  # Wait for route to recalculate
+            time.sleep(1)
 
             return IntentResponse(
                 success=True,

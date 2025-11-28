@@ -44,10 +44,8 @@ class ShowPlaceDetailsHandler(BaseIntentHandler):
                     message="Por favor seleciona um lugar primeiro para ver os detalhes"
                 )
 
-            # Get place details
             details = place_page.get_place_details()
 
-            # Format message
             message_parts = [details.location.name]
 
             if details.rating:
@@ -113,7 +111,6 @@ class ShowReviewsHandler(BaseIntentHandler):
                     message="Desculpa, não consegui aceder às avaliações"
                 )
 
-            # Get reviews
             reviews = place_page.get_reviews(max_reviews=3)
 
             if not reviews:
@@ -122,7 +119,6 @@ class ShowReviewsHandler(BaseIntentHandler):
                     message="Este lugar ainda não tem avaliações"
                 )
 
-            # Format message with review count
             place_name = place_page.get_place_name() or "este lugar"
             message = f"A mostrar avaliações de {place_name}. "
             message += f"Encontrei {len(reviews)} avaliações recentes"
@@ -163,14 +159,12 @@ class ShowPhotosHandler(BaseIntentHandler):
         try:
             place_page = MapsPlacePage(context.driver)
 
-            # Check if we're on a place page
             if not place_page.wait_for_place_details(timeout=5):
                 return IntentResponse(
                     success=False,
                     message="Por favor seleciona um lugar primeiro para ver as fotos"
                 )
 
-            # Navigate to photos tab
             success = place_page.show_photos()
             if not success:
                 return IntentResponse(
@@ -214,14 +208,12 @@ class GetOpeningHoursHandler(BaseIntentHandler):
         try:
             place_page = MapsPlacePage(context.driver)
 
-            # Check if we're on a place page
             if not place_page.wait_for_place_details(timeout=5):
                 return IntentResponse(
                     success=False,
                     message="Por favor seleciona um lugar primeiro para ver os horários"
                 )
 
-            # Get place name and open status
             place_name = place_page.get_place_name() or "Este lugar"
             is_open = place_page.is_open_now()
 
@@ -247,10 +239,6 @@ class GetOpeningHoursHandler(BaseIntentHandler):
                 message="Ocorreu um erro ao obter os horários",
                 data={"error": str(e)}
             )
-
-
-# General help and utility handlers
-
 @IntentRouter.register("help")
 class HelpHandler(BaseIntentHandler):
     """Handler for help requests."""
@@ -303,16 +291,13 @@ class GetLocationInfoHandler(BaseIntentHandler):
         try:
             place_page = MapsPlacePage(context.driver)
 
-            # Try to get place details - don't fail if page isn't fully loaded
             place_page.wait_for_place_details(timeout=3)
 
-            # Get place details - individual methods handle missing elements gracefully
             place_name = place_page.get_place_name()
             address = place_page.get_address()
             rating = place_page.get_rating()
             review_count = place_page.get_total_ratings()
 
-            # Build message
             message_parts = []
             if place_name:
                 message_parts.append(place_name)
@@ -323,7 +308,6 @@ class GetLocationInfoHandler(BaseIntentHandler):
             if review_count:
                 message_parts.append(f"{review_count} avaliações")
 
-            # If we got no information at all, the place isn't selected
             if not message_parts:
                 return IntentResponse(
                     success=False,
@@ -375,22 +359,18 @@ class WhatsHereHandler(BaseIntentHandler):
             from selenium.webdriver.common.by import By
             import time
 
-            # Find the map canvas
             map_canvas = context.driver.find_element(By.ID, "map")
 
-            # Right-click the center of the map
             actions = ActionChains(context.driver)
             actions.context_click(map_canvas).perform()
             time.sleep(0.5)
 
-            # Click "What's here?" option
             whats_here_xpath = "//div[contains(text(), \"What's here\") or contains(text(), 'O que há aqui')]"
             whats_here_button = context.driver.find_element(By.XPATH, whats_here_xpath)
             whats_here_button.click()
 
             time.sleep(1)
 
-            # Wait for location info to load
             place_page = MapsPlacePage(context.driver)
             if place_page.wait_for_place_details(timeout=5):
                 place_name = place_page.get_place_name()
@@ -401,7 +381,6 @@ class WhatsHereHandler(BaseIntentHandler):
                         data={"place_name": place_name}
                     )
 
-            # If no place name found, try to get coordinates
             return IntentResponse(
                 success=True,
                 message="A mostrar informação sobre este local"

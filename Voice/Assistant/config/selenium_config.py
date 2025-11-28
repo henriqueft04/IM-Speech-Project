@@ -22,14 +22,13 @@ class DriverConfig:
 
     # Browser preferences
     PREFS = {
-        "profile.default_content_setting_values.media_stream_mic": 1,  # Allow microphone
-        "profile.default_content_setting_values.geolocation": 1,        # Allow location
-        "profile.default_content_setting_values.notifications": 2,      # Block notifications
+        "profile.default_content_setting_values.media_stream_mic": 1,
+        "profile.default_content_setting_values.geolocation": 1,
+        "profile.default_content_setting_values.notifications": 2,
     }
 
-    # Chrome arguments
     CHROME_ARGS = [
-        "--disable-blink-features=AutomationControlled",  # Avoid detection
+        "--disable-blink-features=AutomationControlled",
         "--disable-extensions",
         "--no-sandbox",
         "--disable-dev-shm-usage",
@@ -54,7 +53,6 @@ class DriverConfig:
         """
         options = Options()
 
-        # Add chrome arguments
         for arg in cls.CHROME_ARGS:
             options.add_argument(arg)
 
@@ -62,11 +60,9 @@ class DriverConfig:
             options.add_argument("--headless=new")
             options.add_argument("--window-size=1920,1080")
 
-        # Set preferences
         options.add_experimental_option("prefs", cls.PREFS)
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
-        # Use persistent profile if provided
         if user_data_dir:
             user_data_path = Path(user_data_dir).expanduser()
             if user_data_path.exists():
@@ -77,7 +73,7 @@ class DriverConfig:
 
         try:
             driver = webdriver.Chrome(options=options)
-            driver.implicitly_wait(0)  # Disable implicit waits (we use explicit)
+            driver.implicitly_wait(0)
             logger.info("Chrome WebDriver initialized successfully")
             return driver
         except Exception as e:
@@ -123,7 +119,6 @@ class DriverManager:
             user_data_dir=user_data_dir
         )
 
-        # Navigate to Google Maps
         self._driver.get(self.config.GOOGLE_MAPS_URL)
         logger.info(f"Navigated to {self.config.GOOGLE_MAPS_URL}")
 
@@ -155,7 +150,6 @@ class DriverManager:
             return False
 
         try:
-            # Try to get current URL as a health check
             _ = self._driver.current_url
             return True
         except Exception:

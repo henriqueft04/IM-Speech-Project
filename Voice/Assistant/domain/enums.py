@@ -78,7 +78,6 @@ class TransportMode(Enum):
         if value_lower in mapping:
             return mapping[value_lower]
 
-        # Try exact match with enum values
         for mode in cls:
             if mode.value == value_lower:
                 return mode

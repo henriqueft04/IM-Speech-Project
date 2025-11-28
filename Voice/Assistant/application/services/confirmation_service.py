@@ -61,7 +61,6 @@ class ConfirmationService:
         Returns:
             True if confirmation is needed
         """
-        # Check if handler explicitly requires confirmation
         if handler_requires_confirmation:
             logger.info(f"Intent '{intent}' requires confirmation (handler requirement)")
             return True
@@ -149,7 +148,6 @@ class ConfirmationService:
         Returns:
             Confirmation question for TTS
         """
-        # Intent-specific confirmation messages - pt-PT
         confirmation_templates = {
             "search_location": "Querias procurar {location}?",
             "get_directions": "Devo obter direções para {destination}?",
@@ -188,15 +186,12 @@ class ConfirmationService:
             f"Querias {intent.replace('_', ' ')}?"
         )
 
-        # Format with entities
         try:
-            # For center_location, also accept 'destination' as 'location'
             if intent == "center_location" and "destination" in entities and "location" not in entities:
                 entities["location"] = entities["destination"]
 
             return template.format(**entities)
         except KeyError:
-            # Fallback if entities don't match template
             return template
 
     def process_affirmation(self) -> Optional[PendingConfirmation]:
@@ -213,7 +208,6 @@ class ConfirmationService:
         confirmation = self._pending_confirmation
         logger.info(f"User affirmed intent '{confirmation.intent}'")
 
-        # Clear the pending confirmation
         self.clear_pending_confirmation()
 
         return confirmation
@@ -232,7 +226,6 @@ class ConfirmationService:
         intent = self._pending_confirmation.intent
         logger.info(f"User denied intent '{intent}'")
 
-        # Clear the pending confirmation
         self.clear_pending_confirmation()
 
         return True

@@ -118,13 +118,11 @@ def safe_click(element: WebElement, driver: WebDriver = None) -> bool:
         True if click succeeded, False otherwise
     """
     try:
-        # Try normal click first
         element.click()
         return True
     except (ElementClickInterceptedException, ElementNotInteractableException):
         if driver:
             try:
-                # Fallback to JavaScript click
                 logger.info("Falling back to JavaScript click")
                 driver.execute_script("arguments[0].click();", element)
                 return True
@@ -248,7 +246,7 @@ def scroll_to_element(driver: WebDriver, element: WebElement):
         "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
         element
     )
-    time.sleep(0.3)  # Small delay for smooth scroll
+    time.sleep(0.3)  
 
 
 def take_screenshot_on_failure(filename: str = "failure_screenshot.png"):

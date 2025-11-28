@@ -28,7 +28,6 @@ class SelectPlaceHandler(BaseIntentHandler):
     requires_confirmation = False
     confidence_threshold = 0.75
 
-    # Mapping of ordinal words to numbers (Portuguese)
     ORDINAL_MAP = {
         "primeiro": 1,
         "primeira": 1,
@@ -73,7 +72,6 @@ class SelectPlaceHandler(BaseIntentHandler):
         Returns:
             IntentResponse confirming selection
         """
-        # Get ordinal (e.g., "primeiro", "1", "first")
         ordinal_str = context.get_entity("ordinal")
 
         if not ordinal_str:
@@ -82,7 +80,6 @@ class SelectPlaceHandler(BaseIntentHandler):
                 message="Qual resultado queres? Diz 'primeiro', 'segundo', etc."
             )
 
-        # Convert ordinal to number
         index = self._parse_ordinal(ordinal_str)
 
         if index is None or index < 1:
@@ -96,7 +93,6 @@ class SelectPlaceHandler(BaseIntentHandler):
         try:
             results_page = MapsSearchResultsPage(context.driver)
 
-            # Click the result
             success = results_page.select_result_by_index(index - 1)  # 0-indexed
 
             if not success:
@@ -105,7 +101,6 @@ class SelectPlaceHandler(BaseIntentHandler):
                     message=f"Não encontrei o resultado número {index}. Quantos resultados existem?"
                 )
 
-            # Wait for place page to load
             from infrastructure.page_objects import MapsPlacePage
             place_page = MapsPlacePage(context.driver)
 
@@ -142,11 +137,9 @@ class SelectPlaceHandler(BaseIntentHandler):
         """
         ordinal_lower = ordinal_str.lower().strip()
 
-        # Check if it's a direct number
         if ordinal_lower.isdigit():
             return int(ordinal_lower)
 
-        # Check mapped ordinals
         return self.ORDINAL_MAP.get(ordinal_lower)
 
 
@@ -170,28 +163,21 @@ class SelectAlternativeRouteHandler(BaseIntentHandler):
         """
         ordinal_str = context.get_entity("ordinal")
 
-        # Check for keywords in the full text to determine intent
         full_text = ""
         if context.metadata and "text" in context.metadata:
             full_text = context.metadata["text"].strip().lower()
 
-        # If no ordinal specified, interpret based on keywords
         if not ordinal_str:
-            # Keywords for first/main route
             if any(word in full_text for word in ["anterior", "principal", "original", "primeira", "primeiro"]):
-                route_index = 0  # First route (main route)
+                route_index = 0
             else:
-                # Default to second route for "outra rota", "alternativa", etc.
-                route_index = 1  # Second route (first alternative)
+                route_index = 1
         else:
-            # Parse which route to select
             route_index = self._parse_route_number(ordinal_str)
 
         self.logger.info(f"Selecting alternative route #{route_index}")
 
         try:
-            # XPath for route options in directions panel
-            # Based on actual Google Maps HTML structure
             route_xpaths = [
                 # Try specific ID with data-trip-index attribute (most reliable)
                 f"//div[@id='section-directions-trip-{route_index}' and @data-trip-index='{route_index}']",
@@ -248,17 +234,15 @@ class SelectAlternativeRouteHandler(BaseIntentHandler):
         """Parse route number from ordinal string."""
         ordinal_lower = ordinal_str.lower().strip()
 
-        # Direct number (assume 1-indexed from user, convert to 0-indexed)
         if ordinal_lower.isdigit():
             num = int(ordinal_lower)
-            return num - 1 if num > 0 else 0  # Convert 1->0, 2->1, 3->2
+            return num - 1 if num > 0 else 0
 
-        # Ordinal words (map to 0-indexed route numbers)
         ordinals = {
-            "primeiro": 0, "primeira": 0,  # First route = index 0
-            "segundo": 1, "segunda": 1,    # Second route = index 1
-            "terceiro": 2, "terceira": 2,  # Third route = index 2
+            "primeiro": 0, "primeira": 0,
+            "segundo": 1, "segunda": 1,
+            "terceiro": 2, "terceira": 2,
             "first": 0, "second": 1, "third": 2
         }
 
-        return ordinals.get(ordinal_lower, 1)  # Default to route 1 (second route)
+        return ordinals.get(ordinal_lower, 1)  

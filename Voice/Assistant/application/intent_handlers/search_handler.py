@@ -40,19 +40,14 @@ class SearchLocationHandler(BaseIntentHandler):
         Returns:
             IntentResponse with search results
         """
-        # For search_location intent, always use the full text
-        # This preserves queries like "restaurantes perto da Lixa"
-        # Entity extraction often splits this incorrectly
         location_query = None
 
         if context.metadata and "text" in context.metadata:
             location_query = context.metadata["text"].strip()
             self.logger.info(f"Using full text as search query: {location_query}")
         else:
-            # Fallback to location entity if no text available
             location_query = context.get_entity("location")
 
-        # Final validation
         if not location_query or len(location_query) <= 2:
             return IntentResponse(
                 success=False,
@@ -63,15 +58,13 @@ class SearchLocationHandler(BaseIntentHandler):
         self.logger.info(f"Searching for: {location_query}")
 
         try:
-            # Use MapsHomePage to perform search
             home_page = MapsHomePage(context.driver)
 
-            # Reset map state to close any open panels (directions, place details, etc.)
             try:
                 home_page.reset_map_state()
                 self.logger.info("Reset map state before new search")
             except:
-                pass  # Ignore if reset fails
+                pass
 
             search_success = home_page.search(location_query)
 
@@ -81,16 +74,12 @@ class SearchLocationHandler(BaseIntentHandler):
                     message=f"Desculpa, não consegui procurar {location_query}. Tenta outra vez."
                 )
 
-            # Check if Google Maps went directly to a place page or to search results
-            # Give Google Maps a moment to load the page
             time.sleep(1)
 
-            # Try to detect if we're on a place page (direct match)
             place_page = MapsPlacePage(context.driver)
             is_place_page = place_page.wait_for_place_details(timeout=2)
 
             if is_place_page:
-                # We went directly to a place page (exact match)
                 place_name = place_page.get_place_name()
                 self.logger.info(f"Went directly to place page: {place_name}")
 
@@ -100,7 +89,6 @@ class SearchLocationHandler(BaseIntentHandler):
                     data={"direct_match": True, "place_name": place_name}
                 )
 
-            # We're on a search results page
             results_page = MapsSearchResultsPage(context.driver)
             results_page.wait_for_results(timeout=10)
 
@@ -112,7 +100,6 @@ class SearchLocationHandler(BaseIntentHandler):
                     message=f"Não consegui encontrar resultados para {location_query}."
                 )
 
-            # Format results for TTS
             result_names = [loc.name for loc in search_result.locations]
             if len(result_names) == 1:
                 message = f"Encontrei {result_names[0]}"
@@ -152,23 +139,18 @@ class GetDirectionsHandler(BaseIntentHandler):
         Returns:
             IntentResponse with directions
         """
-        # Handle multiple destination entities (e.g., "da Lixa a Lisboa")
-        # Access raw NLU data from metadata to get ALL entities
         origin = context.get_entity("origin")
         destination = context.get_entity("destination")
 
-        # Check if we have multiple destinations in raw NLU data
         if context.metadata and "nlu" in context.metadata:
             import json
             try:
                 nlu_data = json.loads(context.metadata["nlu"])
                 raw_entities = nlu_data.get("entities", [])
 
-                # Find all destination entities
                 dest_entities = [e["value"] for e in raw_entities if e.get("entity") == "destination"]
 
                 if len(dest_entities) >= 2 and not origin:
-                    # Two destinations = origin + destination pattern
                     origin = dest_entities[0]
                     destination = dest_entities[1]
                     self.logger.info(f"Extracted from dual destinations: {origin} -> {destination}")
@@ -177,15 +159,12 @@ class GetDirectionsHandler(BaseIntentHandler):
             except Exception as e:
                 self.logger.warning(f"Failed to parse NLU data: {e}")
 
-        # If no entity extracted, try to use the entire text as destination
         if not destination and context.metadata:
             text = context.metadata.get("text", "").strip()
-            # Use text if it's not empty and not a common word
             if text and len(text) > 2:
                 destination = text
                 self.logger.info(f"Using full text as destination: {destination}")
 
-        # Validate we have a destination
         if not destination:
             return IntentResponse(
                 success=False,
@@ -198,27 +177,21 @@ class GetDirectionsHandler(BaseIntentHandler):
             f"Getting directions: {origin or 'current location'} -> {destination}"
         )
 
-        # Don't send any intermediate messages - only send final result
-        # This prevents confusing error messages from appearing before success
-
         try:
             home_page = MapsHomePage(context.driver)
 
-            # Reset map state to close any open panels (directions, place details, etc.)
             try:
                 home_page.reset_map_state()
                 self.logger.info("Reset map state before new directions")
             except:
-                pass  # Ignore if reset fails
+                pass
 
-            # Try to get directions directly
             directions_success = home_page.set_directions(
                 destination=destination,
                 origin=origin
             )
 
             if not directions_success:
-                # Fallback: Search for the location first, then get directions
                 self.logger.info(f"Direct directions failed, trying search first for: {destination}")
 
                 search_success = home_page.search(destination)
@@ -228,15 +201,12 @@ class GetDirectionsHandler(BaseIntentHandler):
                     place_page = MapsPlacePage(context.driver)
 
                     try:
-                        # Wait for search results to load and check if we're on a place page
                         self.logger.info("Waiting for search results to load...")
                         if place_page.wait_for_place_details(timeout=8):
                             self.logger.info("On place page, clicking Directions button")
 
-                            # Click the Directions button and wait for panel to open
                             place_page.click(place_page.DIRECTIONS_BUTTON)
 
-                            # Wait for directions panel to appear by checking for destination input
                             if home_page.is_element_visible(home_page.DIRECTIONS_DEST_INPUT, timeout=5):
                                 self.logger.info("Directions panel opened successfully")
                                 directions_success = True
@@ -245,7 +215,6 @@ class GetDirectionsHandler(BaseIntentHandler):
                     except Exception as e:
                         self.logger.warning(f"Could not click place page Directions button: {e}")
 
-                    # If that didn't work, try the original method
                     if not directions_success:
                         directions_success = home_page.set_directions(
                             destination=destination,
@@ -258,7 +227,6 @@ class GetDirectionsHandler(BaseIntentHandler):
                         message=f"Desculpa, não consegui obter direções para {destination}. Tenta outra vez."
                     )
 
-            # Set transport mode if specified
             if transport_mode_str:
                 try:
                     transport_mode = TransportMode.from_string(transport_mode_str)
@@ -317,7 +285,7 @@ class StartNavigationHandler(BaseIntentHandler):
     """Handler for starting turn-by-turn navigation."""
 
     supported_intents = ["start_navigation"]
-    requires_confirmation = True  # Confirm before starting navigation
+    requires_confirmation = True
     confidence_threshold = 0.80
 
     def execute(self, context: IntentContext) -> IntentResponse:
@@ -377,7 +345,6 @@ class StopNavigationHandler(BaseIntentHandler):
         self.logger.info("Stopping navigation")
 
         try:
-            # Press Escape key to exit navigation
             home_page = MapsHomePage(context.driver)
             home_page.send_keyboard_shortcut("ESCAPE")
 
