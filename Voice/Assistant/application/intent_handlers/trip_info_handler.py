@@ -149,6 +149,37 @@ class ChangeTransportModeHandler(BaseIntentHandler):
         """
         transport_mode_str = context.get_entity("transport_mode")
 
+        # Fallback to full text if no entity extracted
+        if not transport_mode_str and context.metadata and "text" in context.metadata:
+            full_text = context.metadata["text"].strip().lower()
+            self.logger.info(f"No transport_mode entity, extracting from text: {full_text}")
+
+            # Extract transport mode keywords from text
+            keywords = {
+                "caminhar": "caminhar",
+                "andar": "andar",
+                "pé": "a pé",
+                "carro": "carro",
+                "conduzir": "carro",
+                "transportes": "transportes públicos",
+                "autocarro": "transportes públicos",
+                "comboio": "transportes públicos",
+                "metro": "transportes públicos",
+                "bicicleta": "bicicleta",
+                "bike": "bicicleta",
+                "mota": "mota",
+                "scooter": "scooter",
+            }
+
+            for keyword, mode in keywords.items():
+                if keyword in full_text:
+                    transport_mode_str = mode
+                    self.logger.info(f"Extracted '{mode}' from keyword '{keyword}'")
+                    break
+
+            if not transport_mode_str:
+                transport_mode_str = full_text
+
         if not transport_mode_str:
             return IntentResponse(
                 success=False,

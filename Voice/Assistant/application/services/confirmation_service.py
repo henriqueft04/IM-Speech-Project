@@ -157,6 +157,30 @@ class ConfirmationService:
             "show_place_details": "Querias ver os detalhes do lugar?",
             "show_reviews": "Devo mostrar as avaliações?",
             "show_photos": "Querias ver as fotos?",
+            "zoom_in": "Querias aumentar o zoom?",
+            "zoom_out": "Querias diminuir o zoom?",
+            "recenter_map": "Querias recentrar o mapa?",
+            "center_location": "Querias centrar o mapa em {location}?",
+            "clear_map": "Querias limpar o mapa?",
+            "toggle_satellite": "Querias mudar para vista de satélite?",
+            "show_traffic": "Querias mostrar o trânsito?",
+            "hide_traffic": "Querias esconder o trânsito?",
+            "get_trip_duration": "Querias saber quanto tempo demora?",
+            "get_trip_distance": "Querias saber a distância?",
+            "change_transport_mode": "Querias mudar o meio de transporte?",
+            "swap_route": "Querias inverter a rota?",
+            "select_place": "Querias selecionar este lugar?",
+            "select_alternative_route": "Querias usar uma rota alternativa?",
+            "get_location_info": "Querias informações sobre este lugar?",
+            "whats_here": "Querias saber o que está aqui?",
+            "stop_navigation": "Querias parar a navegação?",
+            "change_map_type": "Querias mudar o tipo de mapa?",
+            "get_opening_hours": "Querias saber os horários?",
+            "goodbye": "Querias desligar?",
+            "cancel": "Querias cancelar?",
+            "greet": "Olá! Como posso ajudar?",
+            "thank_you": "De nada!",
+            "help": "Querias ajuda?",
         }
 
         template = confirmation_templates.get(
@@ -166,6 +190,10 @@ class ConfirmationService:
 
         # Format with entities
         try:
+            # For center_location, also accept 'destination' as 'location'
+            if intent == "center_location" and "destination" in entities and "location" not in entities:
+                entities["location"] = entities["destination"]
+
             return template.format(**entities)
         except KeyError:
             # Fallback if entities don't match template

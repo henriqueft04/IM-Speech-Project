@@ -27,6 +27,11 @@ nlu:
       - procura por [biblioteca](location)
       - mostrar [bancos](location)
       - [shopping](location)
+      - ver [Castelo de São Jorge](location)
+      - ver [Oceanário de Lisboa](location)
+      - ver [Torre de Belém](location)
+      - quero ver [Alfama](location)
+      - vê [praças em Lisboa](location)
 
   - intent: get_directions
     examples: |
@@ -129,15 +134,6 @@ nlu:
       - vista de terreno
       - mapa normal
       - vista de satélite
-      - mostrar trânsito
-      - mostrar tráfego
-      - ligar trânsito
-      - ativar camada de [trânsito](map_type)
-      - informação de [trânsito](map_type)
-      - mostrar condições de [trânsito](map_type)
-      - como está o [trânsito](map_type)
-      - vista de [trânsito](map_type)
-      - ver [tráfego](map_type)
 
   - intent: recenter_map
     examples: |
@@ -210,6 +206,56 @@ nlu:
       - horários
       - está aberto
 
+  - intent: get_location_info
+    examples: |
+      - informações sobre este lugar
+      - detalhes deste local
+      - o que é este sítio
+      - mais informações
+      - conta-me sobre este lugar
+      - informação deste lugar
+      - dá-me informação
+      - descreve este lugar
+      - sobre este local
+      - informação
+      - detalhes do lugar
+      - o que é este lugar
+      - fala-me deste lugar
+      - diz-me informações
+
+  - intent: whats_here
+    examples: |
+      - o que está aqui
+      - o que é isto
+      - identificar este local
+      - que lugar é este
+      - o que há aqui
+      - mostrar o que está aqui
+      - identificar local
+      - que sítio é este
+      - diz-me o que está aqui
+      - isto é o quê
+      - que lugar
+      - identificar
+      - isto aqui o que é
+
+  - intent: center_location
+    examples: |
+      - centrar em [Lisboa](location)
+      - centrar mapa em [Aveiro](location)
+      - focar no [Porto](location)
+      - centrar em [Coimbra](location)
+      - centrar em [Paris](location)
+      - focar em [Londres](location)
+      - mover para [Madrid](location)
+      - focar em [Torre Eiffel](location)
+      - centrar o mapa em [Portugal](location)
+      - focar o mapa em [Europa](location)
+      - centrar em [Estados Unidos](location)
+      - mover mapa para [Nova Iorque](location)
+      - centrar [Braga](location)
+      - focar [Faro](location)
+
   # ============================================================================
   # GENERAL INTENTS
   # ============================================================================
@@ -262,7 +308,6 @@ nlu:
       - parar
       - abortar
       - cancela isso
-      - não quero
 
   - intent: greet
     examples: |
@@ -338,6 +383,14 @@ nlu:
       - a pé
       - de carro
       - de bike
+      - caminhar
+      - ir a caminhar
+      - quero caminhar
+      - mudar para a pé
+      - ir andando
+      - quero ir andando
+      - de mota
+      - scooter
 
   - intent: swap_route
     examples: |
@@ -400,4 +453,18 @@ nlu:
       - rota diferente
       - outra rota
       - segunda opção de rota
-      - terceira rota
+      - [terceira](ordinal) rota
+      - rota [primeira](ordinal)
+      - [primeira](ordinal) rota
+      - voltar para a rota anterior
+      - rota anterior
+      - rota principal
+      - rota original
+      - mudar para rota principal
+      - voltar à primeira rota
+      - usar rota principal
+      - mudar para [primeira](ordinal) rota
+      - [terceira](ordinal) rota
+      - rota [3](ordinal)
+      - terceiro caminho
+      - selecionar [terceira](ordinal) rota

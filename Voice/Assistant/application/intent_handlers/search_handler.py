@@ -152,11 +152,32 @@ class GetDirectionsHandler(BaseIntentHandler):
         Returns:
             IntentResponse with directions
         """
-        # Try to get destination from entities
+        # Handle multiple destination entities (e.g., "da Lixa a Lisboa")
+        # Access raw NLU data from metadata to get ALL entities
+        origin = context.get_entity("origin")
         destination = context.get_entity("destination")
 
+        # Check if we have multiple destinations in raw NLU data
+        if context.metadata and "nlu" in context.metadata:
+            import json
+            try:
+                nlu_data = json.loads(context.metadata["nlu"])
+                raw_entities = nlu_data.get("entities", [])
+
+                # Find all destination entities
+                dest_entities = [e["value"] for e in raw_entities if e.get("entity") == "destination"]
+
+                if len(dest_entities) >= 2 and not origin:
+                    # Two destinations = origin + destination pattern
+                    origin = dest_entities[0]
+                    destination = dest_entities[1]
+                    self.logger.info(f"Extracted from dual destinations: {origin} -> {destination}")
+                elif len(dest_entities) == 1:
+                    destination = dest_entities[0]
+            except Exception as e:
+                self.logger.warning(f"Failed to parse NLU data: {e}")
+
         # If no entity extracted, try to use the entire text as destination
-        # This handles cases like user saying just "Lixa" as a follow-up
         if not destination and context.metadata:
             text = context.metadata.get("text", "").strip()
             # Use text if it's not empty and not a common word
@@ -171,8 +192,6 @@ class GetDirectionsHandler(BaseIntentHandler):
                 message="Para onde queres ir?",
                 data={"error": "missing_destination"}
             )
-
-        origin = context.get_entity("origin")  # Optional
         transport_mode_str = context.get_entity("transport_mode")  # Optional
 
         self.logger.info(

@@ -31,8 +31,8 @@ class MapsHomePage(BasePage):
     """
 
     # Locators
-    SEARCH_BOX = (By.ID, "searchboxinput")
-    SEARCH_BUTTON = (By.ID, "searchbox-searchbutton")
+    SEARCH_BOX = (By.XPATH, "//input[@id='searchboxinput' or @aria-label='Search Google Maps' or @aria-label='Pesquisar no Google Maps' or contains(@placeholder, 'Search') or contains(@placeholder, 'Pesquisar')]")
+    SEARCH_BUTTON = (By.XPATH, "//button[@id='searchbox-searchbutton' or @aria-label='Search' or @aria-label='Pesquisar']")
 
     # Map controls
     ZOOM_IN_BUTTON = (By.XPATH, "//button[@aria-label='Aumentar' or @aria-label='Zoom in']")
@@ -63,10 +63,10 @@ class MapsHomePage(BasePage):
     DIRECTIONS_DEST_INPUT = (By.XPATH, "//input[contains(@aria-label, 'destination') or contains(@aria-label, 'destino') or contains(@placeholder, 'destino')]")
 
     # Transport mode buttons (in directions panel)
-    DRIVING_MODE = (By.XPATH, "//button[@aria-label='Driving' or @data-value='Driving']")
-    TRANSIT_MODE = (By.XPATH, "//button[@aria-label='Transit' or @data-value='Transit']")
-    WALKING_MODE = (By.XPATH, "//button[@aria-label='Walking' or @data-value='Walking']")
-    CYCLING_MODE = (By.XPATH, "//button[@aria-label='Cycling' or @data-value='Cycling']")
+    DRIVING_MODE = (By.XPATH, "//button[@data-tooltip='Carro' or @data-tooltip='Driving' or .//div[@aria-label='Carro' or @aria-label='Driving']]")
+    TRANSIT_MODE = (By.XPATH, "//button[@data-tooltip='Transportes públicos' or @data-tooltip='Transit' or .//div[contains(@aria-label, 'Transportes') or @aria-label='Transit']]")
+    WALKING_MODE = (By.XPATH, "//button[@data-tooltip='Caminhar' or @data-tooltip='A pé' or @data-tooltip='Walking' or .//div[@aria-label='Caminhar' or @aria-label='A pé' or @aria-label='Walking']]")
+    CYCLING_MODE = (By.XPATH, "//button[@data-tooltip='Bicicleta' or @data-tooltip='Cycling' or .//div[contains(@aria-label, 'Bicicleta') or @aria-label='Cycling']]")
 
     # Navigation
     START_NAVIGATION_BUTTON = (By.XPATH, "//button[contains(@aria-label, 'Start') or contains(., 'Start')]")

@@ -25,26 +25,26 @@ class MapsPlacePage(BasePage):
     - Getting opening hours
     """
 
-    # Locators
-    PLACE_NAME = (By.XPATH, "//h1[contains(@class, 'fontHeadlineLarge') or @class='fontHeadlineMedium']")
-    PLACE_RATING = (By.XPATH, "//div[contains(@aria-label, 'stars') or contains(@aria-label, 'Star rating')]")
-    PLACE_RATING_VALUE = (By.XPATH, "//div[@role='img' and contains(@aria-label, 'stars')]")
-    TOTAL_RATINGS = (By.XPATH, "//button[contains(@aria-label, 'reviews')]")
+    # Locators - Support both English and Portuguese (updated for current Google Maps HTML)
+    PLACE_NAME = (By.XPATH, "//h1[contains(@class, 'DUwDvf') or contains(@class, 'fontHeadlineLarge') or contains(@class, 'fontHeadlineMedium') or contains(@class, 'fontDisplayLarge')]")
+    PLACE_RATING = (By.XPATH, "//div[contains(@aria-label, 'stars') or contains(@aria-label, 'Star rating') or contains(@aria-label, 'estrelas')]")
+    PLACE_RATING_VALUE = (By.XPATH, "//span[@role='img' and (contains(@aria-label, 'estrelas') or contains(@aria-label, 'stars'))]")
+    TOTAL_RATINGS = (By.XPATH, "//span[@role='img' and (contains(@aria-label, 'críticas') or contains(@aria-label, 'avaliações') or contains(@aria-label, 'reviews'))]")
 
     # Address and contact
     ADDRESS = (By.XPATH, "//button[@data-item-id='address']//div[contains(@class, 'fontBodyMedium')]")
     PHONE = (By.XPATH, "//button[@data-item-id='phone:tel:' or contains(@data-item-id, 'phone')]")
     WEBSITE = (By.XPATH, "//a[@data-item-id='authority' or contains(@data-item-id, 'website')]")
 
-    # Opening hours
-    HOURS_BUTTON = (By.XPATH, "//button[@data-item-id='oh' or contains(@aria-label, 'Hours')]")
-    OPEN_NOW_STATUS = (By.XPATH, "//div[contains(@class, 'fontBodyMedium') and (contains(text(), 'Open') or contains(text(), 'Closed'))]")
+    # Opening hours - Support both English and Portuguese
+    HOURS_BUTTON = (By.XPATH, "//button[@data-item-id='oh' or contains(@aria-label, 'Hours') or contains(@aria-label, 'Horário')]")
+    OPEN_NOW_STATUS = (By.XPATH, "//div[contains(@class, 'fontBodyMedium') and (contains(text(), 'Open') or contains(text(), 'Closed') or contains(text(), 'Aberto') or contains(text(), 'Fechado'))]")
 
-    # Tabs
-    OVERVIEW_TAB = (By.XPATH, "//button[@role='tab' and contains(@aria-label, 'Overview')]")
-    REVIEWS_TAB = (By.XPATH, "//button[@role='tab' and contains(@aria-label, 'Reviews')]")
-    PHOTOS_TAB = (By.XPATH, "//button[@role='tab' and contains(@aria-label, 'Photos')]")
-    ABOUT_TAB = (By.XPATH, "//button[@role='tab' and contains(@aria-label, 'About')]")
+    # Tabs - Support both English and Portuguese
+    OVERVIEW_TAB = (By.XPATH, "//button[@role='tab' and (contains(@aria-label, 'Overview') or contains(@aria-label, 'Vista geral') or contains(@aria-label, 'Visão geral'))]")
+    REVIEWS_TAB = (By.XPATH, "//button[@role='tab' and (contains(@aria-label, 'Reviews') or contains(@aria-label, 'Críticas') or contains(@aria-label, 'Avaliações'))]")
+    PHOTOS_TAB = (By.XPATH, "//button[@role='tab' and (contains(@aria-label, 'Photos') or contains(@aria-label, 'Fotos'))]")
+    ABOUT_TAB = (By.XPATH, "//button[@role='tab' and (contains(@aria-label, 'About') or contains(@aria-label, 'Acerca'))]")
 
     # Reviews
     REVIEW_ITEMS = (By.XPATH, "//div[@data-review-id or contains(@class, 'review-item')]")
@@ -87,7 +87,29 @@ class MapsPlacePage(BasePage):
         try:
             return self.get_text(self.PLACE_NAME)
         except Exception as e:
-            logger.error(f"Failed to get place name: {e}")
+            # Try alternative selectors if primary fails
+            logger.warning(f"Primary place name selector failed: {e}")
+
+            # Try any h1 element
+            try:
+                alt_name = self.get_text((By.XPATH, "//h1"), timeout=2)
+                if alt_name:
+                    logger.info(f"Found place name using fallback h1 selector: {alt_name}")
+                    return alt_name
+            except:
+                pass
+
+            # Try aria-label on main heading
+            try:
+                heading = self.find_element((By.XPATH, "//div[@role='main']//h1 | //main//h1"), timeout=2)
+                name = heading.text or heading.get_attribute("aria-label")
+                if name:
+                    logger.info(f"Found place name using main area h1: {name}")
+                    return name
+            except:
+                pass
+
+            logger.error("All place name selectors failed")
             return None
 
     @retry_on_stale_element()

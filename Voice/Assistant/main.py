@@ -52,9 +52,10 @@ def nlu_extractor(message):
 		for entity in nlu_data.get("entities", []):
 			result[entity["entity"]] = entity["value"]
 
-		return intent, confidence, result, text
+		# Return raw nlu_data as well for handlers that need all entities
+		return intent, confidence, result, text, message["nlu"]
 
-	return None, 0.0, {}, ""
+	return None, 0.0, {}, "", ""
 
 
 def ignore_ssl():
@@ -131,7 +132,7 @@ async def main():
 						continue
 
 					# Extract intent from message
-					intent, confidence, entities, text = nlu_extractor(message)
+					intent, confidence, entities, text, nlu_raw = nlu_extractor(message)
 
 					if not intent:
 						logger.warning("No intent extracted from message")
@@ -149,7 +150,7 @@ async def main():
 						intent=intent,
 						confidence=confidence,
 						entities=entities,
-						metadata={"text": text}
+						metadata={"text": text, "nlu": nlu_raw}
 					)
 
 					# Send response back via TTS

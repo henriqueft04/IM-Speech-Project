@@ -12,13 +12,7 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: switchonofflights
+- rule: Thanks
   steps:
-  - intent: light_switch
-  - action: action_switch_lights
-
-# - rule: Add_reminder to calendar
-#   steps:
-#   - intent: add_reminder
-#   - action: action_create_event
-#   - action: utter_anyelse
+  - intent: thanks
+  - action: utter_thanks

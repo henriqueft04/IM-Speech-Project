@@ -181,7 +181,7 @@ class RecenterMapHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Recenter map to current location.
+        Recenter map to current location or specific place.
 
         Args:
             context: Intent context
@@ -191,17 +191,40 @@ class RecenterMapHandler(BaseIntentHandler):
         """
         try:
             home_page = MapsHomePage(context.driver)
-            success = home_page.recenter_map()
 
-            if not success:
-                return IntentResponse(
-                    success=False,
-                    message="Desculpa, não consegui recentrar o mapa"
-                )
+            # Check if user specified a location to center on
+            location = context.get_entity("location") or context.get_entity("destination")
+
+            # If no entity, try using full text
+            if not location and context.metadata and "text" in context.metadata:
+                full_text = context.metadata["text"].strip().lower()
+                # Remove "centrar", "em", etc. to extract location
+                for word in ["centrar", "central", "em", "no", "na"]:
+                    full_text = full_text.replace(word, "").strip()
+                if full_text:
+                    location = full_text
+
+            if location:
+                # Center on specific location by searching for it
+                self.logger.info(f"Centering map on location: {location}")
+                success = home_page.search(location)
+                if success:
+                    return IntentResponse(
+                        success=True,
+                        message=f"Mapa centrado em {location}"
+                    )
+            else:
+                # Center on user's current GPS location
+                success = home_page.recenter_map()
+                if success:
+                    return IntentResponse(
+                        success=True,
+                        message="Mapa recentrado na tua localização"
+                    )
 
             return IntentResponse(
-                success=True,
-                message="Mapa recentrado na tua localização"
+                success=False,
+                message="Desculpa, não consegui recentrar o mapa"
             )
 
         except Exception as e:
@@ -291,5 +314,61 @@ class HideTrafficHandler(BaseIntentHandler):
             return IntentResponse(
                 success=False,
                 message="Ocorreu um erro ao esconder o trânsito",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("center_location")
+class CenterLocationHandler(BaseIntentHandler):
+    """Handler for centering map on a specific location."""
+
+    supported_intents = ["center_location"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Center the map on a specific location.
+
+        Args:
+            context: Intent context with location entity
+
+        Returns:
+            IntentResponse confirming map centered
+        """
+        # Try to get location from either 'location' or 'destination' entity
+        location = context.get_entity("location") or context.get_entity("destination")
+
+        if not location:
+            return IntentResponse(
+                success=False,
+                message="Em que lugar queres centrar o mapa?"
+            )
+
+        self.logger.info(f"Centering map on: {location}")
+
+        try:
+            home_page = MapsHomePage(context.driver)
+
+            # Search for the location
+            success = home_page.search(location)
+
+            if not success:
+                return IntentResponse(
+                    success=False,
+                    message=f"Não consegui encontrar {location}"
+                )
+
+            return IntentResponse(
+                success=True,
+                message=f"Centrado em {location}",
+                data={"location": location}
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error centering on location: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message=f"Ocorreu um erro ao centrar em {location}",
                 data={"error": str(e)}
             )

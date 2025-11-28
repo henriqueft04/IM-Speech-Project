@@ -92,7 +92,7 @@ class GoogleMapsAssistant:
         # Check if confirmation is needed
         if response.requires_follow_up:
             return self._handle_confirmation_required(
-                intent, confidence, entities, response
+                intent, confidence, entities, response, metadata
             )
 
         # Update map state if relevant
@@ -106,7 +106,8 @@ class GoogleMapsAssistant:
         intent: str,
         confidence: float,
         entities: Dict[str, Any],
-        response: IntentResponse
+        response: IntentResponse,
+        metadata: Optional[Dict[str, Any]] = None
     ) -> str:
         """
         Handle when confirmation is required.
@@ -116,16 +117,22 @@ class GoogleMapsAssistant:
             confidence: Confidence score
             entities: Entities
             response: Handler response
+            metadata: Original metadata (includes text)
 
         Returns:
             Confirmation message
         """
+        # Merge response follow_up_data with original metadata
+        context = response.follow_up_data or {}
+        if metadata:
+            context.update(metadata)
+
         # Store pending confirmation
         self.confirmation_service.set_pending_confirmation(
             intent=intent,
             confidence=confidence,
             entities=entities,
-            context=response.follow_up_data
+            context=context
         )
 
         # Generate confirmation message

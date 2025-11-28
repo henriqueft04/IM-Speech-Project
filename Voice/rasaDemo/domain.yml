@@ -16,12 +16,27 @@ intents:
   - zoom_out
   - change_map_type
   - recenter_map
+  - center_location
+  - show_traffic
+  - hide_traffic
+
+  # Trip Information
+  - get_trip_duration
+  - get_trip_distance
+  - change_transport_mode
+  - swap_route
+
+  # Place Selection
+  - select_place
+  - select_alternative_route
 
   # Location Information
   - show_place_details
   - show_reviews
   - show_photos
   - get_opening_hours
+  - get_location_info
+  - whats_here
 
   # General
   - help
@@ -37,6 +52,7 @@ entities:
   - transport_mode
   - map_type
   - zoom_level
+  - ordinal
 
 slots:
   location:

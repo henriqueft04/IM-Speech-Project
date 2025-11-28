@@ -97,7 +97,7 @@ class SelectPlaceHandler(BaseIntentHandler):
             results_page = MapsSearchResultsPage(context.driver)
 
             # Click the result
-            success = results_page.click_result(index - 1)  # 0-indexed
+            success = results_page.select_result_by_index(index - 1)  # 0-indexed
 
             if not success:
                 return IntentResponse(
@@ -168,18 +168,41 @@ class SelectAlternativeRouteHandler(BaseIntentHandler):
         Returns:
             IntentResponse confirming route selection
         """
-        ordinal_str = context.get_entity("ordinal") or "1"
+        ordinal_str = context.get_entity("ordinal")
 
-        # Parse which route to select
-        route_index = self._parse_route_number(ordinal_str)
+        # Check for keywords in the full text to determine intent
+        full_text = ""
+        if context.metadata and "text" in context.metadata:
+            full_text = context.metadata["text"].strip().lower()
+
+        # If no ordinal specified, interpret based on keywords
+        if not ordinal_str:
+            # Keywords for first/main route
+            if any(word in full_text for word in ["anterior", "principal", "original", "primeira", "primeiro"]):
+                route_index = 0  # First route (main route)
+            else:
+                # Default to second route for "outra rota", "alternativa", etc.
+                route_index = 1  # Second route (first alternative)
+        else:
+            # Parse which route to select
+            route_index = self._parse_route_number(ordinal_str)
 
         self.logger.info(f"Selecting alternative route #{route_index}")
 
         try:
             # XPath for route options in directions panel
+            # Based on actual Google Maps HTML structure
             route_xpaths = [
-                f"//div[@id='section-directions-trip-{route_index - 1}']",
-                f"(//div[contains(@class, 'section-directions-trip')])[{route_index}]",
+                # Try specific ID with data-trip-index attribute (most reliable)
+                f"//div[@id='section-directions-trip-{route_index}' and @data-trip-index='{route_index}']",
+                # Try just the ID
+                f"//div[@id='section-directions-trip-{route_index}']",
+                # Try using data-trip-index alone
+                f"//div[@data-trip-index='{route_index}']",
+                # Try role-based selection
+                f"//div[@data-trip-index='{route_index}' and (@role='button' or @role='link')]",
+                # Fallback: try nth child of parent
+                f"(//div[starts-with(@id, 'section-directions-trip-')])[{route_index + 1}]",
             ]
 
             route_selected = False
@@ -187,11 +210,19 @@ class SelectAlternativeRouteHandler(BaseIntentHandler):
                 try:
                     route_elem = context.driver.find_element(By.XPATH, xpath)
                     if route_elem.is_displayed():
+                        # Scroll element into view before clicking
+                        context.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", route_elem)
+                        import time
+                        time.sleep(0.3)  # Brief wait for scroll
+
                         route_elem.click()
                         route_selected = True
-                        self.logger.info(f"Clicked route option {route_index}")
+                        self.logger.info(f"Clicked route option {route_index} using xpath: {xpath}")
                         break
-                except:
+                    else:
+                        self.logger.debug(f"Element found but not displayed: {xpath}")
+                except Exception as e:
+                    self.logger.debug(f"XPath {xpath} failed: {e}")
                     continue
 
             if not route_selected:
@@ -217,12 +248,17 @@ class SelectAlternativeRouteHandler(BaseIntentHandler):
         """Parse route number from ordinal string."""
         ordinal_lower = ordinal_str.lower().strip()
 
-        # Direct number
+        # Direct number (assume 1-indexed from user, convert to 0-indexed)
         if ordinal_lower.isdigit():
-            return int(ordinal_lower)
+            num = int(ordinal_lower)
+            return num - 1 if num > 0 else 0  # Convert 1->0, 2->1, 3->2
 
-        # Ordinal words
-        ordinals = {"primeiro": 1, "primeira": 1, "segundo": 2, "segunda": 2,
-                    "terceiro": 3, "terceira": 3, "first": 1, "second": 2, "third": 3}
+        # Ordinal words (map to 0-indexed route numbers)
+        ordinals = {
+            "primeiro": 0, "primeira": 0,  # First route = index 0
+            "segundo": 1, "segunda": 1,    # Second route = index 1
+            "terceiro": 2, "terceira": 2,  # Third route = index 2
+            "first": 0, "second": 1, "third": 2
+        }
 
-        return ordinals.get(ordinal_lower, 1)  # Default to first
+        return ordinals.get(ordinal_lower, 1)  # Default to route 1 (second route)
