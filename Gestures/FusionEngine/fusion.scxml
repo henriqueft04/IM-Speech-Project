@@ -14,6 +14,7 @@
     <onentry>
       <log label="[main]" expr="READY" />
     </onentry>
+    <transition target="gestures_restaurants" event="[GESTURES][RESTAURANTS]" />
     <transition target="sspeech[speech][change_color][laranja]" event="[SPEECH][CHANGE_COLOR][LARANJA]" />
     <transition target="sspeech[speech][change_color][azul]" event="[SPEECH][CHANGE_COLOR][AZUL]" />
     <transition target="sspeech[speech][change_color][preto]" event="[SPEECH][CHANGE_COLOR][PRETO]" />
@@ -390,6 +391,15 @@
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][CHANGE_COLOR][CIRCULO][VERMELHO]')}" />
       <send event="CHANGE_COLOR_CIRCULO_VERMELHO" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_restaurants">
+    <onentry>
+      <log label="[gestures_restaurants]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][RESTAURANTS]')}" />
+      <send event="GESTURE_RESTAURANTS" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
