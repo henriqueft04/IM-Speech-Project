@@ -129,7 +129,7 @@ class GasStationsFilterHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_swipe_left")
 class SwipeLeftHandler(BaseIntentHandler):
-    """Handler for swipe left gesture."""
+    """Handler for swipe left gesture - rotate camera left in street view."""
 
     supported_intents = ["gesture_swipe_left"]
     requires_confirmation = False
@@ -137,7 +137,7 @@ class SwipeLeftHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe left gesture - e.g., go back or pan map left.
+        Handle swipe left gesture - rotate camera left in street view.
 
         Args:
             context: Intent context
@@ -146,13 +146,16 @@ class SwipeLeftHandler(BaseIntentHandler):
             IntentResponse
         """
         try:
-            home_page = MapsHomePage(context.driver)
-            # Pan the map to the left
-            home_page.pan_map(direction="left")
+            from selenium.webdriver.common.keys import Keys
+            from selenium.webdriver.common.action_chains import ActionChains
+
+            # Rotate camera left (in street view or pan map)
+            actions = ActionChains(context.driver)
+            actions.send_keys(Keys.ARROW_LEFT).perform()
 
             return IntentResponse(
                 success=True,
-                message="A mover para a esquerda"
+                message="A olhar para a esquerda"
             )
 
         except Exception as e:
@@ -166,7 +169,7 @@ class SwipeLeftHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_swipe_right")
 class SwipeRightHandler(BaseIntentHandler):
-    """Handler for swipe right gesture."""
+    """Handler for swipe right gesture - rotate camera right in street view."""
 
     supported_intents = ["gesture_swipe_right"]
     requires_confirmation = False
@@ -174,7 +177,7 @@ class SwipeRightHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe right gesture - e.g., pan map right.
+        Handle swipe right gesture - rotate camera right in street view.
 
         Args:
             context: Intent context
@@ -183,12 +186,16 @@ class SwipeRightHandler(BaseIntentHandler):
             IntentResponse
         """
         try:
-            home_page = MapsHomePage(context.driver)
-            home_page.pan_map(direction="right")
+            from selenium.webdriver.common.keys import Keys
+            from selenium.webdriver.common.action_chains import ActionChains
+
+            # Rotate camera right (in street view or pan map)
+            actions = ActionChains(context.driver)
+            actions.send_keys(Keys.ARROW_RIGHT).perform()
 
             return IntentResponse(
                 success=True,
-                message="A mover para a direita"
+                message="A olhar para a direita"
             )
 
         except Exception as e:
@@ -201,7 +208,7 @@ class SwipeRightHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_swipe_up")
 class SwipeUpHandler(BaseIntentHandler):
-    """Handler for swipe up gesture."""
+    """Handler for swipe up gesture - rotate camera up in street view."""
 
     supported_intents = ["gesture_swipe_up"]
     requires_confirmation = False
@@ -209,7 +216,7 @@ class SwipeUpHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe up gesture - pan map up.
+        Handle swipe up gesture - rotate camera up in street view.
 
         Args:
             context: Intent context
@@ -218,12 +225,16 @@ class SwipeUpHandler(BaseIntentHandler):
             IntentResponse
         """
         try:
-            home_page = MapsHomePage(context.driver)
-            home_page.pan_map(direction="up")
+            from selenium.webdriver.common.keys import Keys
+            from selenium.webdriver.common.action_chains import ActionChains
+
+            # Rotate camera up (in street view or pan map)
+            actions = ActionChains(context.driver)
+            actions.send_keys(Keys.ARROW_UP).perform()
 
             return IntentResponse(
                 success=True,
-                message="A mover para cima"
+                message="A olhar para cima"
             )
 
         except Exception as e:
@@ -236,7 +247,7 @@ class SwipeUpHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_swipe_down")
 class SwipeDownHandler(BaseIntentHandler):
-    """Handler for swipe down gesture."""
+    """Handler for swipe down gesture - rotate camera down in street view."""
 
     supported_intents = ["gesture_swipe_down"]
     requires_confirmation = False
@@ -244,7 +255,7 @@ class SwipeDownHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe down gesture - pan map down.
+        Handle swipe down gesture - rotate camera down in street view.
 
         Args:
             context: Intent context
@@ -253,12 +264,16 @@ class SwipeDownHandler(BaseIntentHandler):
             IntentResponse
         """
         try:
-            home_page = MapsHomePage(context.driver)
-            home_page.pan_map(direction="down")
+            from selenium.webdriver.common.keys import Keys
+            from selenium.webdriver.common.action_chains import ActionChains
+
+            # Rotate camera down (in street view or pan map)
+            actions = ActionChains(context.driver)
+            actions.send_keys(Keys.ARROW_DOWN).perform()
 
             return IntentResponse(
                 success=True,
-                message="A mover para baixo"
+                message="A olhar para baixo"
             )
 
         except Exception as e:
@@ -337,5 +352,314 @@ class GestureZoomOutHandler(BaseIntentHandler):
             return IntentResponse(
                 success=False,
                 message="Ocorreu um erro ao afastar",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_transports")
+class TransportsFilterHandler(BaseIntentHandler):
+    """Handler for selecting transit/transports filter via gesture."""
+
+    supported_intents = ["gesture_transports"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Select the transit/transport filter on Google Maps.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            home_page = MapsHomePage(context.driver)
+            home_page.click_filter_button("Transportes públicos")
+
+            return IntentResponse(
+                success=True,
+                message="A mostrar transportes públicos na área"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error selecting transports filter: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro ao selecionar transportes",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_camera")
+class CameraHandler(BaseIntentHandler):
+    """Handler for camera gesture - open 'Coisas a fazer' (Explore/Activities)."""
+
+    supported_intents = ["gesture_camera"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Handle camera gesture - open 'Coisas a fazer' menu.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            home_page = MapsHomePage(context.driver)
+
+            if home_page.open_explore_menu():
+                return IntentResponse(
+                    success=True,
+                    message="A abrir coisas a fazer"
+                )
+            else:
+                return IntentResponse(
+                    success=False,
+                    message="Não encontrei o botão 'Coisas a fazer'"
+                )
+
+        except Exception as e:
+            self.logger.error(f"Error opening explore menu: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_enter_street")
+class EnterStreetHandler(BaseIntentHandler):
+    """Handler for entering street view via gesture."""
+
+    supported_intents = ["gesture_enter_street"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Enter street view mode.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            home_page = MapsHomePage(context.driver)
+
+            if home_page.enter_street_view():
+                return IntentResponse(
+                    success=True,
+                    message="A entrar em vista de rua"
+                )
+            else:
+                return IntentResponse(
+                    success=False,
+                    message="Não foi possível entrar em vista de rua nesta localização"
+                )
+
+        except Exception as e:
+            self.logger.error(f"Error entering street view: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro ao entrar em vista de rua",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_exit_street")
+class ExitStreetHandler(BaseIntentHandler):
+    """Handler for exiting street view via gesture."""
+
+    supported_intents = ["gesture_exit_street"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Exit street view mode.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            home_page = MapsHomePage(context.driver)
+
+            if home_page.exit_street_view():
+                return IntentResponse(
+                    success=True,
+                    message="A sair de vista de rua"
+                )
+            else:
+                return IntentResponse(
+                    success=False,
+                    message="Não foi possível sair de vista de rua"
+                )
+
+        except Exception as e:
+            self.logger.error(f"Error exiting street view: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro ao sair de vista de rua",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_forward")
+class ForwardHandler(BaseIntentHandler):
+    """Handler for forward gesture in street view."""
+
+    supported_intents = ["gesture_forward"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Move forward in street view.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            from selenium.webdriver.common.keys import Keys
+            # Press Up arrow to move forward in street view
+            context.driver.find_element("tag name", "body").send_keys(Keys.ARROW_UP)
+
+            return IntentResponse(
+                success=True,
+                message="A avançar"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error moving forward: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_select")
+class SelectHandler(BaseIntentHandler):
+    """Handler for select gesture - click on current item."""
+
+    supported_intents = ["gesture_select"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Select/click the current focused item.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            from infrastructure.page_objects import MapsSearchResultsPage
+
+            # Try to select the first search result if available
+            results_page = MapsSearchResultsPage(context.driver)
+            results_page.select_result_by_index(0)
+
+            return IntentResponse(
+                success=True,
+                message="Selecionado"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error selecting: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro ao selecionar",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_up_option")
+class UpOptionHandler(BaseIntentHandler):
+    """Handler for up option gesture - navigate up in list."""
+
+    supported_intents = ["gesture_up_option"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Navigate up in search results or menu options.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            from selenium.webdriver.common.keys import Keys
+            # Press Arrow Up to navigate
+            context.driver.find_element("tag name", "body").send_keys(Keys.ARROW_UP)
+
+            return IntentResponse(
+                success=True,
+                message="Opção anterior"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error navigating up: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro",
+                data={"error": str(e)}
+            )
+
+
+@IntentRouter.register("gesture_down_option")
+class DownOptionHandler(BaseIntentHandler):
+    """Handler for down option gesture - navigate down in list."""
+
+    supported_intents = ["gesture_down_option"]
+    requires_confirmation = False
+    confidence_threshold = 0.70
+
+    def execute(self, context: IntentContext) -> IntentResponse:
+        """
+        Navigate down in search results or menu options.
+
+        Args:
+            context: Intent context
+
+        Returns:
+            IntentResponse
+        """
+        try:
+            from selenium.webdriver.common.keys import Keys
+            # Press Arrow Down to navigate
+            context.driver.find_element("tag name", "body").send_keys(Keys.ARROW_DOWN)
+
+            return IntentResponse(
+                success=True,
+                message="Próxima opção"
+            )
+
+        except Exception as e:
+            self.logger.error(f"Error navigating down: {e}", exc_info=True)
+            return IntentResponse(
+                success=False,
+                message="Ocorreu um erro",
                 data={"error": str(e)}
             )

@@ -2,7 +2,77 @@
 <Gestures>
   <Gesture>
     <ID>0</ID>
+    <NAME>Camera</NAME>
+    <SEMANTIC>Camera</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>1</ID>
+    <NAME>DownOption_Left</NAME>
+    <SEMANTIC>DownOL</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>2</ID>
+    <NAME>EnterStreet</NAME>
+    <SEMANTIC>EnterS</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>3</ID>
+    <NAME>ExitStreet</NAME>
+    <SEMANTIC>ExitS</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>4</ID>
+    <NAME>Hotels</NAME>
+    <SEMANTIC>Hotels</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>5</ID>
     <NAME>Restaurants</NAME>
     <SEMANTIC>Restaurants</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>6</ID>
+    <NAME>Select</NAME>
+    <SEMANTIC>Select</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>7</ID>
+    <NAME>SwipeDown</NAME>
+    <SEMANTIC>SwipeD</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>8</ID>
+    <NAME>SwipeLeft_Left</NAME>
+    <SEMANTIC>SwipeLL</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>9</ID>
+    <NAME>SwipeRight_Right</NAME>
+    <SEMANTIC>SwipeRR</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>10</ID>
+    <NAME>SwipeUp</NAME>
+    <SEMANTIC>SwipeU</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>11</ID>
+    <NAME>Transports</NAME>
+    <SEMANTIC>Transports</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>12</ID>
+    <NAME>UpOption_Right</NAME>
+    <SEMANTIC>UpOR</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>13</ID>
+    <NAME>ZoomIn</NAME>
+    <SEMANTIC>ZoomI</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>14</ID>
+    <NAME>ZoomOut</NAME>
+    <SEMANTIC>ZoomO</SEMANTIC>
   </Gesture>
 </Gestures>

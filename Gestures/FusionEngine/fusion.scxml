@@ -15,6 +15,19 @@
       <log label="[main]" expr="READY" />
     </onentry>
     <transition target="gestures_restaurants" event="[GESTURES][RESTAURANTS]" />
+    <transition target="gestures_hotels" event="[GESTURES][HOTELS]" />
+    <transition target="gestures_transports" event="[GESTURES][TRANSPORTS]" />
+    <transition target="gestures_camera" event="[GESTURES][CAMERA]" />
+    <transition target="gestures_enter_street" event="[GESTURES][ENTERSTREET]" />
+    <transition target="gestures_exit_street" event="[GESTURES][EXITSTREET]" />
+    <transition target="gestures_forward" event="[GESTURES][FORWARD]" />
+    <transition target="gestures_swipe_right" event="[GESTURES][SWIPERIGHT]" />
+    <transition target="gestures_swipe_left" event="[GESTURES][SWIPELEFT]" />
+    <transition target="gestures_swipe_up" event="[GESTURES][SWIPEUP]" />
+    <transition target="gestures_swipe_down" event="[GESTURES][SWIPEDOWN]" />
+    <transition target="gestures_select" event="[GESTURES][SELECT]" />
+    <transition target="gestures_up_option" event="[GESTURES][UPOPTION]" />
+    <transition target="gestures_down_option" event="[GESTURES][DOWNOPTION]" />
     <transition target="sspeech[speech][change_color][laranja]" event="[SPEECH][CHANGE_COLOR][LARANJA]" />
     <transition target="sspeech[speech][change_color][azul]" event="[SPEECH][CHANGE_COLOR][AZUL]" />
     <transition target="sspeech[speech][change_color][preto]" event="[SPEECH][CHANGE_COLOR][PRETO]" />
@@ -400,6 +413,123 @@
       <assign name="data1" expr="${_eventdata.data}" />
       <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][RESTAURANTS]')}" />
       <send event="GESTURE_RESTAURANTS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_hotels">
+    <onentry>
+      <log label="[gestures_hotels]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][HOTELS]')}" />
+      <send event="GESTURE_HOTELS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_transports">
+    <onentry>
+      <log label="[gestures_transports]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][TRANSPORTS]')}" />
+      <send event="GESTURE_TRANSPORTS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_camera">
+    <onentry>
+      <log label="[gestures_camera]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][CAMERA]')}" />
+      <send event="GESTURE_CAMERA" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_enter_street">
+    <onentry>
+      <log label="[gestures_enter_street]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][ENTERSTREET]')}" />
+      <send event="GESTURE_ENTERSTREET" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_exit_street">
+    <onentry>
+      <log label="[gestures_exit_street]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][EXITSTREET]')}" />
+      <send event="GESTURE_EXITSTREET" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_forward">
+    <onentry>
+      <log label="[gestures_forward]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][FORWARD]')}" />
+      <send event="GESTURE_FORWARD" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_swipe_right">
+    <onentry>
+      <log label="[gestures_swipe_right]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][SWIPERIGHT]')}" />
+      <send event="GESTURE_SWIPERIGHT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_swipe_left">
+    <onentry>
+      <log label="[gestures_swipe_left]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][SWIPELEFT]')}" />
+      <send event="GESTURE_SWIPELEFT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_swipe_up">
+    <onentry>
+      <log label="[gestures_swipe_up]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][SWIPEUP]')}" />
+      <send event="GESTURE_SWIPEUP" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_swipe_down">
+    <onentry>
+      <log label="[gestures_swipe_down]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][SWIPEDOWN]')}" />
+      <send event="GESTURE_SWIPEDOWN" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_select">
+    <onentry>
+      <log label="[gestures_select]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][SELECT]')}" />
+      <send event="GESTURE_SELECT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_up_option">
+    <onentry>
+      <log label="[gestures_up_option]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][UPOPTION]')}" />
+      <send event="GESTURE_UPOPTION" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="gestures_down_option">
+    <onentry>
+      <log label="[gestures_down_option]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURES][DOWNOPTION]')}" />
+      <send event="GESTURE_DOWNOPTION" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>

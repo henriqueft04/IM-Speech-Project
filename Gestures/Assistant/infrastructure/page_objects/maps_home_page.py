@@ -71,6 +71,12 @@ class MapsHomePage(BasePage):
     # Navigation
     START_NAVIGATION_BUTTON = (By.XPATH, "//button[contains(@aria-label, 'Start') or contains(., 'Start')]")
 
+    # Street View and Explore
+    PEGMAN_BUTTON = (By.XPATH, "//button[contains(@aria-label, 'Pegman') or contains(@aria-label, 'Street View')]")
+    STREET_VIEW_EXIT = (By.XPATH, "//button[contains(@aria-label, 'Sair') or contains(@aria-label, 'Exit') or contains(@aria-label, 'Fechar') or contains(@aria-label, 'Close')]")
+    EXPLORE_BUTTON = (By.XPATH, "//button[contains(@aria-label, 'Explorar') or contains(@aria-label, 'Explore') or contains(., 'Coisas a fazer') or contains(., 'Things to do') or @aria-label='Mostrar imagens' or @aria-label='Show imagery' or contains(@aria-label, 'Atividades') or contains(@aria-label, 'Activities')]")
+    MAP_CANVAS = (By.CSS_SELECTOR, "canvas.widget-scene-canvas")
+
 
 
     def search(self, query: str) -> bool:
@@ -506,4 +512,127 @@ class MapsHomePage(BasePage):
 
         except Exception as e:
             logger.error(f"Failed to pan map {direction}: {e}")
+            return False
+
+    def enter_street_view(self) -> bool:
+        """
+        Enter Street View mode by clicking on the map.
+        Tries center first, then multiple positions if not available.
+
+        Returns:
+            True if successfully entered Street View
+        """
+        try:
+            # Get map canvas element
+            canvas = self.find_element(self.MAP_CANVAS, timeout=5)
+
+            # Get canvas dimensions
+            canvas_width = canvas.size['width']
+            canvas_height = canvas.size['height']
+
+            # Define click positions to try (center, then spiral outward)
+            # Format: (x_offset_from_center, y_offset_from_center)
+            positions = [
+                (0, 0),           # Center
+                (-100, 0),        # Left
+                (100, 0),         # Right
+                (0, -100),        # Up
+                (0, 100),         # Down
+                (-100, -100),     # Top-left
+                (100, -100),      # Top-right
+                (-100, 100),      # Bottom-left
+                (100, 100),       # Bottom-right
+            ]
+
+            center_x = canvas_width // 2
+            center_y = canvas_height // 2
+
+            for x_offset, y_offset in positions:
+                try:
+                    # Calculate click position
+                    click_x = center_x + x_offset
+                    click_y = center_y + y_offset
+
+                    # Ensure within bounds
+                    if 0 <= click_x <= canvas_width and 0 <= click_y <= canvas_height:
+                        # Move to position and double-click
+                        actions = ActionChains(self.driver)
+                        actions.move_to_element_with_offset(canvas, x_offset, y_offset)
+                        actions.double_click()
+                        actions.perform()
+
+                        # Wait briefly to check if Street View loaded
+                        time.sleep(1.5)
+
+                        # Check if we're in Street View by looking for exit button or URL change
+                        if self.is_element_visible(self.STREET_VIEW_EXIT, timeout=2):
+                            logger.info(f"Entered Street View at position ({x_offset}, {y_offset})")
+                            return True
+
+                        # Also check URL for Street View indicator
+                        if "@" in self.driver.current_url or "data=" in self.driver.current_url:
+                            logger.info(f"Entered Street View (detected via URL) at position ({x_offset}, {y_offset})")
+                            return True
+
+                except Exception as e:
+                    logger.debug(f"Position ({x_offset}, {y_offset}) failed: {e}")
+                    continue
+
+            logger.warning("Could not enter Street View at any position")
+            return False
+
+        except Exception as e:
+            logger.error(f"Failed to enter Street View: {e}")
+            return False
+
+    def exit_street_view(self) -> bool:
+        """
+        Exit Street View mode.
+        Tries clicking exit button first, falls back to Escape key.
+
+        Returns:
+            True if successfully exited Street View
+        """
+        try:
+            # Try clicking exit button first
+            try:
+                if self.is_element_visible(self.STREET_VIEW_EXIT, timeout=2):
+                    self.click(self.STREET_VIEW_EXIT)
+                    logger.info("Exited Street View via exit button")
+                    time.sleep(0.5)
+                    return True
+            except:
+                pass
+
+            # Fallback: Press Escape key
+            actions = ActionChains(self.driver)
+            actions.send_keys(Keys.ESCAPE).perform()
+            logger.info("Exited Street View via Escape key")
+            time.sleep(0.5)
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to exit Street View: {e}")
+            return False
+
+    def open_explore_menu(self) -> bool:
+        """
+        Open the 'Coisas a fazer' (Explore/Activities) menu.
+
+        Returns:
+            True if successfully opened the menu
+        """
+        try:
+            # Try to find and click the explore button
+            if self.is_element_visible(self.EXPLORE_BUTTON, timeout=5):
+                self.click(self.EXPLORE_BUTTON)
+                logger.info("Opened Explore/Coisas a fazer menu")
+                time.sleep(0.5)
+                return True
+
+            logger.warning("Could not find Explore button")
+            return False
+
+        except Exception as e:
+            logger.error(f"Failed to open Explore menu: {e}")
             return False
