@@ -129,7 +129,7 @@ class GasStationsFilterHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_swipe_left")
 class SwipeLeftHandler(BaseIntentHandler):
-    """Handler for swipe left gesture - rotate camera left in street view."""
+    """Handler for swipe left gesture - pan map left or rotate camera left in street view."""
 
     supported_intents = ["gesture_swipe_left"]
     requires_confirmation = False
@@ -137,39 +137,36 @@ class SwipeLeftHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe left gesture - rotate camera left in street view.
-
-        Args:
-            context: Intent context
-
-        Returns:
-            IntentResponse
+        Handle swipe left gesture.
+        - In Street View: rotate camera left
+        - On map: pan map to show what's on the left
         """
         try:
-            from selenium.webdriver.common.keys import Keys
-            from selenium.webdriver.common.action_chains import ActionChains
+            home_page = MapsHomePage(context.driver)
 
-            # Rotate camera left (in street view or pan map)
-            actions = ActionChains(context.driver)
-            actions.send_keys(Keys.ARROW_LEFT).perform()
-
-            return IntentResponse(
-                success=True,
-                message="A olhar para a esquerda"
-            )
+            if home_page._is_in_street_view():
+                # Street View: rotate camera left
+                success = home_page.rotate_street_view("left")
+                return IntentResponse(
+                    success=success,
+                    message="A olhar para a esquerda" if success else "Não consegui rodar"
+                )
+            else:
+                # Map view: pan left
+                success = home_page.pan_map("left", times=3)
+                return IntentResponse(
+                    success=success,
+                    message="A mover para a esquerda" if success else "Não consegui mover o mapa"
+                )
 
         except Exception as e:
             self.logger.error(f"Error handling swipe left: {e}", exc_info=True)
-            return IntentResponse(
-                success=False,
-                message="Ocorreu um erro",
-                data={"error": str(e)}
-            )
+            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
 
 
 @IntentRouter.register("gesture_swipe_right")
 class SwipeRightHandler(BaseIntentHandler):
-    """Handler for swipe right gesture - rotate camera right in street view."""
+    """Handler for swipe right gesture - pan map right or rotate camera right in street view."""
 
     supported_intents = ["gesture_swipe_right"]
     requires_confirmation = False
@@ -177,38 +174,36 @@ class SwipeRightHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe right gesture - rotate camera right in street view.
-
-        Args:
-            context: Intent context
-
-        Returns:
-            IntentResponse
+        Handle swipe right gesture.
+        - In Street View: rotate camera right
+        - On map: pan map to show what's on the right
         """
         try:
-            from selenium.webdriver.common.keys import Keys
-            from selenium.webdriver.common.action_chains import ActionChains
+            home_page = MapsHomePage(context.driver)
 
-            # Rotate camera right (in street view or pan map)
-            actions = ActionChains(context.driver)
-            actions.send_keys(Keys.ARROW_RIGHT).perform()
-
-            return IntentResponse(
-                success=True,
-                message="A olhar para a direita"
-            )
+            if home_page._is_in_street_view():
+                # Street View: rotate camera right
+                success = home_page.rotate_street_view("right")
+                return IntentResponse(
+                    success=success,
+                    message="A olhar para a direita" if success else "Não consegui rodar"
+                )
+            else:
+                # Map view: pan right
+                success = home_page.pan_map("right", times=3)
+                return IntentResponse(
+                    success=success,
+                    message="A mover para a direita" if success else "Não consegui mover o mapa"
+                )
 
         except Exception as e:
             self.logger.error(f"Error handling swipe right: {e}", exc_info=True)
-            return IntentResponse(
-                success=False,
-                message="Ocorreu um erro",
-                data={"error": str(e)}
-            )
+            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
+
 
 @IntentRouter.register("gesture_swipe_up")
 class SwipeUpHandler(BaseIntentHandler):
-    """Handler for swipe up gesture - rotate camera up in street view."""
+    """Handler for swipe up gesture - pan map up or rotate camera up in street view."""
 
     supported_intents = ["gesture_swipe_up"]
     requires_confirmation = False
@@ -216,38 +211,36 @@ class SwipeUpHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe up gesture - rotate camera up in street view.
-
-        Args:
-            context: Intent context
-
-        Returns:
-            IntentResponse
+        Handle swipe up gesture.
+        - In Street View: rotate camera up (look up)
+        - On map: pan map to show what's above
         """
         try:
-            from selenium.webdriver.common.keys import Keys
-            from selenium.webdriver.common.action_chains import ActionChains
+            home_page = MapsHomePage(context.driver)
 
-            # Rotate camera up (in street view or pan map)
-            actions = ActionChains(context.driver)
-            actions.send_keys(Keys.ARROW_UP).perform()
-
-            return IntentResponse(
-                success=True,
-                message="A olhar para cima"
-            )
+            if home_page._is_in_street_view():
+                # Street View: rotate camera up
+                success = home_page.rotate_street_view("up")
+                return IntentResponse(
+                    success=success,
+                    message="A olhar para cima" if success else "Não consegui rodar"
+                )
+            else:
+                # Map view: pan up
+                success = home_page.pan_map("up", times=3)
+                return IntentResponse(
+                    success=success,
+                    message="A mover para cima" if success else "Não consegui mover o mapa"
+                )
 
         except Exception as e:
             self.logger.error(f"Error handling swipe up: {e}", exc_info=True)
-            return IntentResponse(
-                success=False,
-                message="Ocorreu um erro",
-                data={"error": str(e)}
-            )
+            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
+
 
 @IntentRouter.register("gesture_swipe_down")
 class SwipeDownHandler(BaseIntentHandler):
-    """Handler for swipe down gesture - rotate camera down in street view."""
+    """Handler for swipe down gesture - pan map down or rotate camera down in street view."""
 
     supported_intents = ["gesture_swipe_down"]
     requires_confirmation = False
@@ -255,34 +248,33 @@ class SwipeDownHandler(BaseIntentHandler):
 
     def execute(self, context: IntentContext) -> IntentResponse:
         """
-        Handle swipe down gesture - rotate camera down in street view.
-
-        Args:
-            context: Intent context
-
-        Returns:
-            IntentResponse
+        Handle swipe down gesture.
+        - In Street View: rotate camera down (look down)
+        - On map: pan map to show what's below
         """
         try:
-            from selenium.webdriver.common.keys import Keys
-            from selenium.webdriver.common.action_chains import ActionChains
+            home_page = MapsHomePage(context.driver)
 
-            # Rotate camera down (in street view or pan map)
-            actions = ActionChains(context.driver)
-            actions.send_keys(Keys.ARROW_DOWN).perform()
-
-            return IntentResponse(
-                success=True,
-                message="A olhar para baixo"
-            )
+            if home_page._is_in_street_view():
+                # Street View: rotate camera down
+                success = home_page.rotate_street_view("down")
+                return IntentResponse(
+                    success=success,
+                    message="A olhar para baixo" if success else "Não consegui rodar"
+                )
+            else:
+                # Map view: pan down
+                success = home_page.pan_map("down", times=3)
+                return IntentResponse(
+                    success=success,
+                    message="A mover para baixo" if success else "Não consegui mover o mapa"
+                )
 
         except Exception as e:
             self.logger.error(f"Error handling swipe down: {e}", exc_info=True)
-            return IntentResponse(
-                success=False,
-                message="Ocorreu um erro",
-                data={"error": str(e)}
-            )
+            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
+
+
 
 @IntentRouter.register("gesture_zoom_in")
 class GestureZoomInHandler(BaseIntentHandler):
@@ -517,7 +509,7 @@ class ExitStreetHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_forward")
 class ForwardHandler(BaseIntentHandler):
-    """Handler for forward gesture in street view."""
+    """Handler for forward gesture in street view - move forward."""
 
     supported_intents = ["gesture_forward"]
     requires_confirmation = False
@@ -534,14 +526,28 @@ class ForwardHandler(BaseIntentHandler):
             IntentResponse
         """
         try:
-            from selenium.webdriver.common.keys import Keys
-            # Press Up arrow to move forward in street view
-            context.driver.find_element("tag name", "body").send_keys(Keys.ARROW_UP)
+            home_page = MapsHomePage(context.driver)
 
-            return IntentResponse(
-                success=True,
-                message="A avançar"
-            )
+            # Check if we're in Street View
+            if not home_page._is_in_street_view():
+                return IntentResponse(
+                    success=False,
+                    message="Não estou em vista de rua"
+                )
+
+            # Try to move forward
+            success = home_page.move_forward_street_view()
+
+            if success:
+                return IntentResponse(
+                    success=True,
+                    message="A avançar"
+                )
+            else:
+                return IntentResponse(
+                    success=False,
+                    message="Não consegui avançar"
+                )
 
         except Exception as e:
             self.logger.error(f"Error moving forward: {e}", exc_info=True)
