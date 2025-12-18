@@ -70,10 +70,12 @@ def nlu_extractor(message):
 				if gesture_type:
 					gesture_lower = gesture_type.lower()
 					result["gesture"] = gesture_lower
+					logger.info(f"Gesture recognized: {gesture_type} -> {gesture_lower}")
 
-					# Map confirmation gestures to affirm/deny intents
-					# This allows thumbs up/down to work for confirmation flows
+					# Map gesture semantic codes to intent names
+					# Matches Gestures.xml <SEMANTIC> codes to Python handler intents
 					gesture_to_intent = {
+						# Confirmation gestures
 						"thumbsup": "affirm",
 						"thumbs_up": "affirm",
 						"thumbup": "affirm",
@@ -84,11 +86,29 @@ def nlu_extractor(message):
 						"thumbdown": "deny",
 						"no": "deny",
 						"cancel": "deny",
+
+						# Gesture semantic codes from Gestures.xml
+						"camera": "gesture_camera",           # Camera -> Coisas a fazer
+						"downol": "gesture_down_option",     # DownOption_Left -> Down
+						"enters": "gesture_enter_street",    # EnterStreet -> Enter Street View
+						"exits": "gesture_exit_street",      # ExitStreet -> Exit Street View
+						"hotels": "gesture_hotels",          # Hotels -> Hotels filter
+						"restaurants": "gesture_restaurants", # Restaurants -> Restaurants filter
+						"select": "gesture_select",          # Select -> Select item
+						"swiped": "gesture_swipe_down",      # SwipeDown -> Swipe down
+						"swipell": "gesture_swipe_left",     # SwipeLeft_Left -> Swipe left
+						"swiperr": "gesture_swipe_right",    # SwipeRight_Right -> Swipe right
+						"swipeu": "gesture_swipe_up",        # SwipeUp -> Swipe up
+						"transports": "gesture_transports",  # Transports -> Transports filter
+						"upor": "gesture_up_option",         # UpOption_Right -> Up
+						"zoomi": "gesture_zoom_in",          # ZoomIn -> Zoom in
+						"zoomo": "gesture_zoom_out",         # ZoomOut -> Zoom out
 					}
 
 					# If no intent set yet, use mapped intent or gesture as intent
 					if not intent:
 						intent = gesture_to_intent.get(gesture_lower, f"gesture_{gesture_lower}")
+						logger.info(f"Mapped gesture '{gesture_lower}' to intent '{intent}'")
 
 			elif command_type == "SPEECH":
 				# Extract NLU data from speech

@@ -2,8 +2,8 @@
 <GestureBuilderFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ProjectFile>
 		<Header>
-			<Date>2025-12-17</Date>
-			<Time>00:39:01.2363252+00:00</Time>
+			<Date>2025-12-18</Date>
+			<Time>18:07:58.0262195+00:00</Time>
 			<Version>5</Version>
 			<Type>AdaBoostTrigger</Type>
 			<Function>
@@ -23,6 +23,9 @@
 				<Content>
 					<Items>
 						<File>../../../../IM/Kinect/20251212_114144_00.vgbclip</File>
+					</Items>
+					<Items>
+						<File>../../../../IM/Kinect/20251215_160621_00.vgbclip</File>
 					</Items>
 				</Content>
 			</Files>

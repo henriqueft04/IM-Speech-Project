@@ -7,6 +7,7 @@
   <state id="init">
     <onentry>
       <log label="[init]" expr="READY" />
+      <log label="[EXTERNAL_FILE_TEST]" expr="USING EXTERNAL FUSION.SCXML FILE" />
     </onentry>
     <transition target="main" />
   </state>
