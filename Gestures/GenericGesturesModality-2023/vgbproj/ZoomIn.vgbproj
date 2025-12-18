@@ -2,8 +2,8 @@
 <GestureBuilderFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ProjectFile>
 		<Header>
-			<Date>2025-12-17</Date>
-			<Time>02:04:09.3693467+00:00</Time>
+			<Date>2025-12-18</Date>
+			<Time>18:54:13.5163528+00:00</Time>
 			<Version>5</Version>
 			<Type>AdaBoostTrigger</Type>
 			<Function>
@@ -15,12 +15,15 @@
 				</ProjectAccompanyAttributes>
 				<DefaultTag xsi:type="BoolAttribute" Name="ZoomIn" Value="false" />
 			</Function>
-			<ID>fde78d8c-52ef-451a-aeec-27d7ab7e3772</ID>
+			<ID>7286b153-71c4-42a9-a3de-654de36bfe51</ID>
 		</Header>
 		<Project_Data>
 			<Files>
 				<Name />
 				<Content>
+					<Items>
+						<File>../../../../IM/Kinect/20251215_160924_00.vgbclip</File>
+					</Items>
 					<Items>
 						<File>../../../../IM/Kinect/zoom1.vgbclip</File>
 					</Items>
@@ -36,9 +39,9 @@
 			<Items xsi:type="FloatAttribute" Name="Weight Of False Positives During Auto Find" Value="0.5" MaxValue="1" MinValue="0" />
 			<Items xsi:type="IntAttribute" Name="Manual Filter Params: Num Frames To Filter" Value="5" MaxValue="10" MinValue="1" />
 			<Items xsi:type="FloatAttribute" Name="Manual Filter Params: Threshold" Value="0.001" MaxValue="1" MinValue="0" />
-			<Items xsi:type="BoolAttribute" Name="Duplicate And Mirror Data During Training" Value="true" />
+			<Items xsi:type="BoolAttribute" Name="Duplicate And Mirror Data During Training" Value="false" />
 			<Items xsi:type="IntAttribute" Name="% CPU For Training" Value="95" MaxValue="100" MinValue="1" />
-			<Items xsi:type="BoolAttribute" Name="Use Hands Data" Value="true" />
+			<Items xsi:type="BoolAttribute" Name="Use Hands Data" Value="false" />
 			<Items xsi:type="BoolAttribute" Name="Ignore Left Arm" Value="false" />
 			<Items xsi:type="BoolAttribute" Name="Ignore Right Arm" Value="false" />
 			<Items xsi:type="BoolAttribute" Name="Ignore Lower Body" Value="true" />
