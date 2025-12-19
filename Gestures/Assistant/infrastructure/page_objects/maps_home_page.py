@@ -16,6 +16,14 @@ from infrastructure.page_objects.base_page import BasePage
 from infrastructure.selenium_helpers import retry_on_stale_element
 from domain import Location, SearchResult, MapType, ZoomLevel
 
+# Try to import PyAutoGUI for more reliable mouse control
+try:
+    import pyautogui
+    pyautogui.FAILSAFE = False  # Disable fail-safe for automation
+    PYAUTOGUI_AVAILABLE = True
+except ImportError:
+    PYAUTOGUI_AVAILABLE = False
+
 logger = logging.getLogger(__name__)
 
 
@@ -1366,8 +1374,8 @@ class MapsHomePage(BasePage):
             # First, ensure the Street View canvas has focus
             canvas_selectors = [
                 (By.CSS_SELECTOR, "canvas.widget-scene-canvas"),
-                (By.CSS_SELECTOR, "#scene canvas"),
-                (By.CSS_SELECTOR, ".widget-scene canvas"),
+                (By.CSS_SELECTOR, "#scene"),
+                (By.CSS_SELECTOR, ".widget-scene"),
                 (By.XPATH, "//div[contains(@class, 'widget-scene')]//canvas"),
                 (By.CSS_SELECTOR, "#scene"),
                 (By.CSS_SELECTOR, ".widget-scene"),
@@ -1411,9 +1419,11 @@ class MapsHomePage(BasePage):
     def rotate_street_view(self, direction: str) -> bool:
         """
         Rotate camera in Street View mode.
+        Only handles LEFT and RIGHT rotation.
+        For UP/DOWN movement, use move_forward_street_view() and move_backward_street_view().
 
         Args:
-            direction: 'left', 'right', 'up', or 'down'
+            direction: 'left' or 'right'
 
         Returns:
             True if successful
@@ -1423,47 +1433,294 @@ class MapsHomePage(BasePage):
                 logger.warning("Not in Street View, cannot rotate")
                 return False
 
+            # Only handle horizontal rotation (left/right)
+            if direction.lower() not in ["left", "right"]:
+                logger.warning(f"rotate_street_view only handles 'left' or 'right', got: {direction}")
+                return False
+
+            return self._rotate_street_view_horizontal(direction)
+
+        except Exception as e:
+            logger.error(f"Error rotating Street View: {e}")
+            return False
+
+    def move_backward_street_view(self) -> bool:
+        """
+        Move backward in Street View mode.
+        Uses Arrow Down or S key.
+
+        Returns:
+            True if successful
+        """
+        try:
+            if not self._is_in_street_view():
+                logger.warning("Not in Street View, cannot move backward")
+                return False
+
+            # Focus the canvas first
+            self._focus_street_view_canvas()
+            time.sleep(0.1)
+
+            # Method 1: Try S key (WASD controls - more reliable for backward)
+            try:
+                actions = ActionChains(self.driver)
+                actions.send_keys("s")
+                actions.perform()
+                logger.info("Moved backward using S key")
+                time.sleep(0.3)
+                return True
+            except Exception as e:
+                logger.debug(f"S key backward failed: {e}")
+
+            # Method 2: Try Arrow Down key
+            try:
+                actions = ActionChains(self.driver)
+                actions.send_keys(Keys.ARROW_DOWN)
+                actions.perform()
+                logger.info("Moved backward using Arrow Down key")
+                time.sleep(0.3)
+                return True
+            except Exception as e:
+                logger.debug(f"Arrow Down backward failed: {e}")
+
+            logger.warning("Could not move backward in Street View")
+            return False
+
+        except Exception as e:
+            logger.error(f"Error moving backward in Street View: {e}")
+            return False
+
+    def _rotate_street_view_horizontal(self, direction: str) -> bool:
+        """
+        Rotate Street View camera horizontally using multiple methods.
+        Arrow keys left/right move position, not rotate view.
+
+        Args:
+            direction: 'left' or 'right'
+
+        Returns:
+            True if successful
+        """
+        # Method 1: Try PyAutoGUI (most reliable for drag operations)
+        if PYAUTOGUI_AVAILABLE:
+            if self._rotate_street_view_pyautogui(direction):
+                return True
+
+        # Method 2: Try Selenium ActionChains drag on canvas
+        if self._rotate_street_view_selenium_drag(direction):
+            return True
+
+        # Method 3: Try viewport drag
+        if self._rotate_street_view_viewport_drag(direction):
+            return True
+
+        # Method 4: Fallback to WASD keys
+        return self._rotate_street_view_wasd(direction)
+
+    def _rotate_street_view_pyautogui(self, direction: str) -> bool:
+        """
+        Rotate Street View using PyAutoGUI for reliable mouse drag.
+
+        Args:
+            direction: 'left' or 'right'
+
+        Returns:
+            True if successful
+        """
+        try:
+            if not PYAUTOGUI_AVAILABLE:
+                return False
+
+            # Get browser window position and size
+            window_rect = self.driver.get_window_rect()
+            window_x = window_rect['x']
+            window_y = window_rect['y']
+            window_width = window_rect['width']
+            window_height = window_rect['height']
+
+            # Calculate center of the browser window
+            # Add offset for browser chrome (address bar, tabs, etc.) - approximately 80-100 pixels
+            chrome_offset = 80
+            center_x = window_x + window_width // 2
+            center_y = window_y + chrome_offset + (window_height - chrome_offset) // 2
+
+            # Calculate drag distance (25% of window width)
+            drag_distance = int(window_width * 0.25)
+
+            # Drag direction: to look LEFT, drag mouse to the RIGHT
+            if direction.lower() == "left":
+                end_x = center_x + drag_distance
+            else:  # right
+                end_x = center_x - drag_distance
+
+            logger.debug(f"PyAutoGUI drag: from ({center_x}, {center_y}) to ({end_x}, {center_y})")
+
+            # Move to center first
+            pyautogui.moveTo(center_x, center_y, duration=0.1)
+            time.sleep(0.1)
+
+            # Perform drag
+            pyautogui.mouseDown(button='left')
+            time.sleep(0.05)
+            pyautogui.moveTo(end_x, center_y, duration=0.2)
+            time.sleep(0.05)
+            pyautogui.mouseUp(button='left')
+
+            logger.info(f"Rotated Street View camera {direction} via PyAutoGUI drag")
+            time.sleep(0.2)
+            return True
+
+        except Exception as e:
+            logger.debug(f"PyAutoGUI rotation failed: {e}")
+            return False
+
+    def _rotate_street_view_selenium_drag(self, direction: str) -> bool:
+        """
+        Rotate Street View using Selenium ActionChains drag.
+
+        Args:
+            direction: 'left' or 'right'
+
+        Returns:
+            True if successful
+        """
+        try:
+            # Find the Street View canvas
+            canvas = self._get_street_view_canvas()
+
+            if not canvas:
+                logger.debug("Could not find Street View canvas for Selenium drag")
+                return False
+
+            # Get canvas dimensions
+            width = canvas.size.get('width', 800)
+            height = canvas.size.get('height', 600)
+
+            # Calculate drag distance (30% of canvas width for more visible rotation)
+            drag_distance = int(width * 0.30)
+
+            # Drag direction: to look LEFT, drag mouse to the RIGHT
+            if direction.lower() == "left":
+                x_offset = drag_distance
+            else:  # right
+                x_offset = -drag_distance
+
+            logger.debug(f"Selenium drag: canvas size {width}x{height}, offset {x_offset}")
+
+            # Perform the drag - use longer pauses for more reliability
+            actions = ActionChains(self.driver)
+            actions.move_to_element(canvas)
+            actions.pause(0.2)
+            actions.click_and_hold()
+            actions.pause(0.2)
+            # Move in smaller steps for better reliability
+            steps = 5
+            step_offset = x_offset // steps
+            for _ in range(steps):
+                actions.move_by_offset(step_offset, 0)
+                actions.pause(0.05)
+            actions.pause(0.1)
+            actions.release()
+            actions.perform()
+
+            logger.info(f"Rotated Street View camera {direction} via Selenium drag")
+            time.sleep(0.3)
+            return True
+
+        except Exception as e:
+            logger.debug(f"Selenium drag rotation failed: {e}")
+            return False
+
+    def _rotate_street_view_viewport_drag(self, direction: str) -> bool:
+        """
+        Rotate Street View by dragging on the viewport when canvas is not found.
+
+        Args:
+            direction: 'left' or 'right'
+
+        Returns:
+            True if successful
+        """
+        try:
+            # Get window size
+            window_size = self.driver.get_window_size()
+
+            # Calculate drag distance
+            drag_distance = int(window_size['width'] * 0.25)
+
+            if direction.lower() == "left":
+                x_offset = drag_distance
+            else:
+                x_offset = -drag_distance
+
+            # Find any element to start the drag from
+            try:
+                # Try to find the scene container
+                scene = self.driver.find_element(By.CSS_SELECTOR, "#scene, .widget-scene, [role='application']")
+            except:
+                scene = self.driver.find_element(By.TAG_NAME, "body")
+
+            # Perform drag with longer pauses
+            actions = ActionChains(self.driver)
+            actions.move_to_element(scene)
+            actions.pause(0.2)
+            actions.click_and_hold()
+            actions.pause(0.2)
+
+            # Move in steps
+            steps = 5
+            step_offset = x_offset // steps
+            for _ in range(steps):
+                actions.move_by_offset(step_offset, 0)
+                actions.pause(0.05)
+
+            actions.pause(0.1)
+            actions.release()
+            actions.perform()
+
+            logger.info(f"Rotated Street View camera {direction} via viewport drag")
+            time.sleep(0.3)
+            return True
+
+        except Exception as e:
+            logger.debug(f"Viewport drag failed: {e}")
+            return False
+
+    def _rotate_street_view_wasd(self, direction: str) -> bool:
+        """
+        Fallback rotation using A/D keys (WASD controls).
+
+        Args:
+            direction: 'left' or 'right'
+
+        Returns:
+            True if successful
+        """
+        try:
             direction_keys = {
-                "left": Keys.ARROW_LEFT,
-                "right": Keys.ARROW_RIGHT,
-                "up": Keys.ARROW_UP,
-                "down": Keys.ARROW_DOWN
+                "left": "a",
+                "right": "d"
             }
 
             key = direction_keys.get(direction.lower())
             if not key:
-                logger.error(f"Invalid direction: {direction}")
                 return False
 
-            # Focus on the Street View canvas first
-            canvas_selectors = [
-                (By.CSS_SELECTOR, "canvas.widget-scene-canvas"),
-                (By.CSS_SELECTOR, "#scene canvas"),
-                (By.CSS_SELECTOR, ".widget-scene canvas"),
-            ]
+            # Focus the canvas first
+            self._focus_street_view_canvas()
+            time.sleep(0.2)
 
-            for selector in canvas_selectors:
-                try:
-                    element = self.driver.find_element(*selector)
-                    if element.is_displayed():
-                        actions = ActionChains(self.driver)
-                        actions.move_to_element(element)
-                        actions.click()
-                        actions.perform()
-                        time.sleep(0.1)
-                        break
-                except Exception:
-                    continue
-
-            # Send arrow keys multiple times for visible rotation
+            # Send multiple key presses for visible rotation
             actions = ActionChains(self.driver)
-            for _ in range(3):
+            for _ in range(10):  # More presses for visible effect
                 actions.send_keys(key)
+                actions.pause(0.03)
             actions.perform()
 
-            logger.info(f"Rotated Street View camera {direction}")
+            logger.info(f"Rotated Street View camera {direction} via {key.upper()} key")
+            time.sleep(0.2)
             return True
 
         except Exception as e:
-            logger.error(f"Error rotating Street View: {e}")
+            logger.debug(f"WASD rotation failed: {e}")
             return False

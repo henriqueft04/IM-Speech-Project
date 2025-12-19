@@ -203,7 +203,7 @@ class SwipeRightHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_swipe_up")
 class SwipeUpHandler(BaseIntentHandler):
-    """Handler for swipe up gesture - pan map up or rotate camera up in street view."""
+    """Handler for swipe up gesture - pan map up or move forward in street view."""
 
     supported_intents = ["gesture_swipe_up"]
     requires_confirmation = False
@@ -212,18 +212,18 @@ class SwipeUpHandler(BaseIntentHandler):
     def execute(self, context: IntentContext) -> IntentResponse:
         """
         Handle swipe up gesture.
-        - In Street View: rotate camera up (look up)
+        - In Street View: move forward
         - On map: pan map to show what's above
         """
         try:
             home_page = MapsHomePage(context.driver)
 
             if home_page._is_in_street_view():
-                # Street View: rotate camera up
-                success = home_page.rotate_street_view("up")
+                # Street View: move forward
+                success = home_page.move_forward_street_view()
                 return IntentResponse(
                     success=success,
-                    message="A olhar para cima" if success else "Não consegui rodar"
+                    message="A avançar" if success else "Não consegui avançar"
                 )
             else:
                 # Map view: pan up
@@ -240,7 +240,7 @@ class SwipeUpHandler(BaseIntentHandler):
 
 @IntentRouter.register("gesture_swipe_down")
 class SwipeDownHandler(BaseIntentHandler):
-    """Handler for swipe down gesture - pan map down or rotate camera down in street view."""
+    """Handler for swipe down gesture - pan map down or move backward in street view."""
 
     supported_intents = ["gesture_swipe_down"]
     requires_confirmation = False
@@ -249,18 +249,18 @@ class SwipeDownHandler(BaseIntentHandler):
     def execute(self, context: IntentContext) -> IntentResponse:
         """
         Handle swipe down gesture.
-        - In Street View: rotate camera down (look down)
+        - In Street View: move backward
         - On map: pan map to show what's below
         """
         try:
             home_page = MapsHomePage(context.driver)
 
             if home_page._is_in_street_view():
-                # Street View: rotate camera down
-                success = home_page.rotate_street_view("down")
+                # Street View: move backward
+                success = home_page.move_backward_street_view()
                 return IntentResponse(
                     success=success,
-                    message="A olhar para baixo" if success else "Não consegui rodar"
+                    message="A recuar" if success else "Não consegui recuar"
                 )
             else:
                 # Map view: pan down
