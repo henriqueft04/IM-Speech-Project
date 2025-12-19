@@ -577,15 +577,51 @@ class SelectHandler(BaseIntentHandler):
             IntentResponse
         """
         try:
+            from selenium.webdriver.common.keys import Keys
+            from selenium.webdriver.common.action_chains import ActionChains
             from infrastructure.page_objects import MapsSearchResultsPage
 
-            # Try to select the first search result if available
-            results_page = MapsSearchResultsPage(context.driver)
-            results_page.select_result_by_index(0)
+            # Try method 1: Select first search result if available
+            try:
+                results_page = MapsSearchResultsPage(context.driver)
+                if results_page.select_result_by_index(0):
+                    return IntentResponse(
+                        success=True,
+                        message="Selecionado"
+                    )
+            except:
+                pass
+
+            # Method 2: Press Enter key (selects focused element)
+            try:
+                actions = ActionChains(context.driver)
+                actions.send_keys(Keys.ENTER).perform()
+
+                return IntentResponse(
+                    success=True,
+                    message="Selecionado"
+                )
+            except:
+                pass
+
+            # Method 3: Tab to focus first result, then Enter
+            try:
+                actions = ActionChains(context.driver)
+                actions.send_keys(Keys.TAB).perform()
+                import time
+                time.sleep(0.2)
+                actions.send_keys(Keys.ENTER).perform()
+
+                return IntentResponse(
+                    success=True,
+                    message="Selecionado"
+                )
+            except:
+                pass
 
             return IntentResponse(
-                success=True,
-                message="Selecionado"
+                success=False,
+                message="Não há nada para selecionar"
             )
 
         except Exception as e:
@@ -617,8 +653,11 @@ class UpOptionHandler(BaseIntentHandler):
         """
         try:
             from selenium.webdriver.common.keys import Keys
-            # Press Arrow Up to navigate
-            context.driver.find_element("tag name", "body").send_keys(Keys.ARROW_UP)
+            from selenium.webdriver.common.action_chains import ActionChains
+
+            # Send Arrow Up key to the active element
+            actions = ActionChains(context.driver)
+            actions.send_keys(Keys.ARROW_UP).perform()
 
             return IntentResponse(
                 success=True,
@@ -654,8 +693,11 @@ class DownOptionHandler(BaseIntentHandler):
         """
         try:
             from selenium.webdriver.common.keys import Keys
-            # Press Arrow Down to navigate
-            context.driver.find_element("tag name", "body").send_keys(Keys.ARROW_DOWN)
+            from selenium.webdriver.common.action_chains import ActionChains
+
+            # Send Arrow Down key to the active element
+            actions = ActionChains(context.driver)
+            actions.send_keys(Keys.ARROW_DOWN).perform()
 
             return IntentResponse(
                 success=True,
