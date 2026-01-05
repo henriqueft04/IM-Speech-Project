@@ -1,0 +1,16 @@
+# Selenium and browser automation
+selenium>=4.15.0
+
+# WebSocket client
+websockets>=12.0
+
+# Async support (usually included with Python 3.7+, but listed for clarity)
+asyncio
+
+# Optional but recommended
+# For better logging and debugging
+colorlog>=6.7.0
+
+# For development/testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
