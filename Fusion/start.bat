@@ -2,4 +2,8 @@ wt --window 0 --title FUSION --suppressApplicationTitle -d . -p "Windows Powersh
 
 wt --window 0 --title CLIENT --suppressApplicationTitle -d . -p "Windows Powershell" cmd /k "cd .\IM\ && start.bat"
 
-wt --window 0 --title SERVER --suppressApplicationTitle -d . -p "Windows Powershell" cmd /k "cd .\Assistant\ && python main.py"
+wt --window 0 --title WEBAPP --suppressApplicationTitle -d . -p "Windows Powershell" cmd /k "cd .\WebAppAssistantV2\ && .\venv\Scripts\activate && python server.py"
+
+wt --window 0 --title SERVER --suppressApplicationTitle -d . -p "Windows Powershell" cmd /k "cd .\Assistant\ && .\venv\Scripts\activate && python main.py"
+
+openpage.bat

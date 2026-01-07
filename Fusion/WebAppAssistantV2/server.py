@@ -28,7 +28,7 @@ print("Servidor HTTPS na porta 8082...")
 # WebSocket server for TTS on port 8083
 connected_clients = set()
 
-async def tts_handler(websocket, path):
+async def tts_handler(websocket):
     """Handle WebSocket connections for TTS"""
     print(f"TTS WebSocket client connected from {websocket.remote_address}")
     connected_clients.add(websocket)
