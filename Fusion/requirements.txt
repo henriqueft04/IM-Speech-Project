@@ -1,0 +1,43 @@
+# Fusion Project - Unified Requirements
+# Multimodal Google Maps Assistant with Voice and Gesture Support
+
+# ============================================================================
+# Core Dependencies
+# ============================================================================
+
+# Selenium and browser automation (for Assistant)
+selenium>=4.15.0
+
+# WebSocket support (for Assistant, WebApp, and TTS)
+websockets>=12.0
+
+# RASA NLU for voice command understanding
+# NOTE: RASA 3.x requires Python 3.10 or 3.11 (NOT 3.12+)
+# Now using Python 3.10 for full compatibility
+# Using 3.5.x for Python 3.10 compatibility
+rasa~=3.5.0
+
+# ============================================================================
+# Optional Dependencies
+# ============================================================================
+
+# Async support (usually included with Python 3.7+)
+asyncio
+
+# Better logging and debugging
+colorlog>=6.7.0
+
+# Development/testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# ============================================================================
+# Notes
+# ============================================================================
+# - Python 3.12 is recommended for compatibility with all dependencies
+# - RASA is a large package (~500MB) and may take time to install
+# - TensorFlow components in RASA work best with Python 3.10-3.11
+# - This single venv serves all project components:
+#   * Assistant (Selenium + WebSocket client)
+#   * WebApp (WebSocket server + HTTPS)
+#   * RASA (NLU server)

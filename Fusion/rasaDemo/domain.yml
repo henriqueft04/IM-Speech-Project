@@ -1,0 +1,127 @@
+version: '3.1'
+
+intents:
+  # Confirmation intents
+  - affirm
+  - deny
+
+  # Search & Navigation
+  - search_location
+  - get_directions
+  - start_navigation
+  - stop_navigation
+
+  # Map Controls
+  - zoom_in
+  - zoom_out
+  - change_map_type
+  - recenter_map
+  - center_location
+  - show_traffic
+  - hide_traffic
+
+  # Trip Information
+  - get_trip_duration
+  - get_trip_distance
+  - change_transport_mode
+  - swap_route
+
+  # Place Selection
+  - select_place
+  - select_alternative_route
+
+  # Location Information
+  - show_place_details
+  - show_reviews
+  - show_photos
+  - get_opening_hours
+  - get_location_info
+  - whats_here
+
+  # General
+  - help
+  - cancel
+  - greet
+  - goodbye
+  - thanks
+
+entities:
+  - location
+  - destination
+  - origin
+  - transport_mode
+  - map_type
+  - zoom_level
+  - ordinal
+
+slots:
+  location:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: location
+
+  destination:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: destination
+
+  origin:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: origin
+
+  transport_mode:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: transport_mode
+
+  map_type:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: map_type
+
+  zoom_level:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: zoom_level
+
+responses:
+  utter_default:
+  - text: Desculpe, não percebi. Pode repetir?
+
+  utter_greet:
+  - text: Boas! Como é que te posso ajudar com o Google Maps?
+  - text: Então, tudo fixe? Pronto para te ajudar. O que precisas?
+
+  utter_goodbye:
+  - text: Adeus! Até à próxima!
+  - text: Tchau! Boa viagem!
+
+  utter_thanks:
+  - text: De nada! Estou aqui se precisares.
+  - text: Disponível quando precisares!
+
+  utter_idle_prompt:
+  - text: Não te vejo a usar o sistema. Precisas de ajuda?
+  - text: Ainda estás aí meu? Posso te ajudar com alguma coisa?
+  - text: Se precisares de ajuda, é só dizer!
+
+  utter_offer_help:
+  - text: Posso procurar lugares, obter direções, mostrar informações de locais, e bué mais. O que precisas?
+  - text: Posso ajudar-te a navegar no Google Maps. Queres experimentar procurar um lugar ou obter direções?
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

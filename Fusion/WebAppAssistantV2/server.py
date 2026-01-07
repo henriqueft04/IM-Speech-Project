@@ -34,14 +34,15 @@ async def tts_handler(websocket):
     connected_clients.add(websocket)
     try:
         async for message in websocket:
-            # Broadcast received TTS message to all connected clients
+            # Broadcast received TTS message to all connected clients except sender
             print(f"Received TTS message: {message}")
             disconnected = set()
             for client in connected_clients:
-                try:
-                    await client.send(message)
-                except:
-                    disconnected.add(client)
+                if client != websocket:  # Don't send back to sender
+                    try:
+                        await client.send(message)
+                    except:
+                        disconnected.add(client)
             connected_clients.difference_update(disconnected)
     except websockets.exceptions.ConnectionClosed:
         print("TTS WebSocket client disconnected")
