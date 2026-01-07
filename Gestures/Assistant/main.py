@@ -57,6 +57,13 @@ def nlu_extractor(message):
 				continue
 
 			command_type = recognized[0] if len(recognized) > 0 else None
+			logger.info(f"Received command - type: {command_type}, recognized: {recognized}")
+
+			# Handle numeric gesture type IDs (e.g., "3" from Kinect)
+			# If first element is a number, treat it as a gesture
+			if command_type and command_type.isdigit():
+				logger.info(f"Detected numeric gesture type ID '{command_type}', treating as GESTURES")
+				command_type = "GESTURES"
 
 			if command_type == "FUSION":
 				# Extract fusion intent
