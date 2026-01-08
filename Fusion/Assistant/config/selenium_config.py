@@ -54,6 +54,9 @@ class DriverConfig:
         """
         options = Options()
 
+        # Performance optimization: Don't wait for all resources (images, CSS) to load
+        options.page_load_strategy = 'eager'  # Load HTML/DOM only, not all resources
+
         # Add chrome arguments
         for arg in cls.CHROME_ARGS:
             options.add_argument(arg)
@@ -78,6 +81,11 @@ class DriverConfig:
         try:
             driver = webdriver.Chrome(options=options)
             driver.implicitly_wait(0)  # Disable implicit waits (we use explicit)
+
+            # Performance: Set reasonable timeouts
+            driver.set_page_load_timeout(15)  # Max 15s to load a page
+            driver.set_script_timeout(10)     # Max 10s for JavaScript execution
+
             logger.info("Chrome WebDriver initialized successfully")
             return driver
         except Exception as e:

@@ -144,7 +144,7 @@ class MapsHomePage(BasePage):
                     if element.is_displayed():
                         for _ in range(clicks):
                             element.click()
-                            time.sleep(0.05)
+                            time.sleep(0.3)
                         logger.info(f"Zoomed out {clicks} level(s) via button")
                         button_found = True
                         break
@@ -216,7 +216,7 @@ class MapsHomePage(BasePage):
                     if element.is_displayed():
                         for _ in range(clicks):
                             element.click()
-                            time.sleep(0.05)
+                            time.sleep(0.3)
                         logger.info(f"Zoomed in {clicks} level(s) via button")
                         button_found = True
                         break
@@ -288,8 +288,8 @@ class MapsHomePage(BasePage):
             actions.move_to_element(layers_btn).perform()
             logger.info("Hovered over 'Camadas' button")
 
-            # Wait a moment for the menu to expand (reduced from 1.0s)
-            time.sleep(0.2)
+            # Wait a moment for the menu to expand
+            time.sleep(1.0)
 
             # 2. Click "Mais" button
             self.click(self.MORE_BUTTON, timeout=5)
@@ -347,7 +347,7 @@ class MapsHomePage(BasePage):
                         close_button.click()
                         logger.info(f"Clicked close button: {xpath}")
                         closed_something = True
-                        time.sleep(0.15)  # Wait for animation
+                        time.sleep(0.5)  # Wait for animation
                         break  # Stop after first successful close
                 except:
                     continue
@@ -405,7 +405,7 @@ class MapsHomePage(BasePage):
             # Click if we need to change state
             if (show and not is_currently_shown) or (not show and is_currently_shown):
                 traffic_button.click()
-                time.sleep(0.15)  # Wait for layer to toggle
+                time.sleep(0.5)  # Wait for layer to toggle
                 logger.info(f"Toggled traffic layer: show={show}")
 
             return True
@@ -739,7 +739,7 @@ class MapsHomePage(BasePage):
                 end_y = center_y + offset[1]
 
                 self.driver.execute_script(js_script, canvas, center_x, center_y, end_x, end_y)
-                time.sleep(0.05)
+                time.sleep(0.3)
 
             logger.info(f"Panned map {direction} via JS ({times} times)")
             return True
@@ -815,7 +815,7 @@ class MapsHomePage(BasePage):
                 actions.release()
 
                 actions.perform()
-                time.sleep(0.1)
+                time.sleep(0.4)
 
             logger.info(f"Panned map {direction} via drag ({times} times)")
             return True
@@ -1096,7 +1096,7 @@ class MapsHomePage(BasePage):
                 body = self.driver.find_element(By.TAG_NAME, "body")
                 body.click()
 
-            time.sleep(0.15)
+            time.sleep(0.5)
 
             # Try pressing Enter which sometimes opens Street View at current location
             actions = ActionChains(self.driver)
@@ -1226,7 +1226,7 @@ class MapsHomePage(BasePage):
             for _ in range(3):
                 actions.send_keys(Keys.ESCAPE)
                 actions.perform()
-                time.sleep(0.15)
+                time.sleep(0.5)
 
                 if not self._is_in_street_view():
                     logger.info("Exited Street View via Escape key")
@@ -1262,7 +1262,7 @@ class MapsHomePage(BasePage):
             if self.is_element_visible(self.EXPLORE_BUTTON, timeout=5):
                 self.click(self.EXPLORE_BUTTON)
                 logger.info("Opened Explore/Coisas a fazer menu")
-                time.sleep(0.15)
+                time.sleep(0.5)
                 return True
 
             logger.warning("Could not find Explore button")
@@ -1353,7 +1353,7 @@ class MapsHomePage(BasePage):
             actions.perform()
 
             logger.info("Moved forward by clicking on road ahead")
-            time.sleep(0.15)
+            time.sleep(0.5)
             return True
 
         except Exception as e:
@@ -1409,7 +1409,7 @@ class MapsHomePage(BasePage):
 
             key_name = "W" if key == "w" else "Arrow Up"
             logger.info(f"Moved forward using {key_name} key")
-            time.sleep(0.05)
+            time.sleep(0.3)
             return True
 
         except Exception as e:
@@ -1467,7 +1467,7 @@ class MapsHomePage(BasePage):
                 actions.send_keys("s")
                 actions.perform()
                 logger.info("Moved backward using S key")
-                time.sleep(0.05)
+                time.sleep(0.3)
                 return True
             except Exception as e:
                 logger.debug(f"S key backward failed: {e}")
@@ -1478,7 +1478,7 @@ class MapsHomePage(BasePage):
                 actions.send_keys(Keys.ARROW_DOWN)
                 actions.perform()
                 logger.info("Moved backward using Arrow Down key")
-                time.sleep(0.05)
+                time.sleep(0.3)
                 return True
             except Exception as e:
                 logger.debug(f"Arrow Down backward failed: {e}")
@@ -1624,7 +1624,7 @@ class MapsHomePage(BasePage):
             actions.perform()
 
             logger.info(f"Rotated Street View camera {direction} via Selenium drag")
-            time.sleep(0.05)
+            time.sleep(0.3)
             return True
 
         except Exception as e:
@@ -1679,7 +1679,7 @@ class MapsHomePage(BasePage):
             actions.perform()
 
             logger.info(f"Rotated Street View camera {direction} via viewport drag")
-            time.sleep(0.05)
+            time.sleep(0.3)
             return True
 
         except Exception as e:
