@@ -12,6 +12,7 @@ from application.intent_handlers.base_handler import (
     IntentResponse
 )
 from application.services.intent_router import IntentRouter
+from application.services.error_handler import ErrorHandler
 from infrastructure.page_objects import MapsSearchResultsPage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -123,11 +124,11 @@ class SelectPlaceHandler(BaseIntentHandler):
                 )
 
         except Exception as e:
-            self.logger.error(f"Error selecting place: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context=f"ao selecionar resultado número {index}")[0]
             return IntentResponse(
                 success=False,
-                message=f"Ocorreu um erro ao selecionar o resultado número {index}",
-                data={"error": str(e)}
+                message=user_message,
+                data={"error": str(e), "index": index}
             )
 
     def _parse_ordinal(self, ordinal_str: str) -> Optional[int]:
@@ -206,10 +207,10 @@ class SelectAlternativeRouteHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error selecting route: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao selecionar rota alternativa")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao selecionar a rota alternativa",
+                message=user_message,
                 data={"error": str(e)}
             )
 

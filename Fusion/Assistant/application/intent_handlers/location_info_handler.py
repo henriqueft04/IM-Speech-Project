@@ -11,6 +11,7 @@ from application.intent_handlers.base_handler import (
     IntentResponse
 )
 from application.services.intent_router import IntentRouter
+from application.services.error_handler import ErrorHandler
 from infrastructure.page_objects import MapsPlacePage
 
 logger = logging.getLogger(__name__)
@@ -69,10 +70,10 @@ class ShowPlaceDetailsHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error showing place details: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao obter detalhes do lugar")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao obter os detalhes do lugar",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -134,10 +135,10 @@ class ShowReviewsHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error showing reviews: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao obter avaliações")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao obter as avaliações",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -185,10 +186,10 @@ class ShowPhotosHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error showing photos: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao mostrar fotos")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao mostrar as fotos",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -241,10 +242,10 @@ class GetOpeningHoursHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error getting opening hours: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao obter horários")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao obter os horários",
+                message=user_message,
                 data={"error": str(e)}
             )
 

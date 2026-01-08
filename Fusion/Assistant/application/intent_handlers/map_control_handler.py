@@ -11,6 +11,7 @@ from application.intent_handlers.base_handler import (
     IntentResponse
 )
 from application.services.intent_router import IntentRouter
+from application.services.error_handler import handle_map_control_error
 from infrastructure.page_objects import MapsHomePage
 from domain import MapType, ZoomLevel
 
@@ -55,10 +56,10 @@ class ZoomInHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error zooming in: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "aproximar")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao aproximar",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -101,10 +102,10 @@ class ZoomOutHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error zooming out: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "afastar")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao afastar",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -160,10 +161,10 @@ class ChangeMapTypeHandler(BaseIntentHandler):
                 data={"error": str(e)}
             )
         except Exception as e:
-            self.logger.error(f"Error changing map type: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "mudar o tipo de mapa")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao mudar o tipo de mapa",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -205,10 +206,10 @@ class RecenterMapHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error recentering map: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "recentrar o mapa")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao recentrar o mapa",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -246,10 +247,10 @@ class ShowTrafficHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error showing traffic: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "mostrar o trânsito")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao mostrar o trânsito",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -287,9 +288,9 @@ class HideTrafficHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error hiding traffic: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "esconder o trânsito")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao esconder o trânsito",
+                message=user_message,
                 data={"error": str(e)}
             )

@@ -11,6 +11,8 @@ from application.intent_handlers.base_handler import (
     IntentResponse
 )
 from application.services.intent_router import IntentRouter
+from application.services.error_handler import ErrorHandler, handle_map_control_error
+
 from infrastructure.page_objects import MapsHomePage
 
 logger = logging.getLogger(__name__)
@@ -48,9 +50,10 @@ class RestaurantsFilterHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error selecting restaurants filter: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao selecionar restaurantes")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao selecionar restaurantes",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -84,9 +87,10 @@ class HotelsFilterHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error selecting hotels filter: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao selecionar hotéis")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao selecionar hotéis",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -120,9 +124,10 @@ class GasStationsFilterHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error selecting gas stations filter: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao selecionar postos de combustível")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao selecionar postos de combustível",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -160,8 +165,8 @@ class SwipeLeftHandler(BaseIntentHandler):
                 )
 
         except Exception as e:
-            self.logger.error(f"Error handling swipe left: {e}", exc_info=True)
-            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
+            user_message = handle_map_control_error(e, "mover o mapa para a esquerda")
+            return IntentResponse(success=False, message=user_message, data={"error": str(e)})
 
 
 @IntentRouter.register("gesture_swipe_right")
@@ -197,8 +202,8 @@ class SwipeRightHandler(BaseIntentHandler):
                 )
 
         except Exception as e:
-            self.logger.error(f"Error handling swipe right: {e}", exc_info=True)
-            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
+            user_message = handle_map_control_error(e, "mover o mapa para a direita")
+            return IntentResponse(success=False, message=user_message, data={"error": str(e)})
 
 
 @IntentRouter.register("gesture_swipe_up")
@@ -234,8 +239,8 @@ class SwipeUpHandler(BaseIntentHandler):
                 )
 
         except Exception as e:
-            self.logger.error(f"Error handling swipe up: {e}", exc_info=True)
-            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
+            user_message = handle_map_control_error(e, "mover o mapa para cima")
+            return IntentResponse(success=False, message=user_message, data={"error": str(e)})
 
 
 @IntentRouter.register("gesture_swipe_down")
@@ -271,8 +276,8 @@ class SwipeDownHandler(BaseIntentHandler):
                 )
 
         except Exception as e:
-            self.logger.error(f"Error handling swipe down: {e}", exc_info=True)
-            return IntentResponse(success=False, message="Ocorreu um erro", data={"error": str(e)})
+            user_message = handle_map_control_error(e, "mover o mapa para baixo")
+            return IntentResponse(success=False, message=user_message, data={"error": str(e)})
 
 
 
@@ -305,9 +310,10 @@ class GestureZoomInHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error zooming in: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "aproximar")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao aproximar",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -341,9 +347,10 @@ class GestureZoomOutHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error zooming out: {e}", exc_info=True)
+            user_message = handle_map_control_error(e, "afastar")
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao afastar",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -377,9 +384,10 @@ class TransportsFilterHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error selecting transports filter: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao selecionar transportes")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao selecionar transportes",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -417,10 +425,10 @@ class CameraHandler(BaseIntentHandler):
                 )
 
         except Exception as e:
-            self.logger.error(f"Error opening explore menu: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao abrir coisas a fazer")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -459,9 +467,10 @@ class EnterStreetHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error entering street view: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao entrar em vista de rua")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao entrar em vista de rua",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -500,9 +509,10 @@ class ExitStreetHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error exiting street view: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao sair de vista de rua")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao sair de vista de rua",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -550,10 +560,10 @@ class ForwardHandler(BaseIntentHandler):
                 )
 
         except Exception as e:
-            self.logger.error(f"Error moving forward: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao avançar em vista de rua")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -626,9 +636,10 @@ class SelectHandler(BaseIntentHandler):
 
         except Exception as e:
             self.logger.error(f"Error selecting: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao selecionar")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao selecionar",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -665,10 +676,10 @@ class UpOptionHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error navigating up: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao navegar para cima")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -705,9 +716,9 @@ class DownOptionHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error navigating down: {e}", exc_info=True)
+            user_message = ErrorHandler.handle_exception(e, context="ao navegar para baixo")[0]
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro",
+                message=user_message,
                 data={"error": str(e)}
             )

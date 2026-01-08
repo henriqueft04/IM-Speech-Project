@@ -12,6 +12,11 @@ from application.intent_handlers.base_handler import (
     IntentResponse
 )
 from application.services.intent_router import IntentRouter
+from application.services.error_handler import (
+    handle_search_error,
+    handle_directions_error,
+    handle_navigation_error
+)
 from infrastructure.page_objects import (
     MapsHomePage,
     MapsSearchResultsPage,
@@ -126,11 +131,11 @@ class SearchLocationHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error searching for location: {e}", exc_info=True)
+            user_message = handle_search_error(e, location_query)
             return IntentResponse(
                 success=False,
-                message=f"Ocorreu um erro ao procurar {location_query}",
-                data={"error": str(e)}
+                message=user_message,
+                data={"error": str(e), "query": location_query}
             )
 
 
@@ -265,11 +270,11 @@ class GetDirectionsHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error getting directions: {e}", exc_info=True)
+            user_message = handle_directions_error(e, destination)
             return IntentResponse(
                 success=False,
-                message=f"Ocorreu um erro ao obter direções para {destination}",
-                data={"error": str(e)}
+                message=user_message,
+                data={"error": str(e), "destination": destination}
             )
 
     def _set_transport_mode(self, home_page: MapsHomePage, mode: TransportMode):
@@ -329,10 +334,10 @@ class StartNavigationHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error starting navigation: {e}", exc_info=True)
+            user_message = handle_navigation_error(e)
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao iniciar a navegação",
+                message=user_message,
                 data={"error": str(e)}
             )
 
@@ -368,9 +373,9 @@ class StopNavigationHandler(BaseIntentHandler):
             )
 
         except Exception as e:
-            self.logger.error(f"Error stopping navigation: {e}", exc_info=True)
+            user_message = handle_navigation_error(e)
             return IntentResponse(
                 success=False,
-                message="Ocorreu um erro ao parar a navegação",
+                message=user_message,
                 data={"error": str(e)}
             )
