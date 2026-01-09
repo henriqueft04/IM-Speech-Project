@@ -10,5 +10,6 @@ from . import conversation_handler
 from . import trip_info_handler
 from . import selection_handler
 from . import gesture_handler
+from . import fusion_handler
 
 __all__ = ["BaseIntentHandler", "IntentContext", "IntentResponse"]

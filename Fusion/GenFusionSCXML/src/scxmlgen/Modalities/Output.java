@@ -6,6 +6,16 @@ import scxmlgen.interfaces.IOutput;
 
 public enum Output implements IOutput{
 
+
+    ZOOM_IN_UP("[FUSION][ZOOM_IN_UP]"),
+    ZOOM_IN_DOWN("[FUSION][ZOOM_IN_DOWN]"),
+    ZOOM_IN_LEFT("[FUSION][ZOOM_IN_LEFT]"),
+    ZOOM_IN_RIGHT("[FUSION][ZOOM_IN_RIGHT]"),
+    ZOOM_OUT_UP("[FUSION][ZOOM_OUT_UP]"),
+    ZOOM_OUT_DOWN("[FUSION][ZOOM_OUT_DOWN]"),
+    ZOOM_OUT_LEFT("[FUSION][ZOOM_OUT_LEFT]"),
+    ZOOM_OUT_RIGHT("[FUSION][ZOOM_OUT_RIGHT]"),
+
     // Speech Outputs
     // Search & Navigation
     SEARCH_LOCATION("[FUSION][SEARCH_LOCATION]"),

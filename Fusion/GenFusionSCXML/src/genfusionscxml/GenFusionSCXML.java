@@ -24,7 +24,20 @@ public class GenFusionSCXML {
 
     FusionGenerator fg = new FusionGenerator();
 
-    // Speech Modality - Single Input (26 commands)
+
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_UP, Output.ZOOM_IN_UP);
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_DOWN, Output.ZOOM_IN_DOWN);
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_LEFT, Output.ZOOM_IN_LEFT);
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_RIGHT, Output.ZOOM_IN_RIGHT);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_UP, Output.ZOOM_OUT_UP);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_DOWN, Output.ZOOM_OUT_DOWN);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_LEFT, Output.ZOOM_OUT_LEFT);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_RIGHT, Output.ZOOM_OUT_RIGHT);
+
+    
+
+
+    // Speech Modality - Single Input
     // Search & Navigation
     fg.Single(Speech.SEARCH_LOCATION, Output.SEARCH_LOCATION);
     fg.Single(Speech.GET_DIRECTIONS, Output.GET_DIRECTIONS);
@@ -88,6 +101,13 @@ public class GenFusionSCXML {
     fg.Single(Gesture.SELECT, Output.GESTURE_SELECT);
     fg.Single(Gesture.UP_OPTION, Output.GESTURE_UP_OPTION);
     fg.Single(Gesture.DOWN_OPTION, Output.GESTURE_DOWN_OPTION);
+
+    fg.Redundancy(Speech.ZOOM_IN, Gesture.ZOOM_IN, Output.ZOOM_IN);
+    fg.Redundancy(Speech.ZOOM_OUT, Gesture.ZOOM_OUT, Output.ZOOM_OUT);
+
+    // Cancel Action - Say "cancel" OR exit gesture
+    fg.Redundancy(Speech.CANCEL, Gesture.EXIT_STREET, Output.CANCEL);
+    
 
     fg.Build("fusion.scxml");
 
