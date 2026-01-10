@@ -149,10 +149,37 @@ class ChangeTransportModeHandler(BaseIntentHandler):
         """
         transport_mode_str = context.get_entity("transport_mode")
 
+        # If no entity, try to infer from full text (user might just say "caminhar", "carro", etc.)
+        if not transport_mode_str and context.metadata:
+            text = context.metadata.get("text", "").strip().lower()
+            # Try to match common transport mode words in Portuguese
+            mode_mappings = {
+                "caminhar": "pé",
+                "andar": "pé",
+                "pé": "pé",
+                "a pé": "pé",
+                "carro": "carro",
+                "conduzir": "carro",
+                "automóvel": "carro",
+                "bicicleta": "bicicleta",
+                "bike": "bicicleta",
+                "transportes": "transportes públicos",
+                "autocarro": "transportes públicos",
+                "metro": "transportes públicos",
+                "comboio": "transportes públicos",
+                "públicos": "transportes públicos"
+            }
+
+            for keyword, mode in mode_mappings.items():
+                if keyword in text:
+                    transport_mode_str = mode
+                    self.logger.info(f"Inferred transport mode '{mode}' from text '{text}'")
+                    break
+
         if not transport_mode_str:
             return IntentResponse(
                 success=False,
-                message="Que meio de transporte queres usar?"
+                message="Que meio de transporte queres usar? Podes dizer carro, a pé, bicicleta ou transportes públicos."
             )
 
         self.logger.info(f"Changing transport mode to: {transport_mode_str}")
@@ -162,6 +189,13 @@ class ChangeTransportModeHandler(BaseIntentHandler):
             transport_mode = TransportMode.from_string(transport_mode_str)
 
             home_page = MapsHomePage(context.driver)
+
+            # Check if we're in a directions panel (required for changing transport mode)
+            if not home_page.is_element_visible(home_page.DIRECTIONS_DEST_INPUT, timeout=2):
+                return IntentResponse(
+                    success=False,
+                    message="Preciso ter direções ativas para mudar o meio de transporte. Pede direções primeiro."
+                )
 
             # Map transport mode to button locator
             mode_map = {
@@ -173,7 +207,15 @@ class ChangeTransportModeHandler(BaseIntentHandler):
 
             locator = mode_map.get(transport_mode)
             if locator:
-                home_page.select_transport_mode(locator)
+                self.logger.info(f"Clicking transport mode button: {transport_mode.value}")
+                success = home_page.select_transport_mode(locator)
+
+                if not success:
+                    return IntentResponse(
+                        success=False,
+                        message=f"Não consegui clicar no botão de {transport_mode_str}"
+                    )
+
                 time.sleep(1)  # Wait for route to recalculate
 
                 mode_names = {

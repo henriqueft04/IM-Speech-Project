@@ -592,6 +592,25 @@ async function InitializeKWS(){
         if (data.text) {
           console.log("Speaking:", data.text);
           speak(data.text);
+
+          // Check if TTS message ends with "?" (question) - auto-activate listening
+          if (data.text.trim().endsWith("?")) {
+            console.log("Question detected, auto-activating speech recognition");
+            // Stop wake word listener temporarily
+            if (isWaitingForWakeWord) {
+              wakeWordRecognition.stop();
+              isWaitingForWakeWord = false;
+            }
+
+            // Start command recognition after TTS finishes speaking
+            // Use longer delay to ensure TTS has finished
+            setTimeout(function() {
+              console.log("Auto-starting recognition after question");
+              recognition.start();
+              circle.animate(20, 0, 'now').attr({ fill: '#00a431' });
+              transcriptDiv.textContent = "Escutando...";
+            }, 2000); // Wait 2s for TTS to finish
+          }
         }
       } catch (e) {
         console.error("Failed to parse TTS message:", e);
