@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package genfusionscxml;
+
 
 import java.io.IOException;
+
+import Modalities.Gesture;
+import Modalities.Output;
+import Modalities.Speech;
 import scxmlgen.Fusion.FusionGenerator;
-import scxmlgen.Modalities.Output;
-import scxmlgen.Modalities.Speech;
-import scxmlgen.Modalities.Gesture;
 
 /**
  *
@@ -33,8 +34,12 @@ public class GenFusionSCXML {
     fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_DOWN, Output.ZOOM_OUT_DOWN);
     fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_LEFT, Output.ZOOM_OUT_LEFT);
     fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_RIGHT, Output.ZOOM_OUT_RIGHT);
+    fg.Complementary(Speech.GET_DIRECTIONS, Gesture.TRANSPORTS, Output.DIRECTIONS_PUBLIC_TRANSPORT);
+    fg.Complementary(Speech.SHOW_TRAFFIC, Gesture.ZOOM_OUT, Output.TRAFFIC_OVERVIEW);
+    fg.Complementary(Gesture.RESTAURANTS, Speech.RECENTER_MAP, Output.FILTER_RESTAURANTS_CENTER);
+    fg.Complementary(Gesture.FORWARD, Speech.START_NAVIGATION, Output.STREET_VIEW_FORWARD_CONTINUOUS);
 
-    
+
 
 
     // Speech Modality - Single Input

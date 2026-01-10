@@ -1,4 +1,4 @@
-package scxmlgen.Modalities;
+package Modalities;
 
 import scxmlgen.interfaces.IOutput;
 
@@ -15,6 +15,12 @@ public enum Output implements IOutput{
     ZOOM_OUT_DOWN("[FUSION][ZOOM_OUT_DOWN]"),
     ZOOM_OUT_LEFT("[FUSION][ZOOM_OUT_LEFT]"),
     ZOOM_OUT_RIGHT("[FUSION][ZOOM_OUT_RIGHT]"),
+
+    // New Complementary Fusion Outputs
+    DIRECTIONS_PUBLIC_TRANSPORT("[FUSION][DIRECTIONS_PUBLIC_TRANSPORT]"),
+    TRAFFIC_OVERVIEW("[FUSION][TRAFFIC_OVERVIEW]"),
+    FILTER_RESTAURANTS_CENTER("[FUSION][FILTER_RESTAURANTS_CENTER]"),
+    STREET_VIEW_FORWARD_CONTINUOUS("[FUSION][STREET_VIEW_FORWARD_CONTINUOUS]"),
 
     // Speech Outputs
     // Search & Navigation
