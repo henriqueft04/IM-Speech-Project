@@ -88,11 +88,11 @@ class SearchLocationHandler(BaseIntentHandler):
 
             # Check if Google Maps went directly to a place page or to search results
             # Give Google Maps a moment to load the page
-            time.sleep(1)
+            time.sleep(0.3)  # Reduced from 1s to 0.3s
 
             # Try to detect if we're on a place page (direct match)
             place_page = MapsPlacePage(context.driver)
-            is_place_page = place_page.wait_for_place_details(timeout=2)
+            is_place_page = place_page.wait_for_place_details(timeout=1.5)  # Reduced from 2s to 1.5s
 
             if is_place_page:
                 # We went directly to a place page (exact match)
@@ -216,14 +216,14 @@ class GetDirectionsHandler(BaseIntentHandler):
                     try:
                         # Wait for search results to load and check if we're on a place page
                         self.logger.info("Waiting for search results to load...")
-                        if place_page.wait_for_place_details(timeout=8):
+                        if place_page.wait_for_place_details(timeout=4):  # Reduced from 8s to 4s
                             self.logger.info("On place page, clicking Directions button")
 
                             # Click the Directions button and wait for panel to open
                             place_page.click(place_page.DIRECTIONS_BUTTON)
 
                             # Wait for directions panel to appear by checking for destination input
-                            if home_page.is_element_visible(home_page.DIRECTIONS_DEST_INPUT, timeout=5):
+                            if home_page.is_element_visible(home_page.DIRECTIONS_DEST_INPUT, timeout=3):  # Reduced from 5s to 3s
                                 self.logger.info("Directions panel opened successfully")
                                 directions_success = True
                             else:

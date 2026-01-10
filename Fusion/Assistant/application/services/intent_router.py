@@ -107,9 +107,11 @@ class IntentRouter:
         if handler is None:
             error_msg = f"No handler registered for intent '{context.intent}'"
             logger.error(error_msg)
+
+            # Use user-friendly message for all unhandled intents
             return IntentResponse(
                 success=False,
-                message=f"I don't know how to handle '{context.intent}'",
+                message="Desculpa, não entendi o que pediste.",
                 data={"error": error_msg}
             )
 

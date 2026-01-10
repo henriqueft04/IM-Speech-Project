@@ -229,6 +229,14 @@ async function InitializeKWS(){
   import { interpolateGreens } from "https://cdn.skypack.dev/d3-scale-chromatic@3"
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  // Wake word recognition instance (continuous listening for "maps")
+  const wakeWordRecognition = new SpeechRecognition();
+  wakeWordRecognition.continuous = true;
+  wakeWordRecognition.interimResults = true;
+  wakeWordRecognition.lang = 'pt-PT';
+
+  // Command recognition instance (activated after wake word)
   const recognition = new SpeechRecognition();
   recognition.continuous = false;
   recognition.interimResults = true;
@@ -240,10 +248,58 @@ async function InitializeKWS(){
   const transcriptDiv = document.getElementById('transcript');
   const energyDiv = document.getElementById('energy');
 
-  var firstSent = "Diga 'Casa Viva' para comecar a falar.";
+  var firstSent = "Diga 'maps' para começar a falar.";
   transcriptDiv.textContent = firstSent;
+  var isWaitingForWakeWord = true;
   var resetfunc ;
 
+  // Wake word recognition handlers
+  wakeWordRecognition.onresult = function(event) {
+    for (var i = event.resultIndex; i < event.results.length; ++i) {
+      var transcript = event.results[i][0].transcript.trim().toLowerCase();
+      console.log("Wake word detection: " + transcript);
+
+      // Check if "maps" or "mapa" is detected
+      if (transcript.includes("maps") || transcript.includes("mapa") || transcript.includes("map")) {
+        console.log("Wake word detected!");
+        isWaitingForWakeWord = false;
+        wakeWordRecognition.stop();
+
+        // Visual feedback
+        circle.animate(20, 0, 'now').attr({ fill: '#00a431' });
+        transcriptDiv.textContent = "Escutando...";
+
+        // Start command recognition
+        setTimeout(function() {
+          recognition.start();
+        }, 300);
+
+        break;
+      }
+    }
+  };
+
+  wakeWordRecognition.onerror = function(event) {
+    console.error("Wake word recognition error: " + event.error);
+    if (event.error === 'no-speech' || event.error === 'audio-capture') {
+      // Restart wake word listening
+      setTimeout(function() {
+        if (isWaitingForWakeWord) {
+          wakeWordRecognition.start();
+        }
+      }, 1000);
+    }
+  };
+
+  wakeWordRecognition.onend = function() {
+    console.log("Wake word recognition ended");
+    // Restart if still waiting for wake word
+    if (isWaitingForWakeWord) {
+      setTimeout(function() {
+        wakeWordRecognition.start();
+      }, 500);
+    }
+  };
 
   recognition.onerror = function(event) {
     console.error("REC ERROR"+event.error);
@@ -252,8 +308,9 @@ async function InitializeKWS(){
     //startkws();
     resetfunc = setTimeout(function(){
       transcriptDiv.innerHTML = firstSent;
-      recognition.start();
-      circle.animate(20, 0, 'now').attr({ fill: '#00a431' });
+      isWaitingForWakeWord = true;
+      wakeWordRecognition.start();
+      circle.animate(20, 0, 'now').attr({ fill: '#444' });
     }, 500);
   };
 
@@ -292,8 +349,9 @@ async function InitializeKWS(){
 
         resetfunc = setTimeout(function(){
           transcriptDiv.innerHTML = firstSent;
-          recognition.start();
-          circle.animate(20, 0, 'now').attr({ fill: '#00a431' });
+          isWaitingForWakeWord = true;
+          wakeWordRecognition.start();
+          circle.animate(20, 0, 'now').attr({ fill: '#444' });
         }, 1000);
 
         speechActive = false;
@@ -314,11 +372,22 @@ async function InitializeKWS(){
   };
 
   $(".mic").on('click', function(){
+    // Stop wake word listening if active
+    if (isWaitingForWakeWord) {
+      wakeWordRecognition.stop();
+      isWaitingForWakeWord = false;
+    }
     recognition.start();
     circle.animate(20, 0, 'now').attr({ fill: '#00a431' });
     console.log("start");
   })
 
+  // Start wake word listening on page load
+  setTimeout(function() {
+    console.log("Starting wake word recognition for 'maps'");
+    circle.animate(20, 0, 'now').attr({ fill: '#444' });
+    wakeWordRecognition.start();
+  }, 1000);
 
   var vadActive = false;
   var speechActive = true;
@@ -400,6 +469,11 @@ async function InitializeKWS(){
   function speak(text){
     console.log("speak() called with:", text);
 
+    // Stop wake word recognition while speaking to avoid interference
+    if (isWaitingForWakeWord) {
+      wakeWordRecognition.stop();
+    }
+
     // Ensure voices are loaded
     if (!voicesLoaded) {
       var voices = speechSynthesis.getVoices();
@@ -431,7 +505,40 @@ async function InitializeKWS(){
 
     console.log("Speaking with voice:", msg.voice, "language:", msg.lang);
 
-    window.speechSynthesis.speak(msg);
+    msg.onstart = function() {
+      console.log("TTS started speaking");
+    };
+
+    // Resume wake word listening after TTS finishes
+    msg.onend = function() {
+      console.log("TTS finished, resuming wake word detection");
+      if (isWaitingForWakeWord) {
+        setTimeout(function() {
+          wakeWordRecognition.start();
+        }, 500);
+      }
+    };
+
+    msg.onerror = function(event) {
+      console.error("TTS error:", event);
+      // Resume wake word listening even on error
+      if (isWaitingForWakeWord) {
+        setTimeout(function() {
+          wakeWordRecognition.start();
+        }, 500);
+      }
+    };
+
+    // Cancel any pending speech first
+    window.speechSynthesis.cancel();
+
+    // Small delay before speaking to ensure cancellation is complete
+    setTimeout(function() {
+      console.log("Calling speechSynthesis.speak()");
+      window.speechSynthesis.speak(msg);
+      console.log("Speech synthesis queue length:", window.speechSynthesis.pending);
+      console.log("Speech synthesis speaking:", window.speechSynthesis.speaking);
+    }, 100);
   }
   /////////////////////////////////////////
 
