@@ -381,6 +381,7 @@ nlu:
       - conduzir
       - transportes públicos
       - a pé
+      - pé
       - de carro
       - de bike
       - caminhar
@@ -391,6 +392,17 @@ nlu:
       - quero ir andando
       - de mota
       - scooter
+      - bicicleta
+      - carro
+      - autocarro
+      - comboio
+      - metro
+      - ir a pé
+      - ir de bicicleta
+      - ir de carro
+      - mudar modo de transporte
+      - alterar modo de transporte
+      - mudar meio de transporte
 
   - intent: swap_route
     examples: |

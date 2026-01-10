@@ -70,11 +70,12 @@ class MapsHomePage(BasePage):
     DIRECTIONS_ORIGIN_INPUT = (By.XPATH, "//input[contains(@aria-label, 'starting point') or contains(@aria-label, 'ponto de partida') or contains(@placeholder, 'origem')]")
     DIRECTIONS_DEST_INPUT = (By.XPATH, "//input[contains(@aria-label, 'destination') or contains(@aria-label, 'destino') or contains(@placeholder, 'destino')]")
 
-    # Transport mode buttons (in directions panel)
-    DRIVING_MODE = (By.XPATH, "//button[@aria-label='Driving' or @data-value='Driving']")
-    TRANSIT_MODE = (By.XPATH, "//button[@aria-label='Transit' or @data-value='Transit']")
-    WALKING_MODE = (By.XPATH, "//button[@aria-label='Walking' or @data-value='Walking']")
-    CYCLING_MODE = (By.XPATH, "//button[@aria-label='Cycling' or @data-value='Cycling']")
+    # Transport mode buttons (in directions panel) - Updated for 2026 Google Maps
+    # data-travel_mode values: 0=car, 1=bike, 2=walk, 3=transit, 4=flight, 6=best
+    DRIVING_MODE = (By.XPATH, "//div[@data-travel_mode='0']//button | //button[contains(@data-tooltip, 'carro') or contains(@data-tooltip, 'Driving')]")
+    CYCLING_MODE = (By.XPATH, "//div[@data-travel_mode='1']//button | //button[contains(@data-tooltip, 'Bicicleta') or contains(@data-tooltip, 'Cycling')]")
+    WALKING_MODE = (By.XPATH, "//div[@data-travel_mode='2']//button | //button[contains(@data-tooltip, 'Caminhar') or contains(@data-tooltip, 'Walking')]")
+    TRANSIT_MODE = (By.XPATH, "//div[@data-travel_mode='3']//button | //button[contains(@data-tooltip, 'Transportes públicos') or contains(@data-tooltip, 'Transit')]")
 
     # Navigation
     START_NAVIGATION_BUTTON = (By.XPATH, "//button[contains(@aria-label, 'Start') or contains(., 'Start')]")

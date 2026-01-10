@@ -190,13 +190,6 @@ class ChangeTransportModeHandler(BaseIntentHandler):
 
             home_page = MapsHomePage(context.driver)
 
-            # Check if we're in a directions panel (required for changing transport mode)
-            if not home_page.is_element_visible(home_page.DIRECTIONS_DEST_INPUT, timeout=2):
-                return IntentResponse(
-                    success=False,
-                    message="Preciso ter direções ativas para mudar o meio de transporte. Pede direções primeiro."
-                )
-
             # Map transport mode to button locator
             mode_map = {
                 TransportMode.DRIVING: home_page.DRIVING_MODE,

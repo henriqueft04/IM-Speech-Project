@@ -10,49 +10,236 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
     <style>
+      :root {
+        --primary-blue: #1a73e8;
+        --primary-blue-dark: #1557b0;
+        --success-green: #34a853;
+        --success-green-dark: #2d8e47;
+        --warning-yellow: #fbbc04;
+        --error-red: #ea4335;
+        --text-dark: #202124;
+        --text-medium: #5f6368;
+        --text-light: #80868b;
+        --bg-light: #f8f9fa;
+        --bg-white: #ffffff;
+        --border-light: #dadce0;
+        --shadow-sm: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+        --shadow-md: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+        --shadow-lg: 0 2px 6px 2px rgba(60,64,67,0.3), 0 8px 12px 6px rgba(60,64,67,0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        --indicator-color: black;
-        background: #fff; /*radial-gradient(#fff 75%, var(--indicator-color));*/
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
-        color: burlywood;
-        font-family: Poppins;
+        color: var(--text-dark);
+        font-family: 'Poppins', 'Roboto', 'Segoe UI', sans-serif;
         margin: 0;
         padding: 0;
+        display: flex;
+        flex-direction: column;
       }
-      .mic{
-        width: 150px;
+
+      h1 {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        margin: 0;
+        padding: 20px 40px;
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text-dark);
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        gap: 12px;
       }
+
+      h1::before {
+        content: "🗺️";
+        font-size: 28px;
+      }
+
+      .mic {
+        width: 120px;
+        height: 120px;
+        transition: transform 0.2s ease, filter 0.2s ease;
+        cursor: pointer;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      }
+
+      .mic:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
+      }
+
+      .mic:active {
+        transform: scale(0.98);
+      }
+
       .container {
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 24px;
         width: 100%;
-        border-radius: 10px;
-        background-color: #f0f0f0;
+        padding: 24px 32px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-md);
+        border: 1px solid rgba(255, 255, 255, 0.3);
       }
 
-      .responseText{
-        border: solid 2px #8ea7cf;
-        margin: 2%;
-        color: #41683a;
+      .responseText {
+        border: 2px solid var(--primary-blue);
+        border-left: 6px solid var(--primary-blue);
+        margin: 16px 0;
+        padding: 16px 20px;
+        color: var(--text-dark);
+        background: var(--bg-white);
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
+        font-size: 16px;
+        line-height: 1.5;
+        animation: slideIn 0.3s ease-out;
       }
 
-      .bottomNav{
-
-        position: absolute;
-        bottom: 2%;
-        width: 95%;
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-      .recognized{
-        font-size:x-large;
+
+      .bottomNav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 24px;
+        background: linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%);
+      }
+
+      .recognized {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--text-dark);
+        min-width: 300px;
+        text-align: left;
+        line-height: 1.4;
+      }
+
+      .recognized b {
+        font-weight: 600;
+      }
+
+      #response {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* Status indicator styles */
+      .status-waiting {
+        color: var(--text-medium);
+        font-style: italic;
+      }
+
+      .status-listening {
+        color: var(--success-green);
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+
+      .status-error {
+        color: var(--error-red);
+      }
+
+      .status-success {
+        color: var(--success-green-dark);
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      /* Microphone circle animation states */
+      .st0 {
+        transition: fill 0.3s ease;
+      }
+
+      /* Info badge */
+      .info-badge {
+        position: fixed;
+        top: 80px;
+        right: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 12px 20px;
+        border-radius: 24px;
+        box-shadow: var(--shadow-sm);
+        font-size: 14px;
+        color: var(--text-medium);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--border-light);
+      }
+
+      .info-badge::before {
+        content: "ℹ️";
+        font-size: 16px;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 20px;
+          padding: 16px 24px;
+        }
+
+        .container {
+          flex-direction: column;
+          padding: 20px 16px;
+        }
+
+        .recognized {
+          min-width: auto;
+          width: 100%;
+          text-align: center;
+          font-size: 18px;
+        }
+
+        .mic {
+          width: 100px;
+          height: 100px;
+        }
+
+        .info-badge {
+          top: auto;
+          bottom: 200px;
+          right: 16px;
+          left: 16px;
+          justify-content: center;
+        }
       }
     </style>
   </head>
   <body>
-    <h1 style="background-color: #4F5D73; margin: 0;">CASA VIVA + Assistant</h1>
-   <!-- <p>Click the button below and start speaking.</p>
-    <button id="start-btn">Start</button>
-    -->
+    <h1>Google Maps Assistant</h1>
+    <div class="info-badge">
+      Diga "maps" para ativar
+    </div>
 
 
 
@@ -60,16 +247,16 @@
 
 
     <div class="bottomNav">
-      <div id="response" class=""  style="">d</div>
-      <div class="container" style="border: solid 2px #4F5D73;margin: 2%;">
+      <div id="response"></div>
+      <div class="container">
 
         <svg class="mic" id="mic" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
           viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
         <style type="text/css">
-         .st01{fill:#4F5D73;}
+         .st01{fill:#1a73e8;}
          .st1{opacity:0.2;}
-         .st2{fill:#231F20;}
-         .st3{fill:#4F5D73;}
+         .st2{fill:#202124;}
+         .st3{fill:#1a73e8;}
          .st4{fill:#FFFFFF;}
         </style>
        <defs>
@@ -509,15 +696,49 @@ async function InitializeKWS(){
       console.log("TTS started speaking");
     };
 
-    // Resume wake word listening after TTS finishes
-    msg.onend = function() {
-      console.log("TTS finished, resuming wake word detection");
-      if (isWaitingForWakeWord) {
+    var ttsEndHandled = false;
+
+    // Function to handle TTS end
+    function handleTTSEnd() {
+      if (ttsEndHandled) return; // Prevent double execution
+      ttsEndHandled = true;
+
+      console.log("TTS finished - handling end");
+
+      if (pendingQuestionActivation) {
+        // Question was asked - auto-activate recognition
+        console.log("Auto-starting recognition for question answer");
+        pendingQuestionActivation = false;
+        setTimeout(function() {
+          console.log("Starting recognition now...");
+          recognition.start();
+          circle.animate(20, 0, 'now').attr({ fill: '#00a431' });
+          transcriptDiv.textContent = "Escutando...";
+        }, 500); // Increased delay to ensure TTS is fully finished
+      } else if (isWaitingForWakeWord) {
+        // Normal flow - resume wake word listening
+        console.log("Resuming wake word detection");
         setTimeout(function() {
           wakeWordRecognition.start();
         }, 500);
       }
+    }
+
+    // Resume wake word listening after TTS finishes OR activate question listening
+    msg.onend = function() {
+      console.log("TTS onend event fired");
+      handleTTSEnd();
     };
+
+    // Fallback: Some browsers don't always fire onend reliably
+    // Estimate speech duration and use timeout as backup
+    var estimatedDuration = (msg.text.length / 15) * 1000; // ~15 chars per second
+    setTimeout(function() {
+      if (!window.speechSynthesis.speaking && !ttsEndHandled) {
+        console.log("TTS timeout fallback - assuming speech finished");
+        handleTTSEnd();
+      }
+    }, estimatedDuration + 1000);
 
     msg.onerror = function(event) {
       console.error("TTS error:", event);
@@ -532,13 +753,11 @@ async function InitializeKWS(){
     // Cancel any pending speech first
     window.speechSynthesis.cancel();
 
-    // Small delay before speaking to ensure cancellation is complete
-    setTimeout(function() {
-      console.log("Calling speechSynthesis.speak()");
-      window.speechSynthesis.speak(msg);
-      console.log("Speech synthesis queue length:", window.speechSynthesis.pending);
-      console.log("Speech synthesis speaking:", window.speechSynthesis.speaking);
-    }, 100);
+    // Speak immediately (onend handlers are already registered)
+    console.log("Calling speechSynthesis.speak()");
+    window.speechSynthesis.speak(msg);
+    console.log("Speech synthesis queue - pending:", window.speechSynthesis.pending, "speaking:", window.speechSynthesis.speaking);
+    console.log("Pending question activation:", pendingQuestionActivation);
   }
   /////////////////////////////////////////
 
@@ -585,32 +804,28 @@ async function InitializeKWS(){
       console.log("TTS WebSocket connected to ws://127.0.0.1:8083");
     };
 
+    var pendingQuestionActivation = false;
+
     ttsWebSocket.onmessage = function(event) {
       console.log("TTS WebSocket received:", event.data);
       try {
         var data = JSON.parse(event.data);
         if (data.text) {
           console.log("Speaking:", data.text);
-          speak(data.text);
 
           // Check if TTS message ends with "?" (question) - auto-activate listening
           if (data.text.trim().endsWith("?")) {
-            console.log("Question detected, auto-activating speech recognition");
+            console.log("Question detected, will auto-activate after TTS finishes");
+            pendingQuestionActivation = true;
+
             // Stop wake word listener temporarily
             if (isWaitingForWakeWord) {
               wakeWordRecognition.stop();
               isWaitingForWakeWord = false;
             }
-
-            // Start command recognition after TTS finishes speaking
-            // Use longer delay to ensure TTS has finished
-            setTimeout(function() {
-              console.log("Auto-starting recognition after question");
-              recognition.start();
-              circle.animate(20, 0, 'now').attr({ fill: '#00a431' });
-              transcriptDiv.textContent = "Escutando...";
-            }, 2000); // Wait 2s for TTS to finish
           }
+
+          speak(data.text);
         }
       } catch (e) {
         console.error("Failed to parse TTS message:", e);
