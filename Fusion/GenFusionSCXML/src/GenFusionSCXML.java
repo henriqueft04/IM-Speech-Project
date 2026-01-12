@@ -36,8 +36,8 @@ public class GenFusionSCXML {
     fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPERR, Output.ZOOM_OUT_RIGHT);
     fg.Complementary(Speech.GET_DIRECTIONS, Gesture.TRANSPORTS, Output.DIRECTIONS_PUBLIC_TRANSPORT);
     fg.Complementary(Speech.SHOW_TRAFFIC, Gesture.ZOOMO, Output.TRAFFIC_OVERVIEW);
-    fg.Complementary(Gesture.RESTAURANTS, Speech.RECENTER_MAP, Output.FILTER_RESTAURANTS_CENTER);
-    fg.Complementary(Gesture.FORWARD, Speech.START_NAVIGATION, Output.STREET_VIEW_FORWARD_CONTINUOUS);
+    fg.Complementary(Speech.RECENTER_MAP, Gesture.RESTAURANTS, Output.FILTER_RESTAURANTS_CENTER);
+    fg.Complementary(Speech.START_NAVIGATION, Gesture.SWIPEU, Output.STREET_VIEW_FORWARD_CONTINUOUS); // SwipeUp = Forward in Street View
 
 
 
@@ -99,7 +99,7 @@ public class GenFusionSCXML {
     // Street View
     fg.Single(Gesture.ENTERS, Output.GESTURE_ENTER_STREET);
     fg.Single(Gesture.EXITS, Output.GESTURE_EXIT_STREET);
-    fg.Single(Gesture.FORWARD, Output.GESTURE_FORWARD);
+    // SWIPEU in street view = forward (handled by app context)
     fg.Single(Gesture.CAMERA, Output.GESTURE_CAMERA);
 
     // List Navigation

@@ -25,7 +25,7 @@ public enum Gesture implements IModality{
 	// Street View (match Gestures.xml SEMANTIC codes)
 	ENTERS("[GESTURES][ENTERS]", 1500),      // EnterStreet
 	EXITS("[GESTURES][EXITS]", 1500),        // ExitStreet
-	FORWARD("[GESTURES][FORWARD]", 1500),    // Forward (not in XML yet, using full name)
+	// FORWARD = SWIPEU in Street View context (handled by app)
 	CAMERA("[GESTURES][CAMERA]", 1500),      // Camera
 
 	// List Navigation (match Gestures.xml SEMANTIC codes)

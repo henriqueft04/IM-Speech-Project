@@ -63,7 +63,7 @@ class MapsHomePage(BasePage):
     DEFAULT_MAP_BUTTON = (By.XPATH, "//button[.//label[text()='Predefinição'] or .//label[text()='Default']]")
 
     # My location
-    MY_LOCATION_BUTTON = (By.XPATH, "//button[@aria-label='Your location' or @aria-label='Show Your Location']")
+    MY_LOCATION_BUTTON = (By.XPATH, "//button[@aria-label='Your location' or @aria-label='Show Your Location' or @aria-label='A tua localização' or @aria-label='Mostrar a tua localização']")
 
     # Directions (supports English and Portuguese)
     DIRECTIONS_BUTTON = (By.XPATH, "//button[@aria-label='Directions' or @aria-label='Direções' or @data-value='Directions']")
