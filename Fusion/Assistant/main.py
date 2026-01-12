@@ -103,6 +103,23 @@ def nlu_extractor(message):
 						"upor": "gesture_up_option",         # UpOption_Right -> Up
 						"zoomi": "gesture_zoom_in",          # ZoomIn -> Zoom in
 						"zoomo": "gesture_zoom_out",         # ZoomOut -> Zoom out
+
+						# Fusion output gesture names (from fusion.scxml)
+						"gesture_camera": "gesture_camera",
+						"gesture_down_option": "gesture_down_option",
+						"gesture_enter_street": "gesture_enter_street",
+						"gesture_exit_street": "gesture_exit_street",
+						"gesture_hotels": "gesture_hotels",
+						"gesture_restaurants": "gesture_restaurants",
+						"gesture_select": "gesture_select",
+						"gesture_swipe_down": "gesture_swipe_down",
+						"gesture_swipe_left": "gesture_swipe_left",
+						"gesture_swipe_right": "gesture_swipe_right",
+						"gesture_swipe_up": "gesture_swipe_up",
+						"gesture_transports": "gesture_transports",
+						"gesture_up_option": "gesture_up_option",
+						"gesture_zoom_in": "gesture_zoom_in",
+						"gesture_zoom_out": "gesture_zoom_out",
 					}
 
 					# If no intent set yet, use mapped intent or gesture as intent

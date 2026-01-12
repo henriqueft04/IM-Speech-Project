@@ -774,8 +774,9 @@ async function InitializeKWS(){
 
       var message = JSON.stringify(data);
       var messaget = btoa(unescape(encodeURIComponent(final_transcript)));
-      var result = { "recognized" : ["SPEECH", "SPEECHIN", "APP"], "text": messaget, "nlu": message };
-      mmiCli_1.sendToIM(new LifeCycleEvent("SPEECHIN", "IM", "text-1", "ctx-1").
+      var intentName = (data.intent && data.intent.name) ? data.intent.name.toUpperCase() : "UNKNOWN";
+      var result = { "recognized" : ["SPEECH", intentName], "text": messaget, "nlu": message };
+      mmiCli_1.sendToIM(new LifeCycleEvent("SPEECHIN", "FUSION", "text-1", "ctx-1").
             doExtensionNotification(new EMMA("text-", "text", "command", 1, 0).
             setValue(JSON.stringify(result))));
   });

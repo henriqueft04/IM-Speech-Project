@@ -14,345 +14,49 @@
     <onentry>
       <log label="[main]" expr="READY" />
     </onentry>
-    <transition target="sspeech[speech][show_traffic]" event="[SPEECH][SHOW_TRAFFIC]" />
-    <transition target="sspeech[speech][center_location]" event="[SPEECH][CENTER_LOCATION]" />
-    <transition target="sgesture[gestures][hotels]" event="[GESTURES][HOTELS]" />
-    <transition target="sspeech[speech][select_alternative_route]" event="[SPEECH][SELECT_ALTERNATIVE_ROUTE]" />
-    <transition target="sgesture[gestures][enter_street]" event="[GESTURES][ENTER_STREET]" />
-    <transition target="sgesture[gestures][select]" event="[GESTURES][SELECT]" />
-    <transition target="sspeech[speech][change_transport_mode]" event="[SPEECH][CHANGE_TRANSPORT_MODE]" />
-    <transition target="sgesture[gestures][swipe_right]" event="[GESTURES][SWIPE_RIGHT]" />
-    <transition target="sspeech[speech][show_photos]" event="[SPEECH][SHOW_PHOTOS]" />
-    <transition target="sgesture[gestures][swipe_down]" event="[GESTURES][SWIPE_DOWN]" />
-    <transition target="sspeech[speech][get_location_info]" event="[SPEECH][GET_LOCATION_INFO]" />
-    <transition target="sgesture[gestures][zoom_in]" event="[GESTURES][ZOOM_IN]" />
-    <transition target="sgesture[gestures][camera]" event="[GESTURES][CAMERA]" />
-    <transition target="sgesture[gestures][zoom_out]" event="[GESTURES][ZOOM_OUT]" />
     <transition target="sspeech[speech][search_location]" event="[SPEECH][SEARCH_LOCATION]" />
-    <transition target="sspeech[speech][zoom_out]" event="[SPEECH][ZOOM_OUT]" />
-    <transition target="sgesture[gestures][transports]" event="[GESTURES][TRANSPORTS]" />
-    <transition target="sspeech[speech][whats_here]" event="[SPEECH][WHATS_HERE]" />
-    <transition target="sgesture[gestures][up_option]" event="[GESTURES][UP_OPTION]" />
-    <transition target="sspeech[speech][zoom_in]" event="[SPEECH][ZOOM_IN]" />
-    <transition target="sspeech[speech][select_place]" event="[SPEECH][SELECT_PLACE]" />
-    <transition target="sspeech[speech][stop_navigation]" event="[SPEECH][STOP_NAVIGATION]" />
-    <transition target="sspeech[speech][show_reviews]" event="[SPEECH][SHOW_REVIEWS]" />
-    <transition target="sgesture[gestures][swipe_left]" event="[GESTURES][SWIPE_LEFT]" />
-    <transition target="sspeech[speech][show_place_details]" event="[SPEECH][SHOW_PLACE_DETAILS]" />
-    <transition target="sspeech[speech][thanks]" event="[SPEECH][THANKS]" />
-    <transition target="sgesture[gestures][forward]" event="[GESTURES][FORWARD]" />
-    <transition target="sgesture[gestures][down_option]" event="[GESTURES][DOWN_OPTION]" />
-    <transition target="sgesture[gestures][restaurants]" event="[GESTURES][RESTAURANTS]" />
-    <transition target="sspeech[speech][get_trip_duration]" event="[SPEECH][GET_TRIP_DURATION]" />
     <transition target="sspeech[speech][get_trip_distance]" event="[SPEECH][GET_TRIP_DISTANCE]" />
-    <transition target="sspeech[speech][cancel]" event="[SPEECH][CANCEL]" />
+    <transition target="sgesture[gestures][swipell]" event="[GESTURES][SWIPELL]" />
+    <transition target="sspeech[speech][zoom_out]" event="[SPEECH][ZOOM_OUT]" />
+    <transition target="sspeech[speech][show_reviews]" event="[SPEECH][SHOW_REVIEWS]" />
+    <transition target="sgesture[gestures][select]" event="[GESTURES][SELECT]" />
+    <transition target="sspeech[speech][show_traffic]" event="[SPEECH][SHOW_TRAFFIC]" />
+    <transition target="sspeech[speech][select_alternative_route]" event="[SPEECH][SELECT_ALTERNATIVE_ROUTE]" />
+    <transition target="sgesture[gestures][zoomi]" event="[GESTURES][ZOOMI]" />
     <transition target="sspeech[speech][get_directions]" event="[SPEECH][GET_DIRECTIONS]" />
-    <transition target="sspeech[speech][get_opening_hours]" event="[SPEECH][GET_OPENING_HOURS]" />
-    <transition target="sspeech[speech][change_map_type]" event="[SPEECH][CHANGE_MAP_TYPE]" />
-    <transition target="sspeech[speech][swap_route]" event="[SPEECH][SWAP_ROUTE]" />
-    <transition target="sspeech[speech][start_navigation]" event="[SPEECH][START_NAVIGATION]" />
-    <transition target="sgesture[gestures][exit_street]" event="[GESTURES][EXIT_STREET]" />
     <transition target="sspeech[speech][help]" event="[SPEECH][HELP]" />
-    <transition target="sgesture[gestures][swipe_up]" event="[GESTURES][SWIPE_UP]" />
-    <transition target="sspeech[speech][hide_traffic]" event="[SPEECH][HIDE_TRAFFIC]" />
+    <transition target="sgesture[gestures][enters]" event="[GESTURES][ENTERS]" />
+    <transition target="sspeech[speech][get_opening_hours]" event="[SPEECH][GET_OPENING_HOURS]" />
+    <transition target="sgesture[gestures][exits]" event="[GESTURES][EXITS]" />
+    <transition target="sgesture[gestures][downol]" event="[GESTURES][DOWNOL]" />
+    <transition target="sgesture[gestures][camera]" event="[GESTURES][CAMERA]" />
+    <transition target="sspeech[speech][change_map_type]" event="[SPEECH][CHANGE_MAP_TYPE]" />
+    <transition target="sgesture[gestures][restaurants]" event="[GESTURES][RESTAURANTS]" />
+    <transition target="sgesture[gestures][swipeu]" event="[GESTURES][SWIPEU]" />
+    <transition target="sspeech[speech][thanks]" event="[SPEECH][THANKS]" />
+    <transition target="sspeech[speech][get_location_info]" event="[SPEECH][GET_LOCATION_INFO]" />
+    <transition target="sspeech[speech][center_location]" event="[SPEECH][CENTER_LOCATION]" />
+    <transition target="sspeech[speech][whats_here]" event="[SPEECH][WHATS_HERE]" />
+    <transition target="sgesture[gestures][swiped]" event="[GESTURES][SWIPED]" />
+    <transition target="sspeech[speech][show_photos]" event="[SPEECH][SHOW_PHOTOS]" />
+    <transition target="sgesture[gestures][transports]" event="[GESTURES][TRANSPORTS]" />
+    <transition target="sspeech[speech][stop_navigation]" event="[SPEECH][STOP_NAVIGATION]" />
+    <transition target="sspeech[speech][start_navigation]" event="[SPEECH][START_NAVIGATION]" />
+    <transition target="sspeech[speech][swap_route]" event="[SPEECH][SWAP_ROUTE]" />
+    <transition target="sspeech[speech][select_place]" event="[SPEECH][SELECT_PLACE]" />
     <transition target="sgesture[gestures][gas_stations]" event="[GESTURES][GAS_STATIONS]" />
+    <transition target="sgesture[gestures][forward]" event="[GESTURES][FORWARD]" />
+    <transition target="sspeech[speech][cancel]" event="[SPEECH][CANCEL]" />
+    <transition target="sspeech[speech][hide_traffic]" event="[SPEECH][HIDE_TRAFFIC]" />
+    <transition target="sspeech[speech][show_place_details]" event="[SPEECH][SHOW_PLACE_DETAILS]" />
     <transition target="sspeech[speech][recenter_map]" event="[SPEECH][RECENTER_MAP]" />
-  </state>
-  <state id="sspeech[speech][show_traffic]">
-    <onentry>
-      <log label="[sspeech[speech][show_traffic]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][show_traffic]" event="timeout-sspeech[speech][show_traffic]" delay="1500" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][show_traffic]-final" event="timeout-sspeech[speech][show_traffic]" />
-    <transition target="sspeech[speech][show_traffic]-gesture[gestures][zoom_out]" event="[GESTURES][ZOOM_OUT]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][show_traffic]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][show_traffic]-final">
-    <onentry>
-      <log label="[speech[speech][show_traffic]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SHOW_TRAFFIC]')}" />
-      <send event="SHOW_TRAFFIC" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][show_traffic]-gesture[gestures][zoom_out]">
-    <onentry>
-      <log label="[sspeech[speech][show_traffic]-gesture[gestures][zoom_out]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][TRAFFIC_OVERVIEW]')}" />
-      <send event="TRAFFIC_OVERVIEW" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][center_location]">
-    <onentry>
-      <log label="[sspeech[speech][center_location]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][center_location]" event="timeout-sspeech[speech][center_location]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][center_location]-final" event="timeout-sspeech[speech][center_location]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][center_location]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][center_location]-final">
-    <onentry>
-      <log label="[speech[speech][center_location]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][CENTER_LOCATION]')}" />
-      <send event="CENTER_LOCATION" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][hotels]">
-    <onentry>
-      <log label="[sgesture[gestures][hotels]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][hotels]" event="timeout-sgesture[gestures][hotels]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][hotels]-final" event="timeout-sgesture[gestures][hotels]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][hotels]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][hotels]-final">
-    <onentry>
-      <log label="[gesture[gestures][hotels]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_HOTELS]')}" />
-      <send event="GESTURE_HOTELS" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][select_alternative_route]">
-    <onentry>
-      <log label="[sspeech[speech][select_alternative_route]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][select_alternative_route]" event="timeout-sspeech[speech][select_alternative_route]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][select_alternative_route]-final" event="timeout-sspeech[speech][select_alternative_route]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][select_alternative_route]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][select_alternative_route]-final">
-    <onentry>
-      <log label="[speech[speech][select_alternative_route]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SELECT_ALTERNATIVE_ROUTE]')}" />
-      <send event="SELECT_ALTERNATIVE_ROUTE" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][enter_street]">
-    <onentry>
-      <log label="[sgesture[gestures][enter_street]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][enter_street]" event="timeout-sgesture[gestures][enter_street]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][enter_street]-final" event="timeout-sgesture[gestures][enter_street]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][enter_street]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][enter_street]-final">
-    <onentry>
-      <log label="[gesture[gestures][enter_street]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_ENTER_STREET]')}" />
-      <send event="GESTURE_ENTER_STREET" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][select]">
-    <onentry>
-      <log label="[sgesture[gestures][select]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][select]" event="timeout-sgesture[gestures][select]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][select]-final" event="timeout-sgesture[gestures][select]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][select]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][select]-final">
-    <onentry>
-      <log label="[gesture[gestures][select]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_SELECT]')}" />
-      <send event="GESTURE_SELECT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][change_transport_mode]">
-    <onentry>
-      <log label="[sspeech[speech][change_transport_mode]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][change_transport_mode]" event="timeout-sspeech[speech][change_transport_mode]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][change_transport_mode]-final" event="timeout-sspeech[speech][change_transport_mode]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][change_transport_mode]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][change_transport_mode]-final">
-    <onentry>
-      <log label="[speech[speech][change_transport_mode]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][CHANGE_TRANSPORT_MODE]')}" />
-      <send event="CHANGE_TRANSPORT_MODE" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][swipe_right]">
-    <onentry>
-      <log label="[sgesture[gestures][swipe_right]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][swipe_right]" event="timeout-sgesture[gestures][swipe_right]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][swipe_right]-final" event="timeout-sgesture[gestures][swipe_right]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][swipe_right]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][swipe_right]-final">
-    <onentry>
-      <log label="[gesture[gestures][swipe_right]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_SWIPE_RIGHT]')}" />
-      <send event="GESTURE_SWIPE_RIGHT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][show_photos]">
-    <onentry>
-      <log label="[sspeech[speech][show_photos]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][show_photos]" event="timeout-sspeech[speech][show_photos]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][show_photos]-final" event="timeout-sspeech[speech][show_photos]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][show_photos]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][show_photos]-final">
-    <onentry>
-      <log label="[speech[speech][show_photos]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SHOW_PHOTOS]')}" />
-      <send event="SHOW_PHOTOS" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][swipe_down]">
-    <onentry>
-      <log label="[sgesture[gestures][swipe_down]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][swipe_down]" event="timeout-sgesture[gestures][swipe_down]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][swipe_down]-final" event="timeout-sgesture[gestures][swipe_down]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][swipe_down]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][swipe_down]-final">
-    <onentry>
-      <log label="[gesture[gestures][swipe_down]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_SWIPE_DOWN]')}" />
-      <send event="GESTURE_SWIPE_DOWN" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][get_location_info]">
-    <onentry>
-      <log label="[sspeech[speech][get_location_info]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][get_location_info]" event="timeout-sspeech[speech][get_location_info]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][get_location_info]-final" event="timeout-sspeech[speech][get_location_info]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][get_location_info]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][get_location_info]-final">
-    <onentry>
-      <log label="[speech[speech][get_location_info]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GET_LOCATION_INFO]')}" />
-      <send event="GET_LOCATION_INFO" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][zoom_in]">
-    <onentry>
-      <log label="[sgesture[gestures][zoom_in]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][zoom_in]" event="timeout-sgesture[gestures][zoom_in]" delay="1500" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][zoom_in]-final" event="timeout-sgesture[gestures][zoom_in]" />
-    <transition target="sgesture[gestures][zoom_in]-speech[speech][zoom_in]" event="[SPEECH][ZOOM_IN]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][zoom_in]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][zoom_in]-final">
-    <onentry>
-      <log label="[gesture[gestures][zoom_in]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_ZOOM_IN]')}" />
-      <send event="GESTURE_ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][zoom_in]-speech[speech][zoom_in]">
-    <onentry>
-      <log label="[sgesture[gestures][zoom_in]-speech[speech][zoom_in]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN]')}" />
-      <send event="ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][camera]">
-    <onentry>
-      <log label="[sgesture[gestures][camera]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][camera]" event="timeout-sgesture[gestures][camera]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][camera]-final" event="timeout-sgesture[gestures][camera]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][camera]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][camera]-final">
-    <onentry>
-      <log label="[gesture[gestures][camera]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_CAMERA]')}" />
-      <send event="GESTURE_CAMERA" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][zoom_out]">
-    <onentry>
-      <log label="[sgesture[gestures][zoom_out]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][zoom_out]" event="timeout-sgesture[gestures][zoom_out]" delay="1500" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][zoom_out]-final" event="timeout-sgesture[gestures][zoom_out]" />
-    <transition target="sgesture[gestures][zoom_out]-speech[speech][zoom_out]" event="[SPEECH][ZOOM_OUT]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][zoom_out]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][zoom_out]-final">
-    <onentry>
-      <log label="[gesture[gestures][zoom_out]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_ZOOM_OUT]')}" />
-      <send event="GESTURE_ZOOM_OUT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][zoom_out]-speech[speech][zoom_out]">
-    <onentry>
-      <log label="[sgesture[gestures][zoom_out]-speech[speech][zoom_out]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_OUT]')}" />
-      <send event="ZOOM_OUT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
+    <transition target="sspeech[speech][zoom_in]" event="[SPEECH][ZOOM_IN]" />
+    <transition target="sgesture[gestures][zoomo]" event="[GESTURES][ZOOMO]" />
+    <transition target="sgesture[gestures][hotels]" event="[GESTURES][HOTELS]" />
+    <transition target="sgesture[gestures][upor]" event="[GESTURES][UPOR]" />
+    <transition target="sspeech[speech][change_transport_mode]" event="[SPEECH][CHANGE_TRANSPORT_MODE]" />
+    <transition target="sgesture[gestures][swiperr]" event="[GESTURES][SWIPERR]" />
+    <transition target="sspeech[speech][get_trip_duration]" event="[SPEECH][GET_TRIP_DURATION]" />
   </state>
   <state id="sspeech[speech][search_location]">
     <onentry>
@@ -368,8 +72,46 @@
   <state id="speech[speech][search_location]-final">
     <onentry>
       <log label="[speech[speech][search_location]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SEARCH_LOCATION]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SEARCH_LOCATION]')}" />
       <send event="SEARCH_LOCATION" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][get_trip_distance]">
+    <onentry>
+      <log label="[sspeech[speech][get_trip_distance]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][get_trip_distance]" event="timeout-sspeech[speech][get_trip_distance]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][get_trip_distance]-final" event="timeout-sspeech[speech][get_trip_distance]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][get_trip_distance]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][get_trip_distance]-final">
+    <onentry>
+      <log label="[speech[speech][get_trip_distance]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][GET_TRIP_DISTANCE]')}" />
+      <send event="GET_TRIP_DISTANCE" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][swipell]">
+    <onentry>
+      <log label="[sgesture[gestures][swipell]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][swipell]" event="timeout-sgesture[gestures][swipell]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][swipell]-final" event="timeout-sgesture[gestures][swipell]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][swipell]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][swipell]-final">
+    <onentry>
+      <log label="[gesture[gestures][swipell]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_SWIPE_LEFT]')}" />
+      <send event="GESTURE_SWIPE_LEFT" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
@@ -377,14 +119,14 @@
     <onentry>
       <log label="[sspeech[speech][zoom_out]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][zoom_out]" event="timeout-sspeech[speech][zoom_out]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][zoom_out]" event="timeout-sspeech[speech][zoom_out]" delay="2500" target="" targettype="" namelist="" />
     </onentry>
     <transition target="speech[speech][zoom_out]-final" event="timeout-sspeech[speech][zoom_out]" />
-    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swipe_up]" event="[GESTURES][SWIPE_UP]" />
-    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swipe_down]" event="[GESTURES][SWIPE_DOWN]" />
-    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swipe_left]" event="[GESTURES][SWIPE_LEFT]" />
-    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swipe_right]" event="[GESTURES][SWIPE_RIGHT]" />
-    <transition target="sspeech[speech][zoom_out]-gesture[gestures][zoom_out]" event="[GESTURES][ZOOM_OUT]" />
+    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swipeu]" event="[GESTURES][SWIPEU]" />
+    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swiped]" event="[GESTURES][SWIPED]" />
+    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swipell]" event="[GESTURES][SWIPELL]" />
+    <transition target="sspeech[speech][zoom_out]-gesture[gestures][swiperr]" event="[GESTURES][SWIPERR]" />
+    <transition target="sspeech[speech][zoom_out]-gesture[gestures][zoomo]" event="[GESTURES][ZOOMO]" />
     <onexit>
       <cancel sendid="state1-timer-sspeech[speech][zoom_out]" />
     </onexit>
@@ -392,217 +134,53 @@
   <state id="speech[speech][zoom_out]-final">
     <onentry>
       <log label="[speech[speech][zoom_out]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][ZOOM_OUT]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][ZOOM_OUT]')}" />
       <send event="ZOOM_OUT" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][zoom_out]-gesture[gestures][swipe_up]">
+  <state id="sspeech[speech][zoom_out]-gesture[gestures][swipeu]">
     <onentry>
-      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swipe_up]]" expr="READY" />
+      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swipeu]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_OUT_UP]')}" />
       <send event="ZOOM_OUT_UP" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][zoom_out]-gesture[gestures][swipe_down]">
+  <state id="sspeech[speech][zoom_out]-gesture[gestures][swiped]">
     <onentry>
-      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swipe_down]]" expr="READY" />
+      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swiped]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_OUT_DOWN]')}" />
       <send event="ZOOM_OUT_DOWN" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][zoom_out]-gesture[gestures][swipe_left]">
+  <state id="sspeech[speech][zoom_out]-gesture[gestures][swipell]">
     <onentry>
-      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swipe_left]]" expr="READY" />
+      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swipell]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_OUT_LEFT]')}" />
       <send event="ZOOM_OUT_LEFT" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][zoom_out]-gesture[gestures][swipe_right]">
+  <state id="sspeech[speech][zoom_out]-gesture[gestures][swiperr]">
     <onentry>
-      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swipe_right]]" expr="READY" />
+      <log label="[sspeech[speech][zoom_out]-gesture[gestures][swiperr]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
       <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_OUT_RIGHT]')}" />
       <send event="ZOOM_OUT_RIGHT" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][zoom_out]-gesture[gestures][zoom_out]">
+  <state id="sspeech[speech][zoom_out]-gesture[gestures][zoomo]">
     <onentry>
-      <log label="[sspeech[speech][zoom_out]-gesture[gestures][zoom_out]]" expr="READY" />
+      <log label="[sspeech[speech][zoom_out]-gesture[gestures][zoomo]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_OUT]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[SPEECH][ZOOM_OUT]')}" />
       <send event="ZOOM_OUT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][transports]">
-    <onentry>
-      <log label="[sgesture[gestures][transports]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][transports]" event="timeout-sgesture[gestures][transports]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][transports]-final" event="timeout-sgesture[gestures][transports]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][transports]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][transports]-final">
-    <onentry>
-      <log label="[gesture[gestures][transports]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_TRANSPORTS]')}" />
-      <send event="GESTURE_TRANSPORTS" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][whats_here]">
-    <onentry>
-      <log label="[sspeech[speech][whats_here]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][whats_here]" event="timeout-sspeech[speech][whats_here]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][whats_here]-final" event="timeout-sspeech[speech][whats_here]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][whats_here]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][whats_here]-final">
-    <onentry>
-      <log label="[speech[speech][whats_here]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][WHATS_HERE]')}" />
-      <send event="WHATS_HERE" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][up_option]">
-    <onentry>
-      <log label="[sgesture[gestures][up_option]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][up_option]" event="timeout-sgesture[gestures][up_option]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][up_option]-final" event="timeout-sgesture[gestures][up_option]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][up_option]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][up_option]-final">
-    <onentry>
-      <log label="[gesture[gestures][up_option]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_UP_OPTION]')}" />
-      <send event="GESTURE_UP_OPTION" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][zoom_in]">
-    <onentry>
-      <log label="[sspeech[speech][zoom_in]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][zoom_in]" event="timeout-sspeech[speech][zoom_in]" delay="1500" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][zoom_in]-final" event="timeout-sspeech[speech][zoom_in]" />
-    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swipe_up]" event="[GESTURES][SWIPE_UP]" />
-    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swipe_down]" event="[GESTURES][SWIPE_DOWN]" />
-    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swipe_left]" event="[GESTURES][SWIPE_LEFT]" />
-    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swipe_right]" event="[GESTURES][SWIPE_RIGHT]" />
-    <transition target="sspeech[speech][zoom_in]-gesture[gestures][zoom_in]" event="[GESTURES][ZOOM_IN]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][zoom_in]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][zoom_in]-final">
-    <onentry>
-      <log label="[speech[speech][zoom_in]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][ZOOM_IN]')}" />
-      <send event="ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][zoom_in]-gesture[gestures][swipe_up]">
-    <onentry>
-      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swipe_up]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_UP]')}" />
-      <send event="ZOOM_IN_UP" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][zoom_in]-gesture[gestures][swipe_down]">
-    <onentry>
-      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swipe_down]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_DOWN]')}" />
-      <send event="ZOOM_IN_DOWN" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][zoom_in]-gesture[gestures][swipe_left]">
-    <onentry>
-      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swipe_left]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_LEFT]')}" />
-      <send event="ZOOM_IN_LEFT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][zoom_in]-gesture[gestures][swipe_right]">
-    <onentry>
-      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swipe_right]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_RIGHT]')}" />
-      <send event="ZOOM_IN_RIGHT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][zoom_in]-gesture[gestures][zoom_in]">
-    <onentry>
-      <log label="[sspeech[speech][zoom_in]-gesture[gestures][zoom_in]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN]')}" />
-      <send event="ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][select_place]">
-    <onentry>
-      <log label="[sspeech[speech][select_place]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][select_place]" event="timeout-sspeech[speech][select_place]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][select_place]-final" event="timeout-sspeech[speech][select_place]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][select_place]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][select_place]-final">
-    <onentry>
-      <log label="[speech[speech][select_place]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SELECT_PLACE]')}" />
-      <send event="SELECT_PLACE" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][stop_navigation]">
-    <onentry>
-      <log label="[sspeech[speech][stop_navigation]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][stop_navigation]" event="timeout-sspeech[speech][stop_navigation]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][stop_navigation]-final" event="timeout-sspeech[speech][stop_navigation]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][stop_navigation]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][stop_navigation]-final">
-    <onentry>
-      <log label="[speech[speech][stop_navigation]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][STOP_NAVIGATION]')}" />
-      <send event="STOP_NAVIGATION" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
@@ -620,113 +198,276 @@
   <state id="speech[speech][show_reviews]-final">
     <onentry>
       <log label="[speech[speech][show_reviews]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SHOW_REVIEWS]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SHOW_REVIEWS]')}" />
       <send event="SHOW_REVIEWS" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sgesture[gestures][swipe_left]">
+  <state id="sgesture[gestures][select]">
     <onentry>
-      <log label="[sgesture[gestures][swipe_left]]" expr="READY" />
+      <log label="[sgesture[gestures][select]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][swipe_left]" event="timeout-sgesture[gestures][swipe_left]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sgesture[gestures][select]" event="timeout-sgesture[gestures][select]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="gesture[gestures][swipe_left]-final" event="timeout-sgesture[gestures][swipe_left]" />
+    <transition target="gesture[gestures][select]-final" event="timeout-sgesture[gestures][select]" />
     <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][swipe_left]" />
+      <cancel sendid="state1-timer-sgesture[gestures][select]" />
     </onexit>
   </state>
-  <state id="gesture[gestures][swipe_left]-final">
+  <state id="gesture[gestures][select]-final">
     <onentry>
-      <log label="[gesture[gestures][swipe_left]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_SWIPE_LEFT]')}" />
-      <send event="GESTURE_SWIPE_LEFT" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[gesture[gestures][select]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_SELECT]')}" />
+      <send event="GESTURE_SELECT" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][show_place_details]">
+  <state id="sspeech[speech][show_traffic]">
     <onentry>
-      <log label="[sspeech[speech][show_place_details]]" expr="READY" />
+      <log label="[sspeech[speech][show_traffic]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][show_place_details]" event="timeout-sspeech[speech][show_place_details]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][show_traffic]" event="timeout-sspeech[speech][show_traffic]" delay="2500" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][show_place_details]-final" event="timeout-sspeech[speech][show_place_details]" />
+    <transition target="speech[speech][show_traffic]-final" event="timeout-sspeech[speech][show_traffic]" />
+    <transition target="sspeech[speech][show_traffic]-gesture[gestures][zoomo]" event="[GESTURES][ZOOMO]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][show_place_details]" />
+      <cancel sendid="state1-timer-sspeech[speech][show_traffic]" />
     </onexit>
   </state>
-  <state id="speech[speech][show_place_details]-final">
+  <state id="speech[speech][show_traffic]-final">
     <onentry>
-      <log label="[speech[speech][show_place_details]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SHOW_PLACE_DETAILS]')}" />
-      <send event="SHOW_PLACE_DETAILS" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][show_traffic]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SHOW_TRAFFIC]')}" />
+      <send event="SHOW_TRAFFIC" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][thanks]">
+  <state id="sspeech[speech][show_traffic]-gesture[gestures][zoomo]">
     <onentry>
-      <log label="[sspeech[speech][thanks]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][thanks]" event="timeout-sspeech[speech][thanks]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][thanks]-final" event="timeout-sspeech[speech][thanks]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][thanks]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][thanks]-final">
-    <onentry>
-      <log label="[speech[speech][thanks]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][THANKS]')}" />
-      <send event="THANKS" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][forward]">
-    <onentry>
-      <log label="[sgesture[gestures][forward]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][forward]" event="timeout-sgesture[gestures][forward]" delay="1500" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][forward]-final" event="timeout-sgesture[gestures][forward]" />
-    <transition target="sgesture[gestures][forward]-speech[speech][start_navigation]" event="[SPEECH][START_NAVIGATION]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][forward]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][forward]-final">
-    <onentry>
-      <log label="[gesture[gestures][forward]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_FORWARD]')}" />
-      <send event="GESTURE_FORWARD" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][forward]-speech[speech][start_navigation]">
-    <onentry>
-      <log label="[sgesture[gestures][forward]-speech[speech][start_navigation]]" expr="READY" />
+      <log label="[sspeech[speech][show_traffic]-gesture[gestures][zoomo]]" expr="READY" />
       <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][STREET_VIEW_FORWARD_CONTINUOUS]')}" />
-      <send event="STREET_VIEW_FORWARD_CONTINUOUS" target="IM" targettype="MC" namelist="startRequest" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][TRAFFIC_OVERVIEW]')}" />
+      <send event="TRAFFIC_OVERVIEW" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sgesture[gestures][down_option]">
+  <state id="sspeech[speech][select_alternative_route]">
     <onentry>
-      <log label="[sgesture[gestures][down_option]]" expr="READY" />
+      <log label="[sspeech[speech][select_alternative_route]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][down_option]" event="timeout-sgesture[gestures][down_option]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][select_alternative_route]" event="timeout-sspeech[speech][select_alternative_route]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="gesture[gestures][down_option]-final" event="timeout-sgesture[gestures][down_option]" />
+    <transition target="speech[speech][select_alternative_route]-final" event="timeout-sspeech[speech][select_alternative_route]" />
     <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][down_option]" />
+      <cancel sendid="state1-timer-sspeech[speech][select_alternative_route]" />
     </onexit>
   </state>
-  <state id="gesture[gestures][down_option]-final">
+  <state id="speech[speech][select_alternative_route]-final">
     <onentry>
-      <log label="[gesture[gestures][down_option]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_DOWN_OPTION]')}" />
+      <log label="[speech[speech][select_alternative_route]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SELECT_ALTERNATIVE_ROUTE]')}" />
+      <send event="SELECT_ALTERNATIVE_ROUTE" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][zoomi]">
+    <onentry>
+      <log label="[sgesture[gestures][zoomi]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][zoomi]" event="timeout-sgesture[gestures][zoomi]" delay="1500" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][zoomi]-final" event="timeout-sgesture[gestures][zoomi]" />
+    <transition target="sgesture[gestures][zoomi]-speech[speech][zoom_in]" event="[SPEECH][ZOOM_IN]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][zoomi]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][zoomi]-final">
+    <onentry>
+      <log label="[gesture[gestures][zoomi]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_ZOOM_IN]')}" />
+      <send event="GESTURE_ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][zoomi]-speech[speech][zoom_in]">
+    <onentry>
+      <log label="[sgesture[gestures][zoomi]-speech[speech][zoom_in]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[SPEECH][ZOOM_IN]')}" />
+      <send event="ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][get_directions]">
+    <onentry>
+      <log label="[sspeech[speech][get_directions]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][get_directions]" event="timeout-sspeech[speech][get_directions]" delay="2500" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][get_directions]-final" event="timeout-sspeech[speech][get_directions]" />
+    <transition target="sspeech[speech][get_directions]-gesture[gestures][transports]" event="[GESTURES][TRANSPORTS]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][get_directions]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][get_directions]-final">
+    <onentry>
+      <log label="[speech[speech][get_directions]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][GET_DIRECTIONS]')}" />
+      <send event="GET_DIRECTIONS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][get_directions]-gesture[gestures][transports]">
+    <onentry>
+      <log label="[sspeech[speech][get_directions]-gesture[gestures][transports]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][DIRECTIONS_PUBLIC_TRANSPORT]')}" />
+      <send event="DIRECTIONS_PUBLIC_TRANSPORT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][help]">
+    <onentry>
+      <log label="[sspeech[speech][help]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][help]" event="timeout-sspeech[speech][help]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][help]-final" event="timeout-sspeech[speech][help]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][help]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][help]-final">
+    <onentry>
+      <log label="[speech[speech][help]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][HELP]')}" />
+      <send event="HELP" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][enters]">
+    <onentry>
+      <log label="[sgesture[gestures][enters]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][enters]" event="timeout-sgesture[gestures][enters]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][enters]-final" event="timeout-sgesture[gestures][enters]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][enters]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][enters]-final">
+    <onentry>
+      <log label="[gesture[gestures][enters]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_ENTER_STREET]')}" />
+      <send event="GESTURE_ENTER_STREET" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][get_opening_hours]">
+    <onentry>
+      <log label="[sspeech[speech][get_opening_hours]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][get_opening_hours]" event="timeout-sspeech[speech][get_opening_hours]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][get_opening_hours]-final" event="timeout-sspeech[speech][get_opening_hours]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][get_opening_hours]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][get_opening_hours]-final">
+    <onentry>
+      <log label="[speech[speech][get_opening_hours]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][GET_OPENING_HOURS]')}" />
+      <send event="GET_OPENING_HOURS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][exits]">
+    <onentry>
+      <log label="[sgesture[gestures][exits]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][exits]" event="timeout-sgesture[gestures][exits]" delay="1500" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][exits]-final" event="timeout-sgesture[gestures][exits]" />
+    <transition target="sgesture[gestures][exits]-speech[speech][cancel]" event="[SPEECH][CANCEL]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][exits]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][exits]-final">
+    <onentry>
+      <log label="[gesture[gestures][exits]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_EXIT_STREET]')}" />
+      <send event="GESTURE_EXIT_STREET" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][exits]-speech[speech][cancel]">
+    <onentry>
+      <log label="[sgesture[gestures][exits]-speech[speech][cancel]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[SPEECH][CANCEL]')}" />
+      <send event="CANCEL" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][downol]">
+    <onentry>
+      <log label="[sgesture[gestures][downol]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][downol]" event="timeout-sgesture[gestures][downol]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][downol]-final" event="timeout-sgesture[gestures][downol]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][downol]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][downol]-final">
+    <onentry>
+      <log label="[gesture[gestures][downol]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_DOWN_OPTION]')}" />
       <send event="GESTURE_DOWN_OPTION" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][camera]">
+    <onentry>
+      <log label="[sgesture[gestures][camera]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][camera]" event="timeout-sgesture[gestures][camera]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][camera]-final" event="timeout-sgesture[gestures][camera]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][camera]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][camera]-final">
+    <onentry>
+      <log label="[gesture[gestures][camera]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_CAMERA]')}" />
+      <send event="GESTURE_CAMERA" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][change_map_type]">
+    <onentry>
+      <log label="[sspeech[speech][change_map_type]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][change_map_type]" event="timeout-sspeech[speech][change_map_type]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][change_map_type]-final" event="timeout-sspeech[speech][change_map_type]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][change_map_type]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][change_map_type]-final">
+    <onentry>
+      <log label="[speech[speech][change_map_type]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][CHANGE_MAP_TYPE]')}" />
+      <send event="CHANGE_MAP_TYPE" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
@@ -745,7 +486,7 @@
   <state id="gesture[gestures][restaurants]-final">
     <onentry>
       <log label="[gesture[gestures][restaurants]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_RESTAURANTS]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_RESTAURANTS]')}" />
       <send event="GESTURE_RESTAURANTS" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
@@ -759,156 +500,174 @@
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][get_trip_duration]">
+  <state id="sgesture[gestures][swipeu]">
     <onentry>
-      <log label="[sspeech[speech][get_trip_duration]]" expr="READY" />
+      <log label="[sgesture[gestures][swipeu]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][get_trip_duration]" event="timeout-sspeech[speech][get_trip_duration]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sgesture[gestures][swipeu]" event="timeout-sgesture[gestures][swipeu]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][get_trip_duration]-final" event="timeout-sspeech[speech][get_trip_duration]" />
+    <transition target="gesture[gestures][swipeu]-final" event="timeout-sgesture[gestures][swipeu]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][get_trip_duration]" />
+      <cancel sendid="state1-timer-sgesture[gestures][swipeu]" />
     </onexit>
   </state>
-  <state id="speech[speech][get_trip_duration]-final">
+  <state id="gesture[gestures][swipeu]-final">
     <onentry>
-      <log label="[speech[speech][get_trip_duration]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GET_TRIP_DURATION]')}" />
-      <send event="GET_TRIP_DURATION" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[gesture[gestures][swipeu]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_SWIPE_UP]')}" />
+      <send event="GESTURE_SWIPE_UP" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][get_trip_distance]">
+  <state id="sspeech[speech][thanks]">
     <onentry>
-      <log label="[sspeech[speech][get_trip_distance]]" expr="READY" />
+      <log label="[sspeech[speech][thanks]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][get_trip_distance]" event="timeout-sspeech[speech][get_trip_distance]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][thanks]" event="timeout-sspeech[speech][thanks]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][get_trip_distance]-final" event="timeout-sspeech[speech][get_trip_distance]" />
+    <transition target="speech[speech][thanks]-final" event="timeout-sspeech[speech][thanks]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][get_trip_distance]" />
+      <cancel sendid="state1-timer-sspeech[speech][thanks]" />
     </onexit>
   </state>
-  <state id="speech[speech][get_trip_distance]-final">
+  <state id="speech[speech][thanks]-final">
     <onentry>
-      <log label="[speech[speech][get_trip_distance]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GET_TRIP_DISTANCE]')}" />
-      <send event="GET_TRIP_DISTANCE" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][thanks]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][THANKS]')}" />
+      <send event="THANKS" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][cancel]">
+  <state id="sspeech[speech][get_location_info]">
     <onentry>
-      <log label="[sspeech[speech][cancel]]" expr="READY" />
+      <log label="[sspeech[speech][get_location_info]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][cancel]" event="timeout-sspeech[speech][cancel]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][get_location_info]" event="timeout-sspeech[speech][get_location_info]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][cancel]-final" event="timeout-sspeech[speech][cancel]" />
-    <transition target="sspeech[speech][cancel]-gesture[gestures][exit_street]" event="[GESTURES][EXIT_STREET]" />
+    <transition target="speech[speech][get_location_info]-final" event="timeout-sspeech[speech][get_location_info]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][cancel]" />
+      <cancel sendid="state1-timer-sspeech[speech][get_location_info]" />
     </onexit>
   </state>
-  <state id="speech[speech][cancel]-final">
+  <state id="speech[speech][get_location_info]-final">
     <onentry>
-      <log label="[speech[speech][cancel]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][CANCEL]')}" />
-      <send event="CANCEL" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][get_location_info]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][GET_LOCATION_INFO]')}" />
+      <send event="GET_LOCATION_INFO" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][cancel]-gesture[gestures][exit_street]">
+  <state id="sspeech[speech][center_location]">
     <onentry>
-      <log label="[sspeech[speech][cancel]-gesture[gestures][exit_street]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][CANCEL]')}" />
-      <send event="CANCEL" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][get_directions]">
-    <onentry>
-      <log label="[sspeech[speech][get_directions]]" expr="READY" />
+      <log label="[sspeech[speech][center_location]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][get_directions]" event="timeout-sspeech[speech][get_directions]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][center_location]" event="timeout-sspeech[speech][center_location]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][get_directions]-final" event="timeout-sspeech[speech][get_directions]" />
-    <transition target="sspeech[speech][get_directions]-gesture[gestures][transports]" event="[GESTURES][TRANSPORTS]" />
+    <transition target="speech[speech][center_location]-final" event="timeout-sspeech[speech][center_location]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][get_directions]" />
+      <cancel sendid="state1-timer-sspeech[speech][center_location]" />
     </onexit>
   </state>
-  <state id="speech[speech][get_directions]-final">
+  <state id="speech[speech][center_location]-final">
     <onentry>
-      <log label="[speech[speech][get_directions]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GET_DIRECTIONS]')}" />
-      <send event="GET_DIRECTIONS" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][center_location]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][CENTER_LOCATION]')}" />
+      <send event="CENTER_LOCATION" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][get_directions]-gesture[gestures][transports]">
+  <state id="sspeech[speech][whats_here]">
     <onentry>
-      <log label="[sspeech[speech][get_directions]-gesture[gestures][transports]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][DIRECTIONS_PUBLIC_TRANSPORT]')}" />
-      <send event="DIRECTIONS_PUBLIC_TRANSPORT" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][get_opening_hours]">
-    <onentry>
-      <log label="[sspeech[speech][get_opening_hours]]" expr="READY" />
+      <log label="[sspeech[speech][whats_here]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][get_opening_hours]" event="timeout-sspeech[speech][get_opening_hours]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][whats_here]" event="timeout-sspeech[speech][whats_here]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][get_opening_hours]-final" event="timeout-sspeech[speech][get_opening_hours]" />
+    <transition target="speech[speech][whats_here]-final" event="timeout-sspeech[speech][whats_here]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][get_opening_hours]" />
+      <cancel sendid="state1-timer-sspeech[speech][whats_here]" />
     </onexit>
   </state>
-  <state id="speech[speech][get_opening_hours]-final">
+  <state id="speech[speech][whats_here]-final">
     <onentry>
-      <log label="[speech[speech][get_opening_hours]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GET_OPENING_HOURS]')}" />
-      <send event="GET_OPENING_HOURS" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][whats_here]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][WHATS_HERE]')}" />
+      <send event="WHATS_HERE" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][change_map_type]">
+  <state id="sgesture[gestures][swiped]">
     <onentry>
-      <log label="[sspeech[speech][change_map_type]]" expr="READY" />
+      <log label="[sgesture[gestures][swiped]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][change_map_type]" event="timeout-sspeech[speech][change_map_type]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sgesture[gestures][swiped]" event="timeout-sgesture[gestures][swiped]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][change_map_type]-final" event="timeout-sspeech[speech][change_map_type]" />
+    <transition target="gesture[gestures][swiped]-final" event="timeout-sgesture[gestures][swiped]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][change_map_type]" />
+      <cancel sendid="state1-timer-sgesture[gestures][swiped]" />
     </onexit>
   </state>
-  <state id="speech[speech][change_map_type]-final">
+  <state id="gesture[gestures][swiped]-final">
     <onentry>
-      <log label="[speech[speech][change_map_type]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][CHANGE_MAP_TYPE]')}" />
-      <send event="CHANGE_MAP_TYPE" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[gesture[gestures][swiped]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_SWIPE_DOWN]')}" />
+      <send event="GESTURE_SWIPE_DOWN" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sspeech[speech][swap_route]">
+  <state id="sspeech[speech][show_photos]">
     <onentry>
-      <log label="[sspeech[speech][swap_route]]" expr="READY" />
+      <log label="[sspeech[speech][show_photos]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][swap_route]" event="timeout-sspeech[speech][swap_route]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][show_photos]" event="timeout-sspeech[speech][show_photos]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][swap_route]-final" event="timeout-sspeech[speech][swap_route]" />
+    <transition target="speech[speech][show_photos]-final" event="timeout-sspeech[speech][show_photos]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][swap_route]" />
+      <cancel sendid="state1-timer-sspeech[speech][show_photos]" />
     </onexit>
   </state>
-  <state id="speech[speech][swap_route]-final">
+  <state id="speech[speech][show_photos]-final">
     <onentry>
-      <log label="[speech[speech][swap_route]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][SWAP_ROUTE]')}" />
-      <send event="SWAP_ROUTE" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][show_photos]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SHOW_PHOTOS]')}" />
+      <send event="SHOW_PHOTOS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][transports]">
+    <onentry>
+      <log label="[sgesture[gestures][transports]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][transports]" event="timeout-sgesture[gestures][transports]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][transports]-final" event="timeout-sgesture[gestures][transports]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][transports]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][transports]-final">
+    <onentry>
+      <log label="[gesture[gestures][transports]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_TRANSPORTS]')}" />
+      <send event="GESTURE_TRANSPORTS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][stop_navigation]">
+    <onentry>
+      <log label="[sspeech[speech][stop_navigation]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][stop_navigation]" event="timeout-sspeech[speech][stop_navigation]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][stop_navigation]-final" event="timeout-sspeech[speech][stop_navigation]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][stop_navigation]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][stop_navigation]-final">
+    <onentry>
+      <log label="[speech[speech][stop_navigation]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][STOP_NAVIGATION]')}" />
+      <send event="STOP_NAVIGATION" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
@@ -926,94 +685,46 @@
   <state id="speech[speech][start_navigation]-final">
     <onentry>
       <log label="[speech[speech][start_navigation]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][START_NAVIGATION]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][START_NAVIGATION]')}" />
       <send event="START_NAVIGATION" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sgesture[gestures][exit_street]">
+  <state id="sspeech[speech][swap_route]">
     <onentry>
-      <log label="[sgesture[gestures][exit_street]]" expr="READY" />
+      <log label="[sspeech[speech][swap_route]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][exit_street]" event="timeout-sgesture[gestures][exit_street]" delay="1500" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][swap_route]" event="timeout-sspeech[speech][swap_route]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="gesture[gestures][exit_street]-final" event="timeout-sgesture[gestures][exit_street]" />
-    <transition target="sgesture[gestures][exit_street]-speech[speech][cancel]" event="[SPEECH][CANCEL]" />
+    <transition target="speech[speech][swap_route]-final" event="timeout-sspeech[speech][swap_route]" />
     <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][exit_street]" />
+      <cancel sendid="state1-timer-sspeech[speech][swap_route]" />
     </onexit>
   </state>
-  <state id="gesture[gestures][exit_street]-final">
+  <state id="speech[speech][swap_route]-final">
     <onentry>
-      <log label="[gesture[gestures][exit_street]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_EXIT_STREET]')}" />
-      <send event="GESTURE_EXIT_STREET" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][swap_route]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SWAP_ROUTE]')}" />
+      <send event="SWAP_ROUTE" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
-  <state id="sgesture[gestures][exit_street]-speech[speech][cancel]">
+  <state id="sspeech[speech][select_place]">
     <onentry>
-      <log label="[sgesture[gestures][exit_street]-speech[speech][cancel]]" expr="READY" />
-      <assign name="data2" expr="${_eventdata.data}" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][CANCEL]')}" />
-      <send event="CANCEL" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][help]">
-    <onentry>
-      <log label="[sspeech[speech][help]]" expr="READY" />
+      <log label="[sspeech[speech][select_place]]" expr="READY" />
       <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][help]" event="timeout-sspeech[speech][help]" delay="0" target="" targettype="" namelist="" />
+      <send id="state1-timer-sspeech[speech][select_place]" event="timeout-sspeech[speech][select_place]" delay="0" target="" targettype="" namelist="" />
     </onentry>
-    <transition target="speech[speech][help]-final" event="timeout-sspeech[speech][help]" />
+    <transition target="speech[speech][select_place]-final" event="timeout-sspeech[speech][select_place]" />
     <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][help]" />
+      <cancel sendid="state1-timer-sspeech[speech][select_place]" />
     </onexit>
   </state>
-  <state id="speech[speech][help]-final">
+  <state id="speech[speech][select_place]-final">
     <onentry>
-      <log label="[speech[speech][help]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][HELP]')}" />
-      <send event="HELP" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sgesture[gestures][swipe_up]">
-    <onentry>
-      <log label="[sgesture[gestures][swipe_up]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sgesture[gestures][swipe_up]" event="timeout-sgesture[gestures][swipe_up]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="gesture[gestures][swipe_up]-final" event="timeout-sgesture[gestures][swipe_up]" />
-    <onexit>
-      <cancel sendid="state1-timer-sgesture[gestures][swipe_up]" />
-    </onexit>
-  </state>
-  <state id="gesture[gestures][swipe_up]-final">
-    <onentry>
-      <log label="[gesture[gestures][swipe_up]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_SWIPE_UP]')}" />
-      <send event="GESTURE_SWIPE_UP" target="IM" targettype="MC" namelist="startRequest" />
-    </onentry>
-    <transition target="main" />
-  </state>
-  <state id="sspeech[speech][hide_traffic]">
-    <onentry>
-      <log label="[sspeech[speech][hide_traffic]]" expr="READY" />
-      <assign name="data1" expr="${_eventdata.data}" />
-      <send id="state1-timer-sspeech[speech][hide_traffic]" event="timeout-sspeech[speech][hide_traffic]" delay="0" target="" targettype="" namelist="" />
-    </onentry>
-    <transition target="speech[speech][hide_traffic]-final" event="timeout-sspeech[speech][hide_traffic]" />
-    <onexit>
-      <cancel sendid="state1-timer-sspeech[speech][hide_traffic]" />
-    </onexit>
-  </state>
-  <state id="speech[speech][hide_traffic]-final">
-    <onentry>
-      <log label="[speech[speech][hide_traffic]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][HIDE_TRAFFIC]')}" />
-      <send event="HIDE_TRAFFIC" target="IM" targettype="MC" namelist="startRequest" />
+      <log label="[speech[speech][select_place]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SELECT_PLACE]')}" />
+      <send event="SELECT_PLACE" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
@@ -1031,8 +742,104 @@
   <state id="gesture[gestures][gas_stations]-final">
     <onentry>
       <log label="[gesture[gestures][gas_stations]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][GESTURE_GAS_STATIONS]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_GAS_STATIONS]')}" />
       <send event="GESTURE_GAS_STATIONS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][forward]">
+    <onentry>
+      <log label="[sgesture[gestures][forward]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][forward]" event="timeout-sgesture[gestures][forward]" delay="1500" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][forward]-final" event="timeout-sgesture[gestures][forward]" />
+    <transition target="sgesture[gestures][forward]-speech[speech][start_navigation]" event="[SPEECH][START_NAVIGATION]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][forward]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][forward]-final">
+    <onentry>
+      <log label="[gesture[gestures][forward]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_FORWARD]')}" />
+      <send event="GESTURE_FORWARD" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][forward]-speech[speech][start_navigation]">
+    <onentry>
+      <log label="[sgesture[gestures][forward]-speech[speech][start_navigation]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][STREET_VIEW_FORWARD_CONTINUOUS]')}" />
+      <send event="STREET_VIEW_FORWARD_CONTINUOUS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][cancel]">
+    <onentry>
+      <log label="[sspeech[speech][cancel]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][cancel]" event="timeout-sspeech[speech][cancel]" delay="1500" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][cancel]-final" event="timeout-sspeech[speech][cancel]" />
+    <transition target="sspeech[speech][cancel]-gesture[gestures][exits]" event="[GESTURES][EXITS]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][cancel]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][cancel]-final">
+    <onentry>
+      <log label="[speech[speech][cancel]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][CANCEL]')}" />
+      <send event="CANCEL" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][cancel]-gesture[gestures][exits]">
+    <onentry>
+      <log label="[sspeech[speech][cancel]-gesture[gestures][exits]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[SPEECH][CANCEL]')}" />
+      <send event="CANCEL" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][hide_traffic]">
+    <onentry>
+      <log label="[sspeech[speech][hide_traffic]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][hide_traffic]" event="timeout-sspeech[speech][hide_traffic]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][hide_traffic]-final" event="timeout-sspeech[speech][hide_traffic]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][hide_traffic]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][hide_traffic]-final">
+    <onentry>
+      <log label="[speech[speech][hide_traffic]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][HIDE_TRAFFIC]')}" />
+      <send event="HIDE_TRAFFIC" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][show_place_details]">
+    <onentry>
+      <log label="[sspeech[speech][show_place_details]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][show_place_details]" event="timeout-sspeech[speech][show_place_details]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][show_place_details]-final" event="timeout-sspeech[speech][show_place_details]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][show_place_details]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][show_place_details]-final">
+    <onentry>
+      <log label="[speech[speech][show_place_details]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][SHOW_PLACE_DETAILS]')}" />
+      <send event="SHOW_PLACE_DETAILS" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>
@@ -1050,8 +857,201 @@
   <state id="speech[speech][recenter_map]-final">
     <onentry>
       <log label="[speech[speech][recenter_map]-final]" expr="READY" />
-      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[FUSION][RECENTER_MAP]')}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][RECENTER_MAP]')}" />
       <send event="RECENTER_MAP" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][zoom_in]">
+    <onentry>
+      <log label="[sspeech[speech][zoom_in]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][zoom_in]" event="timeout-sspeech[speech][zoom_in]" delay="2500" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][zoom_in]-final" event="timeout-sspeech[speech][zoom_in]" />
+    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swipeu]" event="[GESTURES][SWIPEU]" />
+    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swiped]" event="[GESTURES][SWIPED]" />
+    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swipell]" event="[GESTURES][SWIPELL]" />
+    <transition target="sspeech[speech][zoom_in]-gesture[gestures][swiperr]" event="[GESTURES][SWIPERR]" />
+    <transition target="sspeech[speech][zoom_in]-gesture[gestures][zoomi]" event="[GESTURES][ZOOMI]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][zoom_in]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][zoom_in]-final">
+    <onentry>
+      <log label="[speech[speech][zoom_in]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][ZOOM_IN]')}" />
+      <send event="ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][zoom_in]-gesture[gestures][swipeu]">
+    <onentry>
+      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swipeu]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_UP]')}" />
+      <send event="ZOOM_IN_UP" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][zoom_in]-gesture[gestures][swiped]">
+    <onentry>
+      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swiped]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_DOWN]')}" />
+      <send event="ZOOM_IN_DOWN" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][zoom_in]-gesture[gestures][swipell]">
+    <onentry>
+      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swipell]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_LEFT]')}" />
+      <send event="ZOOM_IN_LEFT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][zoom_in]-gesture[gestures][swiperr]">
+    <onentry>
+      <log label="[sspeech[speech][zoom_in]-gesture[gestures][swiperr]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[FUSION][ZOOM_IN_RIGHT]')}" />
+      <send event="ZOOM_IN_RIGHT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][zoom_in]-gesture[gestures][zoomi]">
+    <onentry>
+      <log label="[sspeech[speech][zoom_in]-gesture[gestures][zoomi]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[SPEECH][ZOOM_IN]')}" />
+      <send event="ZOOM_IN" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][zoomo]">
+    <onentry>
+      <log label="[sgesture[gestures][zoomo]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][zoomo]" event="timeout-sgesture[gestures][zoomo]" delay="1500" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][zoomo]-final" event="timeout-sgesture[gestures][zoomo]" />
+    <transition target="sgesture[gestures][zoomo]-speech[speech][zoom_out]" event="[SPEECH][ZOOM_OUT]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][zoomo]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][zoomo]-final">
+    <onentry>
+      <log label="[gesture[gestures][zoomo]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_ZOOM_OUT]')}" />
+      <send event="GESTURE_ZOOM_OUT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][zoomo]-speech[speech][zoom_out]">
+    <onentry>
+      <log label="[sgesture[gestures][zoomo]-speech[speech][zoom_out]]" expr="READY" />
+      <assign name="data2" expr="${_eventdata.data}" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1,data2, '[SPEECH][ZOOM_OUT]')}" />
+      <send event="ZOOM_OUT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][hotels]">
+    <onentry>
+      <log label="[sgesture[gestures][hotels]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][hotels]" event="timeout-sgesture[gestures][hotels]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][hotels]-final" event="timeout-sgesture[gestures][hotels]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][hotels]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][hotels]-final">
+    <onentry>
+      <log label="[gesture[gestures][hotels]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_HOTELS]')}" />
+      <send event="GESTURE_HOTELS" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][upor]">
+    <onentry>
+      <log label="[sgesture[gestures][upor]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][upor]" event="timeout-sgesture[gestures][upor]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][upor]-final" event="timeout-sgesture[gestures][upor]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][upor]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][upor]-final">
+    <onentry>
+      <log label="[gesture[gestures][upor]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_UP_OPTION]')}" />
+      <send event="GESTURE_UP_OPTION" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][change_transport_mode]">
+    <onentry>
+      <log label="[sspeech[speech][change_transport_mode]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][change_transport_mode]" event="timeout-sspeech[speech][change_transport_mode]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][change_transport_mode]-final" event="timeout-sspeech[speech][change_transport_mode]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][change_transport_mode]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][change_transport_mode]-final">
+    <onentry>
+      <log label="[speech[speech][change_transport_mode]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][CHANGE_TRANSPORT_MODE]')}" />
+      <send event="CHANGE_TRANSPORT_MODE" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sgesture[gestures][swiperr]">
+    <onentry>
+      <log label="[sgesture[gestures][swiperr]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sgesture[gestures][swiperr]" event="timeout-sgesture[gestures][swiperr]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="gesture[gestures][swiperr]-final" event="timeout-sgesture[gestures][swiperr]" />
+    <onexit>
+      <cancel sendid="state1-timer-sgesture[gestures][swiperr]" />
+    </onexit>
+  </state>
+  <state id="gesture[gestures][swiperr]-final">
+    <onentry>
+      <log label="[gesture[gestures][swiperr]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[GESTURES][GESTURE_SWIPE_RIGHT]')}" />
+      <send event="GESTURE_SWIPE_RIGHT" target="IM" targettype="MC" namelist="startRequest" />
+    </onentry>
+    <transition target="main" />
+  </state>
+  <state id="sspeech[speech][get_trip_duration]">
+    <onentry>
+      <log label="[sspeech[speech][get_trip_duration]]" expr="READY" />
+      <assign name="data1" expr="${_eventdata.data}" />
+      <send id="state1-timer-sspeech[speech][get_trip_duration]" event="timeout-sspeech[speech][get_trip_duration]" delay="0" target="" targettype="" namelist="" />
+    </onentry>
+    <transition target="speech[speech][get_trip_duration]-final" event="timeout-sspeech[speech][get_trip_duration]" />
+    <onexit>
+      <cancel sendid="state1-timer-sspeech[speech][get_trip_duration]" />
+    </onexit>
+  </state>
+  <state id="speech[speech][get_trip_duration]-final">
+    <onentry>
+      <log label="[speech[speech][get_trip_duration]-final]" expr="READY" />
+      <commons:var name="startRequest" expr="${mmi:newStartRequestF2(contextId, 'FUSION', 'IM', mmi:newRequestId(contextId), null, data1, '[SPEECH][GET_TRIP_DURATION]')}" />
+      <send event="GET_TRIP_DURATION" target="IM" targettype="MC" namelist="startRequest" />
     </onentry>
     <transition target="main" />
   </state>

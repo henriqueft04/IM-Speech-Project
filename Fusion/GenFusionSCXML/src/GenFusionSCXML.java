@@ -26,16 +26,16 @@ public class GenFusionSCXML {
     FusionGenerator fg = new FusionGenerator();
 
 
-    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_UP, Output.ZOOM_IN_UP);
-    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_DOWN, Output.ZOOM_IN_DOWN);
-    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_LEFT, Output.ZOOM_IN_LEFT);
-    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPE_RIGHT, Output.ZOOM_IN_RIGHT);
-    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_UP, Output.ZOOM_OUT_UP);
-    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_DOWN, Output.ZOOM_OUT_DOWN);
-    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_LEFT, Output.ZOOM_OUT_LEFT);
-    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPE_RIGHT, Output.ZOOM_OUT_RIGHT);
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPEU, Output.ZOOM_IN_UP);
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPED, Output.ZOOM_IN_DOWN);
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPELL, Output.ZOOM_IN_LEFT);
+    fg.Complementary(Speech.ZOOM_IN, Gesture.SWIPERR, Output.ZOOM_IN_RIGHT);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPEU, Output.ZOOM_OUT_UP);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPED, Output.ZOOM_OUT_DOWN);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPELL, Output.ZOOM_OUT_LEFT);
+    fg.Complementary(Speech.ZOOM_OUT, Gesture.SWIPERR, Output.ZOOM_OUT_RIGHT);
     fg.Complementary(Speech.GET_DIRECTIONS, Gesture.TRANSPORTS, Output.DIRECTIONS_PUBLIC_TRANSPORT);
-    fg.Complementary(Speech.SHOW_TRAFFIC, Gesture.ZOOM_OUT, Output.TRAFFIC_OVERVIEW);
+    fg.Complementary(Speech.SHOW_TRAFFIC, Gesture.ZOOMO, Output.TRAFFIC_OVERVIEW);
     fg.Complementary(Gesture.RESTAURANTS, Speech.RECENTER_MAP, Output.FILTER_RESTAURANTS_CENTER);
     fg.Complementary(Gesture.FORWARD, Speech.START_NAVIGATION, Output.STREET_VIEW_FORWARD_CONTINUOUS);
 
@@ -89,29 +89,29 @@ public class GenFusionSCXML {
     fg.Single(Gesture.TRANSPORTS, Output.GESTURE_TRANSPORTS);
 
     // Map Navigation
-    fg.Single(Gesture.SWIPE_LEFT, Output.GESTURE_SWIPE_LEFT);
-    fg.Single(Gesture.SWIPE_RIGHT, Output.GESTURE_SWIPE_RIGHT);
-    fg.Single(Gesture.SWIPE_UP, Output.GESTURE_SWIPE_UP);
-    fg.Single(Gesture.SWIPE_DOWN, Output.GESTURE_SWIPE_DOWN);
-    fg.Single(Gesture.ZOOM_IN, Output.GESTURE_ZOOM_IN);
-    fg.Single(Gesture.ZOOM_OUT, Output.GESTURE_ZOOM_OUT);
+    fg.Single(Gesture.SWIPELL, Output.GESTURE_SWIPE_LEFT);
+    fg.Single(Gesture.SWIPERR, Output.GESTURE_SWIPE_RIGHT);
+    fg.Single(Gesture.SWIPEU, Output.GESTURE_SWIPE_UP);
+    fg.Single(Gesture.SWIPED, Output.GESTURE_SWIPE_DOWN);
+    fg.Single(Gesture.ZOOMI, Output.GESTURE_ZOOM_IN);
+    fg.Single(Gesture.ZOOMO, Output.GESTURE_ZOOM_OUT);
 
     // Street View
-    fg.Single(Gesture.ENTER_STREET, Output.GESTURE_ENTER_STREET);
-    fg.Single(Gesture.EXIT_STREET, Output.GESTURE_EXIT_STREET);
+    fg.Single(Gesture.ENTERS, Output.GESTURE_ENTER_STREET);
+    fg.Single(Gesture.EXITS, Output.GESTURE_EXIT_STREET);
     fg.Single(Gesture.FORWARD, Output.GESTURE_FORWARD);
     fg.Single(Gesture.CAMERA, Output.GESTURE_CAMERA);
 
     // List Navigation
     fg.Single(Gesture.SELECT, Output.GESTURE_SELECT);
-    fg.Single(Gesture.UP_OPTION, Output.GESTURE_UP_OPTION);
-    fg.Single(Gesture.DOWN_OPTION, Output.GESTURE_DOWN_OPTION);
+    fg.Single(Gesture.UPOR, Output.GESTURE_UP_OPTION);
+    fg.Single(Gesture.DOWNOL, Output.GESTURE_DOWN_OPTION);
 
-    fg.Redundancy(Speech.ZOOM_IN, Gesture.ZOOM_IN, Output.ZOOM_IN);
-    fg.Redundancy(Speech.ZOOM_OUT, Gesture.ZOOM_OUT, Output.ZOOM_OUT);
+    fg.Redundancy(Speech.ZOOM_IN, Gesture.ZOOMI, Output.ZOOM_IN);
+    fg.Redundancy(Speech.ZOOM_OUT, Gesture.ZOOMO, Output.ZOOM_OUT);
 
     // Cancel Action - Say "cancel" OR exit gesture
-    fg.Redundancy(Speech.CANCEL, Gesture.EXIT_STREET, Output.CANCEL);
+    fg.Redundancy(Speech.CANCEL, Gesture.EXITS, Output.CANCEL);
     
 
     fg.Build("fusion.scxml");

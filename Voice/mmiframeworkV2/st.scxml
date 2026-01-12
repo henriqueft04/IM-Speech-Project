@@ -193,7 +193,7 @@
 				<!-- EVENT FROM SPEECHIN -->
 				<if cond="${_eventdata.sourceMC eq 'SPEECHIN'}">
 					<assign name="JSONDATA" expr="${DATA(_eventdata.data, '//emma/interpretation/command')}" />
-					<assign name="TARG" expr="${JsonParse(JSONDATA, 'recognized/2')}" />
+					<assign name="TARG" expr="FUSION" />
 					<assign name="currAction" expr="command" />
 					<assign name="Action" expr="${_eventdata.data}" />
 					<commons:var name="startRequest" expr="${mmi:newStartRequest(contextId, source, TARG, mmi:newRequestId(contextId), currAction, Action)}" />
